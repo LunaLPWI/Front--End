@@ -1,0 +1,18 @@
+.header {
+    background: var(--black);
+    display: flex;
+    justify-content: center;
+    padding: 1.25rem 0;
+}
+
+.logo {
+    height: 2rem; 
+}
+
+.navList {
+    list-style: none;
+    display: flex;
+    gap: 1rem; 
+    margin: 0;
+    padding: 0;
+}
