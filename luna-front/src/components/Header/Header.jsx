@@ -1,29 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Header.module.css';
 import domRoqueLogo from '../../assets/domRoque-logo.svg';
+import { Link } from 'react-router-dom';
 
-export function Header({ links }) {
+const Header = () => {
+
+
     return (
         <header className={styles.header}>
-            <nav>
-                <ul className={styles.navList}>
-                    {links.slice(0, 2).map((link, index) => (
-                        <li key={index}>
-                            <a href={link.href}>{link.title}</a>
+            <Link to="/" className={styles.button}>SAIR</Link>
+            <nav className={styles.navfull}>
+                <nav className={styles.navbar}>
+                    <ul className={styles.navList}>
+                        <li>
+                            <Link 
+                                to="/" 
+                            >
+                                PLANOS
+                            </Link>
                         </li>
-                    ))}
-                </ul>
-            </nav>
-            <img src={domRoqueLogo} alt="Dom Roque logo" className={styles.logo} />
-            <nav>
-                <ul className={styles.navList}>
-                    {links.slice(2).map((link, index) => (
-                        <li key={index + 2}>
-                            <a href={link.href}>{link.title}</a>
+                        <li>
+                            <Link 
+                                to="/" 
+
+                            >
+                                PERFIL
+                            </Link>
                         </li>
-                    ))}
-                </ul>
+                    </ul>
+                </nav>
+                <img src={domRoqueLogo} alt="Dom Roque logo" className={styles.logo} />
+                <nav>
+                    <ul className={styles.navList}>
+                        <li>
+                            <Link 
+                                to="/agendamento-servicos" 
+                            >
+                                AGENDAR
+                            </Link>
+                        </li>
+                        <li>
+                            <Link 
+                                to="/" 
+                            >
+                                MEUS AGENDAMENTOS
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
             </nav>
         </header>
     );
-}
+};
+
+export default Header;

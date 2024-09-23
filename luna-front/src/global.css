@@ -22,3 +22,7 @@
 body{
     -webkit-font-smoothing: antialiased;
 }
+.no-link {
+    text-decoration: none;
+    color: inherit;
+}
