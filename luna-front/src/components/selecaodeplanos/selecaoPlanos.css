@@ -1,0 +1,22 @@
+.planoAtual {
+    display: inline-block; 
+    padding: 10px 20px;
+    border: 2px solid red;
+    color: white !important;
+    background-color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    margin-left: 10px;
+}
+.container{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-planos{
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+}
