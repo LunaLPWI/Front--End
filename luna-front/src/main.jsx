@@ -5,6 +5,8 @@ import App from './App'; // Certifique-se de que está importando o App corretam
 import ErrorPage from './pages/errorPage/ErrorPage';
 import Home from './pages/home/Home';
 import AgendamentoServicos from './pages/AgendamentoServicos/AgendamentoServicos';
+import Planos from './pages/planos/Planos';
+import Perfil from './pages/perfil/Perfil';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,14 @@ const router = createBrowserRouter([
       {
         path: '/', 
         element: <Home />,
+      },
+      {
+        path: '/planos', 
+        element: <Planos />,
+      },
+      {
+        path: '/perfil', 
+        element: <Perfil />,
       },
       {
         path: '/agendamento-Servicos', 
