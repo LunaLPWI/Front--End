@@ -5,6 +5,11 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
 
+    const [activeLink, setActiveLink] = useState(location.pathname);
+
+    const handleLinkClick = (path) => {
+        setActiveLink(path);
+    };
 
     return (
         <header className={styles.header}>
@@ -13,16 +18,19 @@ const Header = () => {
                 <nav className={styles.navbar}>
                     <ul className={styles.navList}>
                         <li>
-                            <Link 
-                                to="/" 
+                            <Link
+                                to="/planos" 
+                                className={activeLink === '/planos' ? styles.active : ''}
+                                onClick={() => handleLinkClick('/planos')}
                             >
                                 PLANOS
                             </Link>
                         </li>
                         <li>
                             <Link 
-                                to="/" 
-
+                                to="/perfil" 
+                                className={activeLink === '/perfil' ? styles.active : ''}
+                                onClick={() => handleLinkClick('/perfil')}
                             >
                                 PERFIL
                             </Link>
@@ -35,6 +43,8 @@ const Header = () => {
                         <li>
                             <Link 
                                 to="/agendamento-servicos" 
+                                className={activeLink === '/agendamento-servicos' ? styles.active : ''}
+                                onClick={() => handleLinkClick('/agendamento-servicos')}
                             >
                                 AGENDAR
                             </Link>
@@ -42,6 +52,8 @@ const Header = () => {
                         <li>
                             <Link 
                                 to="/" 
+                                className={activeLink === '/' ? styles.active : ''}
+                                onClick={() => handleLinkClick('/')}
                             >
                                 MEUS AGENDAMENTOS
                             </Link>
@@ -52,5 +64,4 @@ const Header = () => {
         </header>
     );
 };
-
 export default Header;
