@@ -1,11 +1,15 @@
 .planoAtual {
+    width:320px;
+    height: 55px;
     display: inline-block; 
     padding: 10px 20px;
-    border: 2px solid red;
+    font-size: 25px;
+    border: 1px solid red;
     color: white !important;
     background-color: black;
     text-decoration: none;
     border-radius: 5px;
+    text-align:center;
     transition: background-color 0.3s, color 0.3s;
 }
 .container{
@@ -13,8 +17,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 60%;
-    row-gap:2vh
+    width: 60vw;
+    row-gap:4vh
 }
 
 .container-planos{
@@ -28,6 +32,39 @@
 .select_dropdown{
     width: 100%;
     padding: 10px 20px;
+}
 
+.button {
+    display: inline-block; 
+    padding: 10px 40px;
+    border: 2px solid red;
+    color: white;
+    background-color: red;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+    margin-left: 10px;
+}
 
+.button:hover {
+    background-color: red;
+    color: white !important;
+}
+
+.containerSelect{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 3vh;
+    flex-direction:column; 
+
+}
+
+.select_dropdown{
+    width: 100%;
+    padding: 10px 20px;
+    font-size:20px;
+    border-radius: 0px;
+    border: 1px solid rgb(255, 0, 0);
 }
