@@ -68,7 +68,7 @@ const FormularioPagamento = () => {
                             identificationType,
                         } = cardForm.getCardFormData();
 
-                        fetch("/process_payment", {
+                        fetch("http://localhost:8081/process-payment", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
@@ -104,6 +104,8 @@ const FormularioPagamento = () => {
         };
         initMercadoPago();
     }, []);
+
+    
 
     return (
         <>
