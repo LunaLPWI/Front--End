@@ -1,0 +1,31 @@
+.card {
+    border: 1px solid var(--red);
+    background: var(--black);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 300px;
+    gap: 10px;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px 8px 0 0;
+}
+
+.card h2 {
+    font-size: 1.5em;
+    margin: 16px 0 8px;
+    color: var(--white);
+}
+
+.card a {
+    border: 1px solid var(--red);
+    padding: 10px 90px;
+    color: var(--white);
+}
+
