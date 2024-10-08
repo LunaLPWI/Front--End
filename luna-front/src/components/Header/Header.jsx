@@ -13,13 +13,12 @@ const Header = () => {
 
     return (
         <header className={styles.header}>
-            <Link to="/" className={styles.button}>SAIR</Link>
             <nav className={styles.navfull}>
                 <nav className={styles.navbar}>
                     <ul className={styles.navList}>
                         <li>
                             <Link
-                                to="/planos" 
+                                to="/planos"
                                 className={activeLink === '/planos' ? styles.active : ''}
                                 onClick={() => handleLinkClick('/planos')}
                             >
@@ -27,8 +26,8 @@ const Header = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link 
-                                to="/perfil" 
+                            <Link
+                                to="/perfil"
                                 className={activeLink === '/perfil' ? styles.active : ''}
                                 onClick={() => handleLinkClick('/perfil')}
                             >
@@ -41,8 +40,8 @@ const Header = () => {
                 <nav>
                     <ul className={styles.navList}>
                         <li>
-                            <Link 
-                                to="/agendamento-servicos" 
+                            <Link
+                                to="/agendamento-servicos"
                                 className={activeLink === '/agendamento-servicos' ? styles.active : ''}
                                 onClick={() => handleLinkClick('/agendamento-servicos')}
                             >
@@ -50,8 +49,8 @@ const Header = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link 
-                                to="/" 
+                            <Link
+                                to="/"
                                 className={activeLink === '/' ? styles.active : ''}
                                 onClick={() => handleLinkClick('/')}
                             >

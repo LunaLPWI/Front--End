@@ -1,0 +1,142 @@
+* {
+    position: relative;
+    overflow: auto;
+}
+
+.heroSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 910px;
+    background: url('../../assets/primeiroFundoHome.png') no-repeat center center/cover;
+}
+
+.heroPosition {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heroPosition strong {
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.heroPosition a {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--white);
+    border-radius: 60px;
+    margin-top: 0.875rem;
+    width: 184px;
+    font-size: 1.5rem;
+    height: 60px;
+    font-weight: bold;
+    display: block;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    transition: color 0.2s background-color 0.1s;
+}
+
+.heroPosition a:hover {
+    color: var(--red);
+    background-color: var(--white);
+}
+
+
+.aboutSection {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    height: 890px;
+    overflow: hidden;
+    background: black;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.aboutSection img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.imgAbout {
+    overflow: hidden;
+    flex: 1;
+}
+
+.textAbout {
+    position: relative;
+    background-color: white;
+    padding: 90px;
+    margin: auto;
+    max-width: 700px;
+    box-shadow: 0px -15px 0px -20px red, 20px -20px 0px 0px red;
+    color: black;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.textAbout h2,
+.textAbout h3 {
+    color: black;
+    padding: 20px;
+}
+
+.textAbout p {
+    line-height: 1.6;
+}
+
+
+
+
+.hourSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.containerHour {
+    display: flex;
+    gap: 70px;
+    justify-content: center;
+    padding: 60px;
+}
+
+.textHour {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.textHour h2 {
+    font-size: 1.5rem;
+}
+
+.textHour p {
+    font-size: 1.2rem;
+}
+
+.serviceSection {
+    width: 100%;
+    height: 910px;
+    display: flex;
+    justify-content: center;
+    background: url('../../assets/fundoServiçoHome.png') no-repeat center center/cover;
+}
+
+.serviceSection p {
+    color: var(--white);
+}
+
+.cardService {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+}

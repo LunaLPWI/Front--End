@@ -3,12 +3,11 @@
     display: flex;
     justify-content:flex-start;
     align-items: center;
-
+    height: 80px;
 }
 
 .logo {
-    height: 12rem; 
-    margin: -40px;
+    height: 5rem; 
     align-self:center !important
 }
 
