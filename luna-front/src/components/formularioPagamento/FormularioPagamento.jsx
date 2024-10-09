@@ -6,7 +6,7 @@ const FormularioPagamento = () => {
     useEffect(() => {
         const initMercadoPago = async () => {
             await loadMercadoPago();
-            const mp = new window.MercadoPago("TEST-c23670b4-767c-485b-8c51-533c325ed3fe");
+            const mp = new window.MercadoPago("TEST-ee016bc2-a5f3-4e81-83fb-de053a0b2c4a");
 
             const cardForm = mp.cardForm({
                 amount: "100.5",
@@ -68,7 +68,8 @@ const FormularioPagamento = () => {
                             identificationType,
                         } = cardForm.getCardFormData();
 
-                        fetch("http://localhost:8081/process-payment", {
+                        // Mudando a URL para a porta 8081
+                        fetch("http://127.0.0.1:8081/preapproval", {
                             method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
@@ -88,6 +89,18 @@ const FormularioPagamento = () => {
                                     },
                                 },
                             }),
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Erro na requisição: ' + response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Pagamento processado com sucesso:', data);
+                        })
+                        .catch(error => {
+                            console.error('Erro ao processar pagamento:', error);
                         });
                     },
                     onFetching: (resource) => {
@@ -104,8 +117,6 @@ const FormularioPagamento = () => {
         };
         initMercadoPago();
     }, []);
-
-    
 
     return (
         <>
