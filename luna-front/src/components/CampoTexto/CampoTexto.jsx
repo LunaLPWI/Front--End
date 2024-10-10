@@ -3,7 +3,9 @@ import styles from './CampoTexto.module.css';
 const CampoTexto = (props) => {
     
     const aoDigitado = (evento) => {
-        props.aoAlterado(evento.target.value);
+        if (!props.readOnly) {
+            props.aoAlterado(evento.target.value);
+        }
     }
 
     return (
@@ -16,6 +18,9 @@ const CampoTexto = (props) => {
                 required={props.obrigatorio}
                 onInput={props.onInput} 
                 placeholder={props.placeholder}
+                readOnly={props.readOnly} 
+                min={props.min}         
+                max={props.max}           
             />
         </div>
     );
