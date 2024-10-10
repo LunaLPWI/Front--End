@@ -13,7 +13,7 @@ function Footer() {
                         <a href="#sobre-nos">Sobre nós</a>
                         <a href="#servicos">Serviços</a>
                         <a href="#funcionamento">Funcionamento</a>
-                        <a href="/entrar">Entrar</a>
+                        <a href="/login">Entrar</a>
                     </nav>
                 </div>
                 <div className={styles.addressSection}>
