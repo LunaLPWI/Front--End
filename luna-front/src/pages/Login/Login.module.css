@@ -1,0 +1,80 @@
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--black);
+    height: 100vh;
+    padding: 0 5%;
+    overflow: hidden;
+}
+
+.section-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80em;
+    border-radius: 10px 0 0 10px;
+    height: 85vh;
+}
+
+.imagem{
+    background: url('../../assets/Group52.png') center right;
+    background-size: cover;
+    border-radius: 0 10px 10px 0;
+    height: 85vh;
+    width: 50%;
+    
+}
+
+h1{
+    color: #FF0000;
+    text-align: center;
+    font-size: 3em;
+    font-weight: 400;
+}
+
+.formulario-login {
+    background-color: white;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 0 0 10px;
+    height: 85vh;
+    flex-direction: column;
+}
+
+form{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.inputs{
+    border: 1px solid #6F6C6C;
+    border-radius: 10px;
+    margin: 10% 0 0 0;
+}
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+}
+
+.redefinir-senha{
+    color: #FF0000;
+}
+
+.redefinir-senha:hover{
+    cursor: pointer;
+}
+
+.links{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1em;
+    margin: 3% 0 8%;
+}

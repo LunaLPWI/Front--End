@@ -7,6 +7,8 @@ import Home from './pages/home/Home';
 import AgendamentoServicos from './pages/AgendamentoServicos/AgendamentoServicos';
 import Planos from './pages/planos/Planos';
 import Perfil from './pages/perfil/Perfil';
+import Login from './pages/Login/Login';
+import Cadastro from './pages/CadastroUsuario/Cadastro';
 
 const router = createBrowserRouter([
   {
@@ -27,8 +29,16 @@ const router = createBrowserRouter([
         element: <Perfil />,
       },
       {
-        path: '/agendamento-Servicos', 
+        path: '/agendamento-servicos', 
         element: <AgendamentoServicos />,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/cadastro',
+        element: <Cadastro />,
       }
     ],
   },
