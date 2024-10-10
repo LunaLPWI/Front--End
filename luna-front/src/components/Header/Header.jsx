@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import styles from './Header.module.css';
 import domRoqueLogo from '../../assets/domRoque-logo.svg';
 import { Link } from 'react-router-dom';
 
-const Header = () => {
-
+const Header = ({ links, showButton, buttonText, onButtonClick }) => {
     const [activeLink, setActiveLink] = useState(location.pathname);
 
     const handleLinkClick = (path) => {
@@ -13,55 +13,78 @@ const Header = () => {
 
     return (
         <header className={styles.header}>
-            <Link to="/" className={styles.button}>SAIR</Link>
+            {showButton && (
+                <button className={styles.button} onClick={onButtonClick}>
+                    {buttonText}
+                </button>
+            )}
             <nav className={styles.navfull}>
                 <nav className={styles.navbar}>
                     <ul className={styles.navList}>
-                        <li>
-                            <Link
-                                to="/planos" 
-                                className={activeLink === '/planos' ? styles.active : ''}
-                                onClick={() => handleLinkClick('/planos')}
-                            >
-                                PLANOS
-                            </Link>
-                        </li>
-                        <li>
-                            <Link 
-                                to="/perfil" 
-                                className={activeLink === '/perfil' ? styles.active : ''}
-                                onClick={() => handleLinkClick('/perfil')}
-                            >
-                                PERFIL
-                            </Link>
-                        </li>
+                        {links.slice(0, 2).map((link, index) => (
+                            <li key={index}>
+                                {link.path.startsWith('#') ? (
+                                    <a
+                                        href={link.path}
+                                        className={activeLink === link.path ? styles.active : ''}
+                                        onClick={() => handleLinkClick(link.path)}
+                                    >
+                                        {link.name}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        to={link.path}
+                                        className={activeLink === link.path ? styles.active : ''}
+                                        onClick={() => handleLinkClick(link.path)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                )}
+                            </li>
+                        ))}
                     </ul>
                 </nav>
                 <img src={domRoqueLogo} alt="Dom Roque logo" className={styles.logo} />
-                <nav>
+                <nav className={styles.navbar}>
                     <ul className={styles.navList}>
-                        <li>
-                            <Link 
-                                to="/agendamento-servicos" 
-                                className={activeLink === '/agendamento-servicos' ? styles.active : ''}
-                                onClick={() => handleLinkClick('/agendamento-servicos')}
-                            >
-                                AGENDAR
-                            </Link>
-                        </li>
-                        <li>
-                            <Link 
-                                to="/" 
-                                className={activeLink === '/' ? styles.active : ''}
-                                onClick={() => handleLinkClick('/')}
-                            >
-                                MEUS AGENDAMENTOS
-                            </Link>
-                        </li>
+                        {links.slice(2).map((link, index) => (
+                            <li key={index}>
+                                {link.path.startsWith('#') ? (
+                                    <a
+                                        href={link.path}
+                                        className={activeLink === link.path ? styles.active : ''}
+                                        onClick={() => handleLinkClick(link.path)}
+                                    >
+                                        {link.name}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        to={link.path}
+                                        className={activeLink === link.path ? styles.active : ''}
+                                        onClick={() => handleLinkClick(link.path)}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                )}
+                            </li>
+                        ))}
                     </ul>
                 </nav>
             </nav>
         </header>
     );
 };
+
+Header.propTypes = {
+    links: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            path: PropTypes.string.isRequired,
+        })
+    ).isRequired,
+    showButton: PropTypes.bool,
+    buttonText: PropTypes.string,
+    onButtonClick: PropTypes.func,
+};
+
 export default Header;

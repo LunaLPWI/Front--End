@@ -6,12 +6,18 @@ import SelecaoPlanos from '../../components/selecaodeplanos/Selecaoplanos';
 function AgendamentoServicos() {
   return (
     <div>
-      <Header/>
-      <div className="background-image">
+      <Header />
+      <div className="background-image" style={{
+
+        display: 'flex'
+      }}>
+        <div className="containerSelects">
+<SelecaoPlanos />
+        <div className="backImage"></div>
+        </div>
         
-        <SelecaoPlanos/>
-        </div> 
-      
+      </div>
+
     </div>
   );
 }
