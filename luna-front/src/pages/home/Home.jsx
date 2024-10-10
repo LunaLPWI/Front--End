@@ -2,6 +2,7 @@ import '../../global.css';
 import Header from '../../components/Header/Header';
 import Card from '../../components/Card/Card';
 import Footer from '../../components/Footer/Footer';
+import { useNavigate } from 'react-router-dom';
 
 import styles from '../Home/Home.module.css';
 
@@ -16,13 +17,18 @@ function Home() {
     { name: 'SOBRE NÓS', path: '#sobre-nos' }, 
     { name: 'SERVIÇOS', path: '#servicos' },   
     { name: 'FUNCIONAMENTO', path: '#funcionamento' }, 
-    { name: 'ENTRAR', path: '/entrar' } 
+    { name: 'ENTRAR', path: '/login' } 
   ];
 
 
   const handleAgendarClick = () => {
     alert('Botão Agendar clicado!');
   };
+
+  const navigate = useNavigate();
+  const handleLoginClick = () => {
+    navigate('/login');
+  }
 
   return (
     <div>
@@ -36,7 +42,8 @@ function Home() {
       <section className={styles.heroSection}>
         <div className={styles.heroPosition}>
           <strong>O seu estilo encontra a <span style={{ color: "var(--red)" }}>tradição</span> que faz história!</strong>
-          <a href=''>AGENDAR</a>
+          <a onClick={handleLoginClick} 
+          href='/login'>AGENDAR</a>
         </div>
       </section>
 
@@ -72,16 +79,19 @@ function Home() {
             imageSrc={cabeloService}
             altText="Imagem de exemplo"
             title="Cabelo"
+            onClick={handleLoginClick}
           />
           <Card
             imageSrc={barbaService}
             altText="Imagem de exemplo"
             title="Barba"
+            onClick={handleLoginClick}
           />
           <Card
             imageSrc={cabeloEbarbaService}
             altText="Imagem de exemplo"
             title="Cabelo e Barba"
+            onClick={handleLoginClick}
           />
         </div>
       </section>

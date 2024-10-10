@@ -67,12 +67,8 @@ function Login() {
                         <div className={styles.links}>
                             {/* //VOLTAR HOME */}
                             <a
-                                onClick={(e) => {
-                                    e.preventDefault(); 
-                                    navigate('/home');  
-                                }}
                                 className={styles['voltar-home']}
-                                href="/home"
+                                href="/"
                             >
                               voltar tela principal
                             </a>
