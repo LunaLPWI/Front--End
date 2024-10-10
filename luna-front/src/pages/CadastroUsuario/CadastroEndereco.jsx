@@ -85,9 +85,9 @@ function CadastroEndereco({
                             tipo='text'
                             valor={rua}
                             aoAlterado={setRua}
-                            obrigatorio={false}
                             label="RUA"
                             placeholder="Rua Caleb Pereira"
+                            readOnly={true}
                         />
                         <hr />
 
@@ -96,12 +96,12 @@ function CadastroEndereco({
                             {/* NÚMERO */}
                             <CampoTexto
                                 tipo='number'
-                                min="1"
                                 valor={numero}
                                 aoAlterado={setNumero}
                                 obrigatorio={true}
                                 label="NÚMERO"
                                 placeholder="123"
+                                min="1"
                             />
                             <hr />
 
@@ -110,7 +110,6 @@ function CadastroEndereco({
                                 tipo='text'
                                 valor={complemento}
                                 aoAlterado={setComplemento}
-                                obrigatorio={false}
                                 label="COMPLEMENTO"
                                 placeholder="Bloco A, Ap 2"
                             />
@@ -125,6 +124,7 @@ function CadastroEndereco({
                             obrigatorio={false}
                             label="BAIRRO"
                             placeholder="Vila Emma"
+                            readOnly={true}
                         />
                         <hr />
 
@@ -138,6 +138,7 @@ function CadastroEndereco({
                                 obrigatorio={false}
                                 label="CIDADE"
                                 placeholder="São Paulo"
+                                readOnly={true}
                             />
                             <hr />
 
@@ -149,6 +150,7 @@ function CadastroEndereco({
                                 obrigatorio={false}
                                 label="ESTADO"
                                 placeholder="SP"
+                                readOnly={true}
                             />
                         </div>
                     </div>

@@ -14,12 +14,12 @@ function Cadastro() {
     const navigate = useNavigate();
 
     // Estado para informações pessoais
-    const [nome, setNome] = useState('abroba');
-    const [email, setEmail] = useState('luu@gmail.com');
-    const [cpf, setCpf] = useState('12312312323');
-    const [celular, setCelular] = useState('11912345678');
-    const [senha, setSenha] = useState('123123teste');
-    const [confirmarSenha, setConfirmarSenha] = useState('123123teste');
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [celular, setCelular] = useState('');
+    const [senha, setSenha] = useState('');
+    const [confirmarSenha, setConfirmarSenha] = useState('');
 
     // Estado para informações de endereço
     const [cep, setCep] = useState('');
