@@ -27,5 +27,10 @@
     border: 1px solid var(--red);
     padding: 10px 90px;
     color: var(--white);
+    cursor: pointer;
+}
+
+.card a:hover {
+    color: var(--red);
 }
 

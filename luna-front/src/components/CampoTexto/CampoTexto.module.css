@@ -1,0 +1,29 @@
+.campo-texto {
+    height: fit-content;
+    font-size: 13px;
+    padding: 1% 4%;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 1.2em;
+    color: #6f6c6c;
+}
+
+input {
+    width: 100%;
+    height: 30px;
+    border: none;
+    font-size: 0.98em;
+    color: #6F6C6C;
+    background-color: white;
+}
+
+input:focus {
+    outline: none;
+}
+
+input::placeholder {
+    color: #6f6c6c56;
+}

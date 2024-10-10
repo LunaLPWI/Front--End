@@ -1,0 +1,70 @@
+
+.container-endereco{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--black);
+    height: 100vh;
+    padding: 0 5%;
+    overflow: hidden;
+}
+
+.section-usuario{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    border-radius: 0 10px 10px 0;
+    height: 85vh;
+    background-color: white;
+}
+
+.imagem{
+    background: url('../../assets/Group52.png') center;
+    background-size: cover;
+    border-radius: 10px 0 0 10px;
+    height: 85vh;
+    width: 50%;
+    
+}
+
+h1{
+    color: #FF0000;
+    text-align: center;
+    font-size: 3em;
+    font-weight: 400;
+}
+
+.formulario-endereco {
+    background-color: white;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 10px 10px 0;
+    height: 85vh;
+}
+
+form{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.inputs{
+    border: 1px solid #6F6C6C;
+    border-radius: 10px;
+    margin: 10% 0;
+}
+
+.numero-complemento,
+.cidade-estado {
+    display: flex;
+}
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+}

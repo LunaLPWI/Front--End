@@ -1,13 +1,16 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App'; // Certifique-se de que está importando o App corretamente
+import App from './App'; 
 import ErrorPage from './pages/errorPage/ErrorPage';
 import Home from './pages/home/Home';
 import AgendamentoServicos from './pages/AgendamentoServicos/AgendamentoServicos';
 import Planos from './pages/planos/Planos';
 import Perfil from './pages/perfil/Perfil';
 import Agendamento from './pages/Agendamento/Agendamento';
+import Login from './pages/Login/Login';
+import Cadastro from './pages/CadastroUsuario/Cadastro';
+
 
 const router = createBrowserRouter([
   {
@@ -28,12 +31,19 @@ const router = createBrowserRouter([
         element: <Perfil />,
       },
       {
-        path: '/agendamento-Servicos', 
+        path: '/agendamento-servicos', 
         element: <AgendamentoServicos />,
       },
       {
         path: '/agendamentos',
-        element: <Agendamento />, 
+        element: <Agendamento />
+      }, 
+        path: '/login',
+        element: <Login />,
+      },
+      {
+        path: '/cadastro',
+        element: <Cadastro />,
       }
     ],
   },
