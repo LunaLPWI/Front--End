@@ -1,53 +1,54 @@
 .header {
     background: var(--black);
     display: flex;
-    justify-content:flex-start;
+    justify-content: center; 
     align-items: center;
+    padding: 0 2rem;
+    position: relative; 
+
 }
 
 .logo {
-    height: 12rem; 
-    margin: -40px;
-    align-self:center !important
+    padding: 0.150rem; 
+    max-height: 120px; 
+    width: auto; 
 }
 
 .navList {
     list-style: none;
     display: flex;
-    gap: 10rem; 
     margin: 0;
     padding: 0;
 }
-.navbar{
+
+.navbar {
     display: flex;
     align-items: center;
 }
 
-.navfull{
+.navfull {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width:100%;       
-    margin-left: 10rem;
-    margin-right: 9rem;
+    justify-content: center; 
+    width: 100%;
 }
 
-
-.headernav{
-    display:flex;
+.headernav {
+    display: flex;
     justify-content: center;
 }
 
 .navList li {
-    color: white;
+    color: var(--white);
 }
 
 a {
     display: flex;
     align-items: center;
-    text-decoration: none; 
+    text-decoration: none;
     color: inherit;
     font-family: 'Kokoro', sans-serif;
+    padding: 0 80px;
 }
 
 a:visited {
@@ -57,38 +58,30 @@ a:visited {
 a:hover,
 a:active {
     text-decoration: none;
-    color: inherit; 
+    color: inherit;
 }
 
-
 .navList .nolink {
-    color: white; 
-     font-family: 'Kokoro', sans-serif;
-     font-size: 1rem;
+    color: var(--white);
+    font-family: 'Kokoro', sans-serif;
+    font-size: 1rem;
 }
 
 .button {
-    display: inline-block; 
+    position: absolute; 
+    left: 20px;
     padding: 10px 20px;
-    border: 2px solid red;
-    color: red !important;
+    border: 2px solid var(--red);
+    color: var(--red) !important;
     background-color: transparent;
     text-decoration: none;
-    border-radius: 0px;
+    border-radius: 0;
     transition: background-color 0.3s, color 0.3s;
-    margin-left: 10px;
 }
 
 .button:hover {
-    background-color: red;
-    color: white !important;
+    background-color: var(--red);
+    color: var(--white) !important;
 }
 
-.navList .active {
-    color: red;
-}
-
-.active {
-    color: red;
-}
 
