@@ -1,0 +1,127 @@
+.selectBox {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ff0000;
+    background-color: #f0f0f0;
+    color: black;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.arrow {
+    margin-left: 10px;
+    color: #ff0000;
+}
+
+.dropdownMenu {
+    background-color: #f0f0f0;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 5px;
+    position: relative;
+    color: black;
+
+}
+
+.dropdownItem {
+    padding: 10px;
+    cursor: pointer;
+    color: black;
+}
+
+.dropdownItem:hover {
+    background-color: #e0e0e0;
+}
+
+.details {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detailTime,
+.detailDescription {
+    color: #555;
+    font-size: 0.9em;
+    margin-right: 10px;
+    /* Espaço entre a descrição e o botão */
+}
+
+.detailValue {
+    color: #555;
+    font-size: 0.9em;
+}
+
+.addButton {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    /* Espaço entre o valor e o botão */
+    width: 30%;
+}
+
+.addButton:hover {
+    background-color: #cc0000;
+}
+
+.containerSelect {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    width: 60vw;
+}
+
+
+.selectWrapper {
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #f0f0f0;
+    position: relative;
+}
+
+.containerRow {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.listServices {
+    margin-left: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 30%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: white !important;
+    border-radius: 10px;
+    border: 1px solid;
+    min-height: 40vh;
+    li{
+overflow: hidden;
+    }
+}
+
+.removeButton { 
+    background-color: #ff4d4d;
+    /* Cor de fundo vermelho */
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.removeButton:hover {
+    background-color: #ff1a1a;
+}
