@@ -6,7 +6,7 @@ import styles from "./CadastroUsuario.module.css";
 import { useNavigate } from 'react-router-dom';
 import { mascaraCelular, mascaraCPF } from '../../utils/global';
 
-function CadastroUsuario({
+export function CadastroUsuario({
     nome, setNome,
     email, setEmail,
     cpf, setCpf,

@@ -5,6 +5,7 @@ import CampoTexto from "../../components/CampoTexto/CampoTexto";
 import styles from "./Login.module.css";
 import { toast } from 'react-toastify';
 import api from '../../api';
+import { ArrowLeft } from "phosphor-react";
 
 function Login() {
 
@@ -21,9 +22,17 @@ function Login() {
             return
         } 
 
-        api.post('/login', { email, senha })  // Envia email e senha no corpo da requisição
+        const body = {
+            email: email,
+            senha: senha
+        }
+
+        api.get('/cadastros', {body})
+
         .then(response => {
-            if (response.status === 200 && response.data.authenticated) {
+            console.log(body)
+            console.log(response.data)
+            if (response.data.email === email && response.data.senha === senha) {
                 // Se login bem-sucedido, redireciona para a home
                 toast.success('Login realizado com sucesso');
                 navigate('/');
@@ -38,11 +47,17 @@ function Login() {
 
     }
 
+    const handleBackHome = () => {navigate('/')}
+
     return (
         <main>
             <section className={styles['section-login']}>
                 <section className={styles['formulario-login']}>
-                    <form onSubmit={entrar}>
+                    <div 
+                        className={styles.setinha} 
+                        onClick={handleBackHome}><ArrowLeft size={32} color="#ff0000" weight="regular" />
+                    </div>
+                    <form>
                         <h1>LOGIN</h1>
                         <div className={`${styles.inputs} `}>
 
@@ -65,13 +80,6 @@ function Login() {
                         </div>
 
                         <div className={styles.links}>
-                            {/* //VOLTAR HOME */}
-                            <a
-                                className={styles['voltar-home']}
-                                href="/"
-                            >
-                              voltar tela principal
-                            </a>
 
                             {/* // REDEFINIR SENHA */}
                             <a className={styles['redefinir-senha']}>esqueci a senha</a>

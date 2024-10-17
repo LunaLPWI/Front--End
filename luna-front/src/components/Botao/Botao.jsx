@@ -7,7 +7,7 @@ const Botao = ({ corFundo, corTexto, tamanho, texto, onClick, tipo = "button" })
                 return {
                     padding: '10px',
                     fontSize: '14px',
-                    border: '1px solid #ff0000',
+                    border: '2px solid #ff0000',
                     borderRadius: '5px',
                     cursor: 'pointer',
                     margin: '2%',
@@ -18,7 +18,7 @@ const Botao = ({ corFundo, corTexto, tamanho, texto, onClick, tipo = "button" })
                 return {
                     padding: '15px',
                     fontSize: '16px',
-                    border: '1px solid #ff0000',
+                    border: '2px solid #ff0000',
                     borderRadius: '5px',
                     cursor: 'pointer',
                     margin: '2%',
@@ -29,7 +29,7 @@ const Botao = ({ corFundo, corTexto, tamanho, texto, onClick, tipo = "button" })
                 return {
                     padding: '20px',
                     fontSize: '18px',
-                    border: '1px solid #ff0000',
+                    border: '2px solid #ff0000',
                     borderRadius: '5px',
                     cursor: 'pointer',
                     margin: '2%',
@@ -40,7 +40,7 @@ const Botao = ({ corFundo, corTexto, tamanho, texto, onClick, tipo = "button" })
                 return {
                     padding: '10px',
                     fontSize: '14px',
-                    border: '1px solid #ff0000',
+                    border: '2px solid #ff0000',
                     borderRadius: '5px',
                     cursor: 'pointer',
                     margin: '2%',
