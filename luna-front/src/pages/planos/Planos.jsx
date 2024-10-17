@@ -1,4 +1,4 @@
-import '../../global.css'; // Isso deve funcionar se você está no diretório AgendamentoServicos
+import '../../global.css';
 import Header from '../../components/Header/Header';
 
 function Planos () {

@@ -1,23 +1,36 @@
-import '../../global.css'; // Isso deve funcionar se você está no diretório AgendamentoServicos
+import '../../global.css';
 import Header from '../../components/Header/Header';
-import '../../pages/AgendamentoServicos/Agenda.css';
-import SelecaoPlanos from '../../components/selecaodeplanos/Selecaoplanos';
+import styles from './AgendamentoServicos.module.css';
+import SelecaoPlanos from '../../components/SelecaodePlanos/SelecaoPlanos';
+import React, { useState } from 'react';
 
 function AgendamentoServicos() {
+  const links = [
+    { name: 'PLANOS', path: '/planos' },
+    { name: 'PERFIL', path: '/perfil' },
+    { name: 'AGENDAR', path: '/agendar' },
+    { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' }
+  ];
+
+  const handleAgendarClick = () => {
+    alert('Botão Agendar clicado!');
+  };
+
+
   return (
     <div>
-      <Header />
-      <div className="background-image" style={{
-
-        display: 'flex'
-      }}>
-        <div className="containerSelects">
-<SelecaoPlanos />
-        <div className="backImage"></div>
+      <Header
+        links={links}
+        showButton={true}
+        buttonText="SAIR"
+        onButtonClick={handleAgendarClick}
+      />
+      <div className={styles.backgroundImage}>
+        <div className={styles.containerSelects}>
+          <SelecaoPlanos />
+          
         </div>
-        
       </div>
-
     </div>
   );
 }
