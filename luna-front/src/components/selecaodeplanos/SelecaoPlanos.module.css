@@ -11,6 +11,23 @@
     border-radius: 5px;
     text-align:center;
     transition: background-color 0.3s, color 0.3s;
+    
+}
+.saibaMais{
+    background-color: red;
+    border: 2px solid red;
+    color: white;
+}
+
+.saibaMais:hover {
+    border: 2px solid red;
+    color: rgb(0, 0, 0)!important;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+.saibaMais:active{
+    transform: scale(0.95);
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 .container{
     display:flex;
@@ -21,7 +38,7 @@
     row-gap:4vh
 }
 
-.container-planos{
+.containerPlanos{
     display:flex;
     flex-direction:row;
     align-items: center;
@@ -44,27 +61,17 @@
     border-radius: 8px;
     transition: background-color 0.3s, color 0.3s;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .button:hover {
-    background-color: red;
-    color: white !important;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0) !important;
+}
+.button:active{
+    transform: scale(0.95);
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
-.containerSelect{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 20px;
-    gap: 3vh;
-    flex-direction:column; 
 
-}
 
-.select_dropdown{
-    width: 100%;
-    padding: 10px 20px;
-    font-size:20px;
-    border-radius: 0px;
-    border: 1px solid rgb(255, 0, 0);
-}
