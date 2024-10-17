@@ -1,14 +1,15 @@
-import { Outlet } from 'react-router-dom';
+import "./utils/global.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import './global.css';
+import { Rotas } from "./routes.jsx";
+
 
 function App() {
   return (
-    <div>
-      <Outlet />
+    <>
+      <Rotas />
       <ToastContainer />
-    </div>
+    </>
   );
 }
 

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { validarCPF } from '../../utils/global';
 import { limparMascara } from '../../utils/global';
 
-function Cadastro() {
+export const Cadastro = () => {
 
     const navigate = useNavigate();
 
@@ -71,11 +71,11 @@ function Cadastro() {
             return;
         }
 
-        if(validarCPF(cpf) === false) {
+        if (validarCPF(cpf) === false) {
             toast.error("CPF inválido");
             return;
         }
-        
+
         setEtapa(2);
     };
 
@@ -224,5 +224,3 @@ function Cadastro() {
         </main>
     );
 }
-
-export default Cadastro;

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { mascaraCEP } from '../../utils/global';
 
-function CadastroEndereco({
+export function CadastroEndereco({
     cep, setCep,
     rua, setRua,
     numero, setNumero,
@@ -199,5 +199,3 @@ CadastroEndereco.propTypes = {
     voltarEtapa: PropTypes.func.isRequired,
     salvarDados: PropTypes.func.isRequired,
 };
-
-export default CadastroEndereco;

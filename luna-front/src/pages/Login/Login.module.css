@@ -34,6 +34,7 @@ h1{
 }
 
 .formulario-login {
+    position: relative;
     background-color: white;
     width: 50%;
     display: flex;
@@ -74,7 +75,23 @@ form{
 .links{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     font-size: 1em;
     margin: 3% 0 8%;
+}
+
+.setinha{
+    color: var(--red);
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    border: var(--red) 2px solid;
+    padding: 4px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
