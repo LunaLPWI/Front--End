@@ -63,8 +63,9 @@
     cursor: not-allowed;
 }
 
-.state{
-    background: none;
-    border: none;
-    color: var(--black);
+.arrow{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }

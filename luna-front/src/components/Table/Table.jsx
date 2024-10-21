@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import style from './Table.module.css';
 import Filter from '../Filter/Filter';
 
+import { ArrowLeft } from "phosphor-react";
+import { ArrowRight } from "phosphor-react";
+
 const TableHeader = ({ headers }) => {
     return (
         <thead>
@@ -71,10 +74,10 @@ const DynamicTable = ({
 
             {usePagination && (
                 <div className={style.pagination}>
-                    <button
+                    <button className={style.arrow}
                         onClick={() => paginate(currentPage - 1)}
                         disabled={currentPage === 1}
-                    >
+                    > <ArrowLeft size={22} />
                         Anterior
                     </button>
 
@@ -88,11 +91,11 @@ const DynamicTable = ({
                         </button>
                     ))}
 
-                    <button
+                    <button className={style.arrow}
                         onClick={() => paginate(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                    >
-                        Próximo
+                    >    Próximo
+                        <ArrowRight size={22} />
                     </button>
                 </div>
             )}

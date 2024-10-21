@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "../Calendario/Calendario.module.css";
 
+import { ArrowLeft } from "phosphor-react";
+import { ArrowRight } from "phosphor-react";
+
+
 
 const getDaysOfWeek = (offset = 0) => {
     const currentDate = new Date();
@@ -64,10 +68,10 @@ const Calendar = () => {
     return (
         <section className={styles.calendarContainer}>
             <h2>Calendário</h2>
-            <div>
-                <button onClick={handleReturnWeek} className={styles.buttonWeek}>  voltar</button>
+            <div className={styles.containerButton}> 
+                <button onClick={handleReturnWeek} className={styles.buttonWeek}> <ArrowLeft size={22} /> voltar</button>
                 <strong>Escolha uma data e período</strong>
-                <button onClick={handleAdvanceWeek} className={styles.buttonWeek} >avançar </button>
+                <button onClick={handleAdvanceWeek} className={styles.buttonWeek} >avançar <ArrowRight size={22} /> </button>
             </div>
             <div className={styles.calendarHeader}>
                 <div className={styles.daysButtons}>

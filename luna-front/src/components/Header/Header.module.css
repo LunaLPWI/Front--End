@@ -42,20 +42,20 @@
     color: var(--white);
 }
 
-.navlist a {
+ .navList a {
     display: flex;
     align-items: center;
     text-decoration: none;
     color: inherit;
     font-family: 'Kokoro', sans-serif;
-    padding: 0 80px;
+    padding: 0 80px;
 }
 
-a:visited {
+.navList a:visited {
     color: inherit;
 }
 
-a:hover,
+.navList a:hover, .navList
 a:active {
     text-decoration: none;
     color: inherit;
@@ -83,3 +83,4 @@ a:active {
     background-color: var(--red);
     color: var(--white) !important;
 }
+
