@@ -1,9 +1,9 @@
 // Cadastro.jsx
 import React, { useState } from 'react';
-import CadastroUsuario from './CadastroUsuario';
-import CadastroEndereco from './CadastroEndereco';
+import { CadastroUsuario } from './CadastroUsuario';
+import { CadastroEndereco } from './CadastroEndereco';
 import styles from "./Cadastro.module.css";
-import api from "../../api";
+import {api} from "../../api";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { validarCPF } from '../../utils/global';
@@ -13,7 +13,9 @@ export const Cadastro = () => {
 
     const navigate = useNavigate();
 
-    // Estado para informações pessoais
+    //==================================================================================================
+
+    //**CADASTRO USUARIO**
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [cpf, setCpf] = useState('');
@@ -21,7 +23,7 @@ export const Cadastro = () => {
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
 
-    // Estado para informações de endereço
+    //**CADASTRO ENDEREÇO**
     const [cep, setCep] = useState('');
     const [rua, setRua] = useState('');
     const [numero, setNumero] = useState('');
@@ -30,11 +32,15 @@ export const Cadastro = () => {
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
 
-    // Estado para controlar a etapa do formulário
-    const [etapa, setEtapa] = useState(1); // 1: Informações Pessoais, 2: Endereço
+    //==================================================================================================
+
+    const [etapa, setEtapa] = useState(1);
+
+    //==================================================================================================
+
+    //**LÓGICA DE AVANÇAR ETAPA VALIDANDO AS INPUTS**
 
     const avancarEtapa = () => {
-        // Regex para validações
         const regexNome = /^[A-Za-zÀ-ÿ\s]{2,}$/;
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const regexCpf = /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/;
@@ -78,22 +84,26 @@ export const Cadastro = () => {
 
         setEtapa(2);
     };
+    //**LÓGICA DE AVANÇAR ETAPA VALIDANDO AS INPUTS**
 
+    //==================================================================================================
 
 
     const voltarEtapa = () => {
         setEtapa(1);
     };
 
+    //==================================================================================================
+
+    //**LÓGICA DO POST**
+
     const salvarDados = (e) => {
         e.preventDefault();
 
-        // Limpar máscaras
         const cpfSemMascara = limparMascara(cpf);
         const celularSemMascara = limparMascara(celular);
         const cepSemMascara = limparMascara(cep);
 
-        // Regex para validações de endereço
         const regexCep = /^\d{5}-?\d{3}$/;
         const regexRua = /^[A-Za-zÀ-ÿ0-9\s]{2,}$/;
         const regexNumero = /^\d+$/;
@@ -102,7 +112,6 @@ export const Cadastro = () => {
         const regexCidade = /^[A-Za-zÀ-ÿ\s]{2,}$/;
         const regexEstado = /^[A-Za-z]{2}$/;
 
-        // Validação dos campos de endereço
         if (!regexCep.test(cep)) {
             toast.error("Por favor, insira um CEP válido.");
             return;
@@ -138,6 +147,8 @@ export const Cadastro = () => {
             return;
         }
 
+
+
         const objetoAdicionado = {
             nome,
             email,
@@ -153,7 +164,7 @@ export const Cadastro = () => {
             estado
         };
         console.log(objetoAdicionado)
-        api.post('', {
+        api.post('/clients', {
             nome,
             email,
             cpf,
@@ -179,6 +190,9 @@ export const Cadastro = () => {
                 console.log(e)
             });
     };
+    //**LÓGICA DO POST**
+
+    //==================================================================================================
 
     return (
         <main className={styles['main-cadastro']}>

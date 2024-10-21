@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
-import Cadastro from "./pages/CadastroUsuario/Cadastro";
+import {Cadastro} from "./pages/CadastroUsuario/Cadastro";
+import {RedefinirSenha} from "./pages/RedefinirSenha/RedefinirSenha";
 import Login from "./pages/Login/Login";
 import AgendamentoServicos from "./pages/AgendamentoServicos/AgendamentoServicos";
 import Perfil from "./pages/perfil/Perfil";
@@ -16,6 +17,7 @@ export const Rotas = () => {
                 <Route path="/agendamento-servicos" element={<AgendamentoServicos />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/cadastro" element={<Cadastro/>} />
+                <Route path="/redefinir-senha" element={<RedefinirSenha/>} />
             </Routes>
         </BrowserRouter>
     );

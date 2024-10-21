@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import Botao from "../../components/Botao/Botao";
 import CampoTexto from "../../components/CampoTexto/CampoTexto";
-import styles from "./CadastroEndereco.module.css";
+import styles from "./Cadastro.module.css";
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
@@ -61,11 +61,11 @@ export function CadastroEndereco({
     }, [cep]);
 
     return (
-        <div className={styles['container-endereco']}>
+        <div className={styles['container-cadastro']}>
             <div className={styles.imagem}></div>
-            <section className={styles['formulario-endereco']}>
-                <form onSubmit={salvarDados}>
-                    <h1>ENDEREÇO</h1>
+            <section className={styles['formulario-cadastro']}>
+                <form onSubmit={salvarDados} className={styles['form-cadastro']}>
+                    <h1 className={styles['h1-cadastro']}>ENDEREÇO</h1>
                     <div className={`${styles.inputs}`}>
 
                         {/* CEP */}

@@ -2,7 +2,7 @@
 import React from 'react';
 import Botao from "../../components/Botao/Botao";
 import CampoTexto from "../../components/CampoTexto/CampoTexto";
-import styles from "./CadastroUsuario.module.css";
+import styles from "./Cadastro.module.css";
 import { useNavigate } from 'react-router-dom';
 import { mascaraCelular, mascaraCPF } from '../../utils/global';
 
@@ -24,11 +24,11 @@ export function CadastroUsuario({
     };
 
     return (
-        <div className={styles['container-usuario']}>
+        <div className={styles['container-cadastro']}>
             <div className={styles.imagem}></div>
             <section className={styles['section-usuario']}>
-                <form onSubmit={handleSubmit}>
-                    <h1>CADASTRO</h1>
+                <form onSubmit={handleSubmit} className={styles['form-cadastro']}>
+                    <h1 className={styles['h1-cadastro']}>CADASTRO</h1>
                     <div className={`${styles.inputs}`}>
 
                         {/* NOME */}
@@ -43,7 +43,7 @@ export function CadastroUsuario({
 
                         {/* EMAIL */}
                         <CampoTexto
-                            tipo='email'
+                            tipo='text'
                             valor={email}
                             aoAlterado={setEmail}
                             obrigatorio={false}
