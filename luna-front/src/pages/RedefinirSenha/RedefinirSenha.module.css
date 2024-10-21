@@ -1,0 +1,107 @@
+/* Div que contém o formulário e a img */
+.main-redefinir {
+    background: url('../../assets/tesoura-sobre.png') center;
+    background-size: cover;
+    background-color: var(--black);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-redefinir section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80em;
+    border-radius: 0 10px 10px 0;
+    height: 85vh;
+}
+
+.imagem {
+    background: url('../../assets/redefinirSenha.jpg') center right;
+    background-size: cover;
+    border-radius: 10px 0 0 10px;
+    height: 85vh;
+    width: 50%;
+    border-right: #FF0000 10px solid;
+}
+
+.h1-redefinir-senha {
+    color: #FF0000;
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: 400;
+    cursor: default
+}
+
+.formulario {
+    background-color: white;
+    width: 50% !important;
+}
+
+.form-redefinir-senha {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: default
+}
+
+.inputs {
+    border: 1px solid #6F6C6C;
+    border-radius: 10px;
+    margin: 10% 0 10% 0;
+}
+
+.botoes {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+}
+
+.principal {
+    font-size: 1em;
+    text-align: center;
+    margin: 10% 0 0 0;
+    cursor: default
+}
+
+.reenviar {
+    color: red;
+}
+
+.reenviar:hover {
+    color: black !important;
+}
+
+.requisitos {
+    margin-top: 2%;
+
+}
+
+.apoio-requisito {
+    display: flex;
+}
+
+.textos {
+    display: flex;
+    flex-direction: column;
+}
+
+.otp {
+    background-color: #00ff2b1f;
+    margin: 20px 0 0 0;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.u {
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+.desabilitado{
+    padding-left: 10px;
+    color: #ff0000;
+}

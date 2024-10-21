@@ -1,14 +1,15 @@
-main{
+.main-login {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--black);
-    height: 100vh;
+    background: url('../../assets/tesoura-sobre.png') center;
+    background-size: cover;
+    background-color: var(--black);height: 100vh;
     padding: 0 5%;
     overflow: hidden;
 }
 
-.section-login{
+.section-login {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,16 +18,16 @@ main{
     height: 85vh;
 }
 
-.imagem{
+.imagem {
     background: url('../../assets/Group52.png') center right;
     background-size: cover;
     border-radius: 0 10px 10px 0;
     height: 85vh;
     width: 50%;
-    
+
 }
 
-h1{
+.h1-login {
     color: #FF0000;
     text-align: center;
     font-size: 3em;
@@ -45,14 +46,14 @@ h1{
     flex-direction: column;
 }
 
-form{
+.form-login {
     width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
-.inputs{
+.inputs {
     border: 1px solid #6F6C6C;
     border-radius: 10px;
     margin: 10% 0 0 0;
@@ -64,15 +65,15 @@ form{
     gap: 5%;
 }
 
-.redefinir-senha{
+.redefinir-senha {
     color: #FF0000;
 }
 
-.redefinir-senha:hover{
+.redefinir-senha:hover {
     cursor: pointer;
 }
 
-.links{
+.links {
     width: 100%;
     display: flex;
     justify-content: end;
@@ -80,7 +81,7 @@ form{
     margin: 3% 0 8%;
 }
 
-.setinha{
+.setinha {
     color: var(--red);
     position: absolute;
     top: 15px;
