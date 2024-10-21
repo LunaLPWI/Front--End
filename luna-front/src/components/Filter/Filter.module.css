@@ -1,0 +1,19 @@
+.filterContainer {
+    display: flex; /* Para colocar os itens na mesma linha */
+    align-items: center; /* Alinha verticalmente ao centro */
+    gap: 20px; /* Espaço entre o título e a input */
+    padding: 20px;
+}
+
+.filterInput {
+    width: 450px; /* Define a largura da input */
+    padding: 12px; /* Adiciona um pouco de espaçamento interno */
+    border: 1px solid #ccc; /* Borda padrão */
+    border-radius: 4px; /* Cantos arredondados */
+}
+
+.filterContainer h1 {
+    color: yellow; /* Define a cor do título como amarelo */
+    font-size: 1.5rem;
+    margin: 0; /* Remove a margem padrão */
+}
