@@ -40,9 +40,6 @@ function AgendaCliente() {
         ['19:00h', 'Selena Gomez', '', 'Camila Cabello', '', ''],
     ];
     
-    console.log(headers);
-    console.log(data);
-    
 
     return (
         <>
