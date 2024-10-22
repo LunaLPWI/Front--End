@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { CadastroUsuario } from './CadastroUsuario';
 import { CadastroEndereco } from './CadastroEndereco';
 import styles from "./Cadastro.module.css";
-import {api} from "../../api";
+import { api } from "../../api";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { validarCPF } from '../../utils/global';
@@ -19,18 +19,18 @@ export const Cadastro = () => {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [cpf, setCpf] = useState('');
-    const [celular, setCelular] = useState('');
-    const [senha, setSenha] = useState('');
-    const [confirmarSenha, setConfirmarSenha] = useState('');
+    const [cellphone, setCellphone] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     //**CADASTRO ENDEREÇO**
     const [cep, setCep] = useState('');
-    const [rua, setRua] = useState('');
-    const [numero, setNumero] = useState('');
+    const [logradouro, setLogradouro] = useState('');
+    const [number, setNumber] = useState('');
     const [complemento, setComplemento] = useState('');
     const [bairro, setBairro] = useState('');
     const [cidade, setCidade] = useState('');
-    const [estado, setEstado] = useState('');
+    const [uf, setUf] = useState('');
 
     //==================================================================================================
 
@@ -62,17 +62,17 @@ export const Cadastro = () => {
             return;
         }
 
-        if (!regexCelular.test(celular)) {
+        if (!regexCelular.test(cellphone)) {
             toast.error("Por favor, insira um número de celular válido.");
             return;
         }
 
-        if (!regexSenha.test(senha)) {
+        if (!regexSenha.test(password)) {
             toast.error("A senha deve ter no mínimo 6 caracteres.");
             return;
         }
 
-        if (senha !== confirmarSenha) {
+        if (password !== confirmPassword) {
             toast.error("As senhas não coincidem.");
             return;
         }
@@ -101,7 +101,7 @@ export const Cadastro = () => {
         e.preventDefault();
 
         const cpfSemMascara = limparMascara(cpf);
-        const celularSemMascara = limparMascara(celular);
+        const celularSemMascara = limparMascara(cellphone);
         const cepSemMascara = limparMascara(cep);
 
         const regexCep = /^\d{5}-?\d{3}$/;
@@ -117,12 +117,12 @@ export const Cadastro = () => {
             return;
         }
 
-        if (!regexRua.test(rua)) {
+        if (!regexRua.test(logradouro)) {
             toast.error("Por favor, insira um nome de rua válido.");
             return;
         }
 
-        if (!regexNumero.test(numero)) {
+        if (!regexNumero.test(number)) {
             toast.error("Por favor, insira um número válido.");
             return;
         }
@@ -142,7 +142,7 @@ export const Cadastro = () => {
             return;
         }
 
-        if (!regexEstado.test(estado)) {
+        if (!regexEstado.test(uf)) {
             toast.error("Por favor, insira um estado válido (ex: SP, RJ).");
             return;
         }
@@ -151,32 +151,36 @@ export const Cadastro = () => {
 
         const objetoAdicionado = {
             nome,
-            email,
             cpf: cpfSemMascara,
-            celular: celularSemMascara,
-            senha,
-            cep: cepSemMascara,
-            rua,
-            numero,
-            complemento,
-            bairro,
-            cidade,
-            estado
+            email,
+            cellphone: celularSemMascara,
+            password,
+            adress: {
+                cep: cepSemMascara,
+                logradouro,
+                complemento,
+                cidade,
+                bairro,
+                uf,
+                number
+            }
         };
         console.log(objetoAdicionado)
         api.post('/clients', {
             nome,
-            email,
             cpf,
-            celular,
-            senha,
-            cep,
-            rua,
-            numero,
-            complemento,
-            bairro,
-            cidade,
-            estado
+            email,
+            cellphone,
+            password,
+            adress: {
+                cep,
+                logradouro,
+                complemento,
+                cidade,
+                bairro,
+                uf,
+                number
+            }
         })
             .then(() => {
                 toast.success("Usuário criado com sucesso!");
@@ -205,12 +209,12 @@ export const Cadastro = () => {
                         setEmail={setEmail}
                         cpf={cpf}
                         setCpf={setCpf}
-                        celular={celular}
-                        setCelular={setCelular}
-                        senha={senha}
-                        setSenha={setSenha}
-                        confirmarSenha={confirmarSenha}
-                        setConfirmarSenha={setConfirmarSenha}
+                        cellphone={cellphone}
+                        setCellphone={setCellphone}
+                        password={password}
+                        setPassword={setPassword}
+                        confirmPassword={confirmPassword}
+                        setConfirmPassword={setConfirmPassword}
                         avancarEtapa={avancarEtapa}
                     />
                 )}
@@ -218,18 +222,18 @@ export const Cadastro = () => {
                     <CadastroEndereco
                         cep={cep}
                         setCep={setCep}
-                        rua={rua}
-                        setRua={setRua}
-                        numero={numero}
-                        setNumero={setNumero}
+                        logradouro={logradouro}
+                        setLogradouro={setLogradouro}
+                        number={number}
+                        setNumber={setNumber}
                         complemento={complemento}
                         setComplemento={setComplemento}
                         bairro={bairro}
                         setBairro={setBairro}
                         cidade={cidade}
                         setCidade={setCidade}
-                        estado={estado}
-                        setEstado={setEstado}
+                        uf={uf}
+                        setUf={setUf}
                         voltarEtapa={voltarEtapa}
                         salvarDados={salvarDados}
                     />

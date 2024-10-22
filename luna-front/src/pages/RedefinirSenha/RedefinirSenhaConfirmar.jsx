@@ -3,7 +3,7 @@ import CampoTexto from "../../components/CampoTexto/CampoTexto";
 import styles from "./RedefinirSenha.module.css";
 
 export function RedefinirSenhaConfirmar({
-    senha, setSenha,
+    newPassword, setNewPassword,
     confirmarSenha, setConfirmarSenha,
     handleUpdatePassword
 }) {
@@ -20,10 +20,10 @@ export function RedefinirSenhaConfirmar({
                             <p className={styles.requisitos}>
                                 <strong>Requisitos minimos:</strong>
                                 <br />
-                                •Conter 6 caracteres <br />
-                                •Um número <br />
-                                •Um caracter especial <br />
-                                •Não pode conter espaços
+                                • Conter 6 caracteres <br />
+                                • Um número <br />
+                                • Um caracter especial <br />
+                                • Não pode conter espaços
                             </p>
                         </div>
                     </div>
@@ -32,8 +32,8 @@ export function RedefinirSenhaConfirmar({
                         {/* SENHA */}
                         <CampoTexto
                             tipo='password'
-                            valor={senha}
-                            aoAlterado={valor => setSenha(valor)}
+                            valor={newPassword}
+                            aoAlterado={valor => setNewPassword(valor)}
                             obrigatorio={true}
                             label="SENHA"
                             placeholder="**********" />
@@ -57,7 +57,6 @@ export function RedefinirSenhaConfirmar({
                     </div>
                 </form>
             </section>
-            <p className={styles.classe}></p>
         </section>
     );
 }

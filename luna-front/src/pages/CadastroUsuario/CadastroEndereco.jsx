@@ -6,19 +6,21 @@ import styles from "./Cadastro.module.css";
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
-import { mascaraCEP } from '../../utils/global';
+import { mascaraCEP, inputNumerosDecimais } from '../../utils/global';
 
 export function CadastroEndereco({
     cep, setCep,
-    rua, setRua,
-    numero, setNumero,
+    logradouro, setLogradouro,
+    number, setNumber,
     complemento, setComplemento,
     bairro, setBairro,
     cidade, setCidade,
-    estado, setEstado,
+    uf, setUf,
     voltarEtapa,
     salvarDados
 }) {
+
+    
 
     const buscarEndereco = async (cep) => {
         try {
@@ -29,10 +31,10 @@ export function CadastroEndereco({
                 toast.error("CEP não encontrado.");
                 limpaCamposEndereco();
             } else {
-                setRua(dados.logradouro || '');
+                setLogradouro(dados.logradouro || '');
                 setBairro(dados.bairro || '');
                 setCidade(dados.localidade || '');
-                setEstado(dados.uf || '');
+                setUf(dados.uf || '');
             }
         } catch (error) {
             console.error("Erro ao buscar CEP:", error);
@@ -43,10 +45,10 @@ export function CadastroEndereco({
 
     // Função para limpar os campos de endereço
     const limpaCamposEndereco = () => {
-        setRua('');
+        setLogradouro('');
         setBairro('');
         setCidade('');
-        setEstado('');
+        setUf('');
     };
 
     // useEffect para monitorar mudanças no CEP e buscar o endereço quando válido
@@ -83,9 +85,9 @@ export function CadastroEndereco({
                         {/* RUA */}
                         <CampoTexto
                             tipo='text'
-                            valor={rua}
-                            aoAlterado={setRua}
-                            label="RUA"
+                            valor={logradouro}
+                            aoAlterado={setLogradouro}
+                            label="Logradouro"
                             placeholder="Rua Caleb Pereira"
                             readOnly={true}
                         />
@@ -95,16 +97,17 @@ export function CadastroEndereco({
 
                             {/* NÚMERO */}
                             <CampoTexto
-                                tipo='number'
-                                valor={numero}
-                                aoAlterado={setNumero}
+                                tipo='text'
+                                valor={number}
+                                aoAlterado={setNumber}
                                 obrigatorio={true}
+                                onInput={inputNumerosDecimais}
                                 label="NÚMERO"
                                 placeholder="123"
                                 min="1"
                             />
                             <hr />
-
+                            
                             {/* COMPLEMENTO */}
                             <CampoTexto
                                 tipo='text'
@@ -145,8 +148,8 @@ export function CadastroEndereco({
                             {/* ESTADO */}
                             <CampoTexto
                                 tipo='text'
-                                valor={estado}
-                                aoAlterado={setEstado}
+                                valor={uf}
+                                aoAlterado={setUf}
                                 obrigatorio={false}
                                 label="ESTADO"
                                 placeholder="SP"
@@ -184,18 +187,18 @@ export function CadastroEndereco({
 CadastroEndereco.propTypes = {
     cep: PropTypes.string.isRequired,
     setCep: PropTypes.func.isRequired,
-    rua: PropTypes.string.isRequired,
-    setRua: PropTypes.func.isRequired,
-    numero: PropTypes.string.isRequired,
-    setNumero: PropTypes.func.isRequired,
+    logradouro: PropTypes.string.isRequired,
+    setLogradouro: PropTypes.func.isRequired,
+    number: PropTypes.string.isRequired,
+    setNumber: PropTypes.func.isRequired,
     complemento: PropTypes.string.isRequired,
     setComplemento: PropTypes.func.isRequired,
     bairro: PropTypes.string.isRequired,
     setBairro: PropTypes.func.isRequired,
     cidade: PropTypes.string.isRequired,
     setCidade: PropTypes.func.isRequired,
-    estado: PropTypes.string.isRequired,
-    setEstado: PropTypes.func.isRequired,
+    uf: PropTypes.string.isRequired,
+    setUf: PropTypes.func.isRequired,
     voltarEtapa: PropTypes.func.isRequired,
     salvarDados: PropTypes.func.isRequired,
 };

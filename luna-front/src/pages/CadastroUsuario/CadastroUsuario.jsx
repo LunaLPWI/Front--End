@@ -10,9 +10,9 @@ export function CadastroUsuario({
     nome, setNome,
     email, setEmail,
     cpf, setCpf,
-    celular, setCelular,
-    senha, setSenha,
-    confirmarSenha, setConfirmarSenha,
+    cellphone, setCellphone,
+    password, setPassword,
+    confirmPassword, setConfirmPassword,
     avancarEtapa
 }) {
 
@@ -67,8 +67,8 @@ export function CadastroUsuario({
                             {/* CELULAR */}
                             <CampoTexto
                                 tipo='phone'
-                                valor={celular}
-                                aoAlterado={setCelular}
+                                valor={cellphone}
+                                aoAlterado={setCellphone}
                                 obrigatorio={false}
                                 onInput={mascaraCelular}
                                 label="CELULAR"
@@ -79,8 +79,8 @@ export function CadastroUsuario({
                         {/* SENHA */}
                         <CampoTexto
                             tipo='password'
-                            valor={senha}
-                            aoAlterado={setSenha}
+                            valor={password}
+                            aoAlterado={setPassword}
                             obrigatorio={false}
                             label="SENHA"
                             placeholder="Digite sua senha" />
@@ -89,8 +89,8 @@ export function CadastroUsuario({
                         {/* CONFIRMAR SENHA */}
                         <CampoTexto
                             tipo='password'
-                            valor={confirmarSenha}
-                            aoAlterado={setConfirmarSenha}
+                            valor={confirmPassword}
+                            aoAlterado={setConfirmPassword}
                             obrigatorio={false}
                             label="CONFIRMAR SENHA"
                             placeholder="Digite novamente sua senha" />
