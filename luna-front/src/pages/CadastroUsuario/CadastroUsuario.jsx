@@ -10,9 +10,9 @@ export function CadastroUsuario({
     nome, setNome,
     email, setEmail,
     cpf, setCpf,
-    celular, setCelular,
-    senha, setSenha,
-    confirmarSenha, setConfirmarSenha,
+    cellphone, setCellphone,
+    password, setPassword,
+    confirmPassword, setConfirmPassword,
     avancarEtapa
 }) {
 
@@ -38,7 +38,9 @@ export function CadastroUsuario({
                             aoAlterado={setNome}
                             obrigatorio={false}
                             label="NOME"
-                            placeholder="Igor Silva" />
+                            placeholder="Igor Silva"
+                            maxLength="50"
+                        />
                         <hr />
 
                         {/* EMAIL */}
@@ -48,7 +50,9 @@ export function CadastroUsuario({
                             aoAlterado={setEmail}
                             obrigatorio={false}
                             label="EMAIL"
-                            placeholder="exemplo@exemplo.com" />
+                            placeholder="exemplo@exemplo.com"
+                            maxLength="50"
+                        />
                         <hr />
 
                         <div className={styles['cpf-celular']}>
@@ -61,39 +65,46 @@ export function CadastroUsuario({
                                 obrigatorio={false}
                                 onInput={mascaraCPF}
                                 label="CPF"
-                                placeholder="123.123.123-12" />
+                                placeholder="123.123.123-12"
+                            />
                             <hr />
 
                             {/* CELULAR */}
                             <CampoTexto
                                 tipo='phone'
-                                valor={celular}
-                                aoAlterado={setCelular}
+                                valor={cellphone}
+                                aoAlterado={setCellphone}
                                 obrigatorio={false}
                                 onInput={mascaraCelular}
                                 label="CELULAR"
-                                placeholder="(11) 91234-1234" />
+                                placeholder="(11) 91234-1234"
+                            />
                         </div>
                         <hr />
 
                         {/* SENHA */}
                         <CampoTexto
                             tipo='password'
-                            valor={senha}
-                            aoAlterado={setSenha}
+                            valor={password}
+                            aoAlterado={setPassword}
                             obrigatorio={false}
                             label="SENHA"
-                            placeholder="Digite sua senha" />
+                            placeholder="Digite sua senha"
+                            maxLength="30"
+                        />
+
                         <hr />
 
                         {/* CONFIRMAR SENHA */}
                         <CampoTexto
                             tipo='password'
-                            valor={confirmarSenha}
-                            aoAlterado={setConfirmarSenha}
+                            valor={confirmPassword}
+                            aoAlterado={setConfirmPassword}
                             obrigatorio={false}
                             label="CONFIRMAR SENHA"
-                            placeholder="Digite novamente sua senha" />
+                            placeholder="Digite novamente sua senha"
+                            maxLength="30"
+                        />
                     </div>
 
                     <div className={styles.botoes}>

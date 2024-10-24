@@ -20,7 +20,7 @@ const CampoTexto = (props) => {
                 placeholder={props.placeholder}
                 readOnly={props.readOnly} 
                 min={props.min}         
-                max={props.max}           
+                maxLength={props.maxLength}           
             />
         </div>
     );

@@ -25,22 +25,20 @@ function Login() {
             return
         }
 
-        const body = {
+        const params = {
             email: email,
-            senha: senha
+            password: senha
         }
 
-        api.get('', { body })
-
+        api.post('/clients/login', params)
             .then(response => {
-                console.log(body)
+                console.log(params)
                 console.log(response.data)
-                if (response.data.email === email && response.data.senha === senha) {
-                    // Se login bem-sucedido, redireciona para a home
+                if (response.status === 200) {
+                    sessionStorage.setItem('user', JSON.stringify(response.data));
                     toast.success('Login realizado com sucesso');
-                    navigate('/');
+                    navigate('/perfil');
                 } else {
-                    // Se o backend retornar algum erro de validação
                     toast.error('Email ou senha inválidos');
                 }
             }).catch(error => {
@@ -67,7 +65,7 @@ function Login() {
                     </div>
                     <form className={styles['form-login']}>
                         <h1 className={styles['h1-login']}>LOGIN</h1>
-                        <div className={`${styles.inputs} `}>
+                        <div className={styles.inputs}>
 
                             {/* // EMAIL */}
                             <CampoTexto
