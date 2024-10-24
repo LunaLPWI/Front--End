@@ -105,6 +105,7 @@ export function CadastroEndereco({
                                 label="NÚMERO"
                                 placeholder="123"
                                 min="1"
+                                maxLength="5"
                             />
                             <hr />
                             
@@ -115,6 +116,7 @@ export function CadastroEndereco({
                                 aoAlterado={setComplemento}
                                 label="COMPLEMENTO"
                                 placeholder="Bloco A, Ap 2"
+                                maxLength="50"
                             />
                         </div>
                         <hr />

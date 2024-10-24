@@ -7,7 +7,7 @@ import { api } from "../../api";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { validarCPF } from '../../utils/global';
-import { limparMascara } from '../../utils/global';
+import { limparMascara, inputSomenteTexto } from '../../utils/global';
 
 export const Cadastro = () => {
 
@@ -41,29 +41,16 @@ export const Cadastro = () => {
     //**LÓGICA DE AVANÇAR ETAPA VALIDANDO AS INPUTS**
 
     const avancarEtapa = () => {
-        const regexNome = /^[A-Za-zÀ-ÿ\s]{2,}$/;
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const regexCpf = /^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/;
-        const regexCelular = /^\(?\d{2}\)?[\s-]?9?\d{4}-?\d{4}$/;
         const regexSenha = /^.{6,}$/;
 
-        if (!regexNome.test(nome)) {
+        if (!inputSomenteTexto(nome)) {
             toast.error("Por favor, insira um nome válido (mínimo 2 caracteres).");
             return;
         }
 
         if (!regexEmail.test(email)) {
             toast.error("Por favor, insira um e-mail válido.");
-            return;
-        }
-
-        if (!regexCpf.test(cpf)) {
-            toast.error("Por favor, insira um CPF válido.");
-            return;
-        }
-
-        if (!regexCelular.test(cellphone)) {
-            toast.error("Por favor, insira um número de celular válido.");
             return;
         }
 
