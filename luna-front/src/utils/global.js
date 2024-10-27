@@ -1,14 +1,38 @@
 export const limparMascara = (valor) => {
     return valor.replace(/\D/g, '');
 };
-export const inputSomenteTexto = (e) => {
-    e.target.value = e.target.value.replace(/[^A-Za-zÀ-ú\s]/g, "");
-};
-export const inputSomenteNumero = (e) => {
-    e.target.value = e.target.value.replace(/[^0-9]/g, "");
-};
+
+export const validarSenha = (senha) => {
+    const regexMinLength = /^.{6,}$/;
+    const regexNumber = /\d/;
+    const regexSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+    const regexNoSpaces = /^\S*$/;
+
+    // Verifica todas as condições
+    const isValid =
+        regexMinLength.test(senha) &&
+        regexNumber.test(senha) &&
+        regexSpecialChar.test(senha) &&
+        regexNoSpaces.test(senha);
+
+    return isValid;
+}
+
+export const regexEmail = (valor) =>{
+    const validarEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const isValid = validarEmail.test(valor);
+
+    return isValid;
+} 
+    
+
+export function inputSomenteTexto(input) {
+    const regexTexto = /^[A-Za-zÀ-ÿ\s]+$/;
+    return regexTexto.test(input) && input.length >= 2;
+}
 export const inputSemCaracteresEspeciais = (e) => {
-    e.target.value = e.target.value.replace(/[^A-Za-zÀ-ú0-9\s]/g,"");
+    e.target.value = e.target.value.replace(/[^A-Za-zÀ-ú0-9\s]/g, "");
 };
 export const inputSomenteMinusculas = (e) => {
     e.target.value = e.target.value.replace(/[^a-z\s]/g, "");
@@ -45,18 +69,35 @@ export const mascaraCelular = (e) => {
     valor = valor.replace(/(\d)(\d{4})$/, "$1-$2");
     e.target.value = valor;
 };
+
+export const mascaraCEP = (e) => {
+    let valor = e.target.value.replace(/\D/g, "");
+    if (valor.length > 8) valor = valor.substring(0, 8);
+    valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
+    e.target.value = valor;
+};
+
+export const mascaraCelularString = (valor) => {
+    valor = valor.replace(/\D/g, "");
+    if (valor.length > 11) valor = valor.substring(0, 11);
+    valor = valor.replace(/^(\d{2})(\d)/g, "($1) $2");
+    valor = valor.replace(/(\d)(\d{4})$/, "$1-$2");
+    return valor;
+};
+
+export const mascaraCEPString = (valor) => {
+    valor = valor.replace(/\D/g, "");
+    if (valor.length > 8) valor = valor.substring(0, 8);
+    valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
+    return valor;
+};
+
 export const mascaraCPF = (e) => {
     let valor = e.target.value.replace(/\D/g, "");
     if (valor.length > 11) valor = valor.substring(0, 11);
     valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
     valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
     valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-    e.target.value = valor;
-};
-export const mascaraCEP = (e) => {
-    let valor = e.target.value.replace(/\D/g, "");
-    if (valor.length > 8) valor = valor.substring(0, 8);
-    valor = valor.replace(/(\d{5})(\d)/, "$1-$2");
     e.target.value = valor;
 };
 

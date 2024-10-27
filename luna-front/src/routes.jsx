@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/home/Home";
-import {Cadastro} from "./pages/CadastroUsuario/Cadastro";
+import Home from "./pages/Home/Home";
 import {RedefinirSenha} from "./pages/RedefinirSenha/RedefinirSenha";
 import Login from "./pages/Login/Login";
 import AgendamentoServicos from "./pages/AgendamentoServicos/AgendamentoServicos";
 import Agendamento from "./pages/Agendamento/Agendamento";
 import AgendaCliente from "./pages/AgendaCliente/AgendaCliente"
-import Perfil from "./pages/perfil/Perfil";
-import Planos from "./pages/planos/Planos";
+import Perfil from "./pages/Perfil/Perfil";
+import Planos from "./pages/Planos/Planos";
 import GerenciamentoCliente from "./pages/GerenciamentoCliente/GerenciamentoCliente";
+import { Cadastro } from "./pages/Cadastro/Cadastro";
 
 export const Rotas = () => {
     return (

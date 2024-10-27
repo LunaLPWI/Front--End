@@ -8,20 +8,21 @@ const PaymentForm = () => {
         { name: 'PERFIL', path: '/perfil' },
         { name: 'AGENDAR', path: '/agendar' },
         { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' }
-      ];
-      const handleAgendarClick = () => {
-        alert('Botão Agendar clicado!');
-    };
+    ];
 
+    const handleLogoutClick = () => {
+        sessionStorage.clear();
+        navigate('/login');
+    };
 
     return (
         <div>
             <Header
-          links={links}
-          showButton={true}
-          buttonText="SAIR"
-          onButtonClick={handleAgendarClick}
-        />
+                links={links}
+                showButton={true}
+                buttonText="SAIR"
+                onButtonClick={handleLogoutClick}
+            />
             <PaymentComponent />
         </div>
     );

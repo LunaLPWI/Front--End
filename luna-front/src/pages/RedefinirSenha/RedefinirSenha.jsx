@@ -55,7 +55,9 @@ export const RedefinirSenha = () => {
       // if (email) {
       //   emailjs.send(serviceId, templateId, { message: tokenGerado, to_email: email }, userKeyEmail)
       //     .then(() => {
-      //       toast.success('Token enviado com sucesso', { transition: Flip });
+      //       toast.success('Token enviado com sucesso', { transition: Flip,
+      // autoClose: 2000,
+      //                   closeOnClick: true});
       //       setTokenExpirado(false);
       //       setTimeout(() => setTokenExpirado(true), 5 * 60 * 1000); // Expira após 5 minutos
       console.log(tokenGerado)
@@ -63,10 +65,12 @@ export const RedefinirSenha = () => {
 
       //     })
       //     .catch(() => {
-      //       toast.error('Não conseguimos enviar o token, verifique se o email está correto', { transition: Zoom });
+      //       toast.error('Não conseguimos enviar o token, verifique se o email está correto', { transition: Zoom,autoClose: 2000,
+      // closeOnClick: true });
       //     });
       // } else {
-      //   toast.error('O endereço de e-mail está vazio. Por favor, insira um e-mail válido.', { transition: Zoom });
+      //   toast.error('O endereço de e-mail está vazio. Por favor, insira um e-mail válido.', { transition: Zoom, autoClose: 2000,
+      // closeOnClick: true });
       // }
     }
   }, [tokenGerado, email]);
@@ -83,11 +87,19 @@ export const RedefinirSenha = () => {
   const handleOtpConfirmed = (event) => {
     event.preventDefault();
     if (tokenExpirado) {
-      toast.error('O token expirou. Por favor, solicite um novo.', { transition: Zoom });
+      toast.error('O token expirou. Por favor, solicite um novo.', {
+        transition: Zoom,
+        autoClose: 2000,
+        closeOnClick: true
+      });
       return;
     }
     if (tokenDigitado.join('') === tokenGerado) {
-      toast.success('Token válido', { transition: Flip });
+      toast.success('Token válido', {
+        transition: Flip,
+        autoClose: 2000,
+        closeOnClick: true
+      });
       setTimeout(() => setEtapa(3), 2000);
     } else {
       toast.error('Token incorreto', { transition: Zoom });
@@ -106,15 +118,35 @@ export const RedefinirSenha = () => {
     const regexNoSpaces = /^\S*$/;
 
     if (!regexMinLength.test(newPassword)) {
-      toast.error("A senha deve conter no mínimo 6 caracteres", { transition: Zoom });
+      toast.error("A senha deve conter no mínimo 6 caracteres", {
+        transition: Zoom,
+        autoClose: 2000,
+        closeOnClick: true
+      });
     } else if (!regexNumber.test(newPassword)) {
-      toast.error("A senha deve conter pelo menos um número", { transition: Zoom });
+      toast.error("A senha deve conter pelo menos um número", {
+        transition: Zoom,
+        autoClose: 2000,
+        closeOnClick: true
+      });
     } else if (!regexSpecialChar.test(newPassword)) {
-      toast.error("A senha deve conter pelo menos um caractere especial", { transition: Zoom });
+      toast.error("A senha deve conter pelo menos um caractere especial", {
+        transition: Zoom,
+        autoClose: 2000,
+        closeOnClick: true
+      });
     } else if (!regexNoSpaces.test(newPassword)) {
-      toast.error("A senha não pode conter espaços", { transition: Zoom });
+      toast.error("A senha não pode conter espaços", {
+        transition: Zoom,
+        autoClose: 2000,
+        closeOnClick: true
+      });
     } else if (newPassword !== confirmarSenha) {
-      toast.error("Senhas não coincidem", { transition: Zoom });
+      toast.error("Senhas não coincidem", {
+        transition: Zoom,
+        autoClose: 2000,
+        closeOnClick: true
+      });
     } else {
 
       api.get('/clients/search-by-email', { params: { email } })
@@ -126,21 +158,33 @@ export const RedefinirSenha = () => {
               password: newPassword
             };
             console.log(passwordUpdateParams);
-            api.patch('/clients/redefine-password', null, { params: passwordUpdateParams})
+            api.patch('/clients/redefine-password', null, { params: passwordUpdateParams })
               .then((response) => {
                 if (response.status === 200) {
-                  toast.success("Senha atualizada com sucesso", { transition: Flip });
+                  toast.success("Senha atualizada com sucesso", {
+                    transition: Flip,
+                    autoClose: 2000,
+                    closeOnClick: true
+                  });
                 }
               })
               .catch((error) => {
-                toast.error("Erro ao redefinir a senha", { transition: Zoom });
+                toast.error("Erro ao redefinir a senha", {
+                  transition: Zoom,
+                  autoClose: 2000,
+                  closeOnClick: true
+                });
                 console.error("Erro ao salvar a senha", error);
               });
           }
         })
         .catch((error) => {
           console.error("Erro ao verificar e-mail:", error);
-          toast.error("Erro ao verificar e-mail", { transition: Zoom });
+          toast.error("Erro ao verificar e-mail", {
+            transition: Zoom,
+            autoClose: 2000,
+            closeOnClick: true
+          });
         });
     }
   };

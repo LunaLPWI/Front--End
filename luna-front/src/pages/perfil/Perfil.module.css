@@ -1,0 +1,171 @@
+.body-perfil {
+    background: url('../../assets/clientePerfil.png') center center;
+    overflow: hidden !important;
+    height: 100vh;
+}
+
+.main-perfil {
+    max-width: 100%;
+    display: flex;
+    height: 88vh;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    & .img {
+        width: 80%;
+        height: 180px;
+        padding-left: 20px;
+
+        & img {
+            height: 100%;
+            width: 180px;
+            border: 1px solid var(--red);
+            border-radius: 10px;
+        }
+    }
+
+    & section {
+        width: 100%;
+        height: 60vh;
+        display: flex;
+        justify-content: center;
+    }
+
+    & .left-side {
+        width: 55%;
+        height: 100%;
+    }
+
+    & .right-side {
+        width: 25%;
+        height: 100%;
+    }
+
+    & h1 {
+        font-size: 2rem;
+        font-weight: 500;
+        color: var(--white);
+        display: flex;
+        justify-content: center;
+    }
+
+    & .left-side .informacoes {
+        display: flex;
+        justify-content: space-around;
+
+        & .left {
+            width: 50%;
+        }
+
+        & .right {
+            width: 50%;
+
+            & .botoes {
+                display: flex;
+                justify-content: end;
+                padding: 5% 2% 0 2%;
+            }
+        }
+    }
+
+    & .right-side .plano {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40vh;
+
+        & h2 {
+            color: var(--white);
+            padding-bottom: 10%;
+        }
+
+        & .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        span {
+            color: var(--red);
+        }
+
+        & .botao-plano {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    & .customLabel {
+        color: var(--white);
+        font-size: 1.2em;
+
+    }
+
+    & .customInput {
+        height: 30px;
+        border: 1px solid var(--red);
+        border-radius: 5px;
+        font-size: 0.98em;
+        color: var(--black);
+        padding: 5% 1%;
+    }
+}
+
+
+
+.loading {
+    padding-left: 3px;
+
+    & span {
+        display: inline-block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: var(--red);
+        margin: 2px;
+        animation: bounce 2s cubic-bezier(0.6, 0.1, 1, 0.4);
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+
+    & span:nth-child(1) {
+        animation-delay: .1s;
+    }
+
+    & span:nth-child(2) {
+        animation-delay: .2s;
+    }
+
+    & span:nth-child(3) {
+        animation-delay: .3s;
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-5px);
+    }
+
+    60% {
+        transform: translateY(-3px);
+    }
+}
+
+.inputReadOnly {
+    height: 40px;
+    border-bottom: 1px solid var(--red);
+    background: transparent;
+    font-size: 0.98em;
+    color: #d0d0d0;
+    padding: 5% 2%;
+    cursor:default
+}

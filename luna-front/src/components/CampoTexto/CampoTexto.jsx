@@ -1,7 +1,7 @@
 import styles from './CampoTexto.module.css';
 
 const CampoTexto = (props) => {
-    
+
     const aoDigitado = (evento) => {
         if (!props.readOnly) {
             props.aoAlterado(evento.target.value);
@@ -9,18 +9,28 @@ const CampoTexto = (props) => {
     }
 
     return (
-        <div className={`${styles['campo-texto']} ${styles.label} ${styles.input}`}>
-            <label>{props.label}</label>
-            <input 
+        <div
+            className={`${styles['campo-texto']} ${props.divClassName}`} // Classe da div
+            style={props.divStyle} // Estilo inline para a div
+        >
+            <label
+                style={props.labelStyle}
+                className={`${styles.label} ${props.labelClassName}`}
+            >
+                {props.label}
+            </label>
+            <input
                 type={props.tipo}
-                value={props.valor} 
-                onChange={aoDigitado} 
+                value={props.valor}
+                onChange={aoDigitado}
                 required={props.obrigatorio}
-                onInput={props.onInput} 
+                onInput={props.onInput}
                 placeholder={props.placeholder}
-                readOnly={props.readOnly} 
-                min={props.min}         
-                maxLength={props.maxLength}           
+                readOnly={props.readOnly}
+                min={props.min}
+                maxLength={props.maxLength}
+                style={props.inputStyle}
+                className={`${styles.input} ${props.className}`}
             />
         </div>
     );

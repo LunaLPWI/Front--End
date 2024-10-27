@@ -31,12 +31,12 @@ function Home() {
   }
 
   return (
-    <div>
+    <div className={styles.home}>
       <Header
         links={links}
         showButton={false}
         buttonText="SAIR"
-        onButtonClick={handleAgendarClick}
+        onButtonClick={handleAgendarClick} 
       />
 
       <section className={styles.heroSection}>
