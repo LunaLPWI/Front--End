@@ -12,9 +12,11 @@ function GerenciamentoCliente() {
         { name: 'ESTOQUE', path: '/estoque' }
     ];
 
-    const handleAgendarClick = () => {
-        alert('Botão Agendar clicado!');
+    const handleLogoutClick = () => {
+        sessionStorage.clear();
+        navigate('/login');
     };
+    
     const headers = ['Nome completo', 'Plano', 'Vencimento do plano', 'Status', 'Celular'];
     const data = [
         ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
@@ -33,7 +35,7 @@ function GerenciamentoCliente() {
                 links={links}
                 showButton={true}
                 buttonText="SAIR"
-                onButtonClick={handleAgendarClick}
+                onButtonClick={handleLogoutClick}
             />
             <section className={styles.management}>
                 <div className={styles.containerManagement}>

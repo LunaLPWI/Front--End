@@ -7,7 +7,7 @@ import { api } from "../../api";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { validarCPF } from '../../utils/global';
-import { limparMascara, inputSomenteTexto } from '../../utils/global';
+import { limparMascara, inputSomenteTexto, validarSenha, regexEmail } from '../../utils/global';
 
 export const Cadastro = () => {
 
@@ -16,17 +16,17 @@ export const Cadastro = () => {
     //==================================================================================================
 
     //**CADASTRO USUARIO**
-    const [nome, setNome] = useState('');
-    const [email, setEmail] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [cellphone, setCellphone] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
+    const [nome, setNome] = useState('teste');
+    const [email, setEmail] = useState('teste@gmail.com');
+    const [cpf, setCpf] = useState('725.495.760-55');
+    const [cellphone, setCellphone] = useState('(11) 91234-5678');
+    const [password, setPassword] = useState('teste1@teste');
+    const [confirmPassword, setConfirmPassword] = useState('teste1@teste');
 
     //**CADASTRO ENDEREÇO**
-    const [cep, setCep] = useState('');
+    const [cep, setCep] = useState('65040-550');
     const [logradouro, setLogradouro] = useState('');
-    const [number, setNumber] = useState('');
+    const [number, setNumber] = useState('1123');
     const [complemento, setComplemento] = useState('');
     const [bairro, setBairro] = useState('');
     const [cidade, setCidade] = useState('');
@@ -41,31 +41,49 @@ export const Cadastro = () => {
     //**LÓGICA DE AVANÇAR ETAPA VALIDANDO AS INPUTS**
 
     const avancarEtapa = () => {
-        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const regexSenha = /^.{6,}$/;
 
         if (!inputSomenteTexto(nome)) {
-            toast.error("Por favor, insira um nome válido (mínimo 2 caracteres).");
+            toast.error("Por favor, insira um nome válido (mínimo 2 caracteres).",{
+            autoClose: 2000,
+            closeOnClick: true
+        });
             return;
         }
 
-        if (!regexEmail.test(email)) {
-            toast.error("Por favor, insira um e-mail válido.");
+        if (!regexEmail(email)) {
+            toast.error("Por favor, insira um e-mail válido.", {
+                autoClose: 2000,
+                closeOnClick: true
+            });
             return;
         }
 
-        if (!regexSenha.test(password)) {
-            toast.error("A senha deve ter no mínimo 6 caracteres.");
+        if (!validarSenha(password)) {
+            toast.error(`A senha deve ter no mínimo:\n
+                 • 6 caracteres\n
+                 • Um número\n
+                 • Um caractere especial\n
+                 • Não pode conter espaços
+                `, {
+                autoClose: 5000,
+                closeOnClick: true
+            });
             return;
         }
 
         if (password !== confirmPassword) {
-            toast.error("As senhas não coincidem.");
+            toast.error("As senhas não coincidem.", {
+                autoClose: 2000,
+                closeOnClick: true
+            });
             return;
         }
 
         if (validarCPF(cpf) === false) {
-            toast.error("CPF inválido");
+            toast.error("CPF inválido", {
+                autoClose: 2000,
+                closeOnClick: true
+            });
             return;
         }
 
@@ -100,85 +118,124 @@ export const Cadastro = () => {
         const regexEstado = /^[A-Za-z]{2}$/;
 
         if (!regexCep.test(cep)) {
-            toast.error("Por favor, insira um CEP válido.");
+            toast.error("Por favor, insira um CEP válido.", {
+                autoClose: 2000,
+                closeOnClick: true
+            }, {
+                autoClose: 2000,
+                closeOnClick: true
+            });
             return;
         }
 
         if (!regexRua.test(logradouro)) {
-            toast.error("Por favor, insira um nome de rua válido.");
+            toast.error("Por favor, insira um nome de rua válido.", {
+                autoClose: 2000,
+                closeOnClick: true
+            }, {
+                autoClose: 2000,
+                closeOnClick: true
+            });
             return;
         }
 
         if (!regexNumero.test(number)) {
-            toast.error("Por favor, insira um número válido.");
+            toast.error("Por favor, insira um número válido.", {
+                autoClose: 2000,
+                closeOnClick: true
+            }, {
+                autoClose: 2000,
+                closeOnClick: true
+            });
             return;
         }
 
         if (!regexComplemento.test(complemento)) {
-            toast.error("Por favor, insira um complemento válido.");
+            toast.error("Por favor, insira um complemento válido.", {
+                autoClose: 2000,
+                closeOnClick: true
+            }, {
+                autoClose: 2000,
+                closeOnClick: true
+            });
             return;
         }
 
         if (!regexBairro.test(bairro)) {
-            toast.error("Por favor, insira um nome de bairro válido.");
+            toast.error("Por favor, insira um nome de bairro válido.", {
+                autoClose: 2000,
+                closeOnClick: true
+            }, {
+                autoClose: 2000,
+                closeOnClick: true
+            });
             return;
         }
 
         if (!regexCidade.test(cidade)) {
-            toast.error("Por favor, insira um nome de cidade válido.");
+            toast.error("Por favor, insira um nome de cidade válido.", {
+                autoClose: 2000,
+                closeOnClick: true
+            }, {
+                autoClose: 2000,
+                closeOnClick: true
+            });
             return;
         }
 
         if (!regexEstado.test(uf)) {
-            toast.error("Por favor, insira um estado válido (ex: SP, RJ).");
+            toast.error("Por favor, insira um estado válido (ex: SP, RJ).", {
+                autoClose: 2000,
+                closeOnClick: true
+            });
             return;
         }
 
 
 
         const objetoAdicionado = {
-            nome,
+            nome: nome,
             cpf: cpfSemMascara,
-            email,
+            email: email,
             cellphone: celularSemMascara,
-            password,
-            adress: {
+            password: password,
+            isAdmin: false,
+            isFuncionario: false,
+            address: {
                 cep: cepSemMascara,
-                logradouro,
-                complemento,
-                cidade,
-                bairro,
-                uf,
-                number
+                logradouro: logradouro,
+                complemento: complemento,
+                cidade: cidade,
+                bairro: bairro,
+                uf: uf,
+                number: number
             }
         };
-        console.log(objetoAdicionado)
-        api.post('/clients', {
-            nome,
-            cpf,
-            email,
-            cellphone,
-            password,
-            adress: {
-                cep,
-                logradouro,
-                complemento,
-                cidade,
-                bairro,
-                uf,
-                number
-            }
-        })
+        api.post('/clients', objetoAdicionado)
             .then(() => {
-                toast.success("Usuário criado com sucesso!");
+                toast.success("Usuário cadastrado com sucesso!", {
+                    autoClose: 2000,
+                    closeOnClick: true
+                });
                 sessionStorage.setItem("editado",
                     JSON.stringify(objetoAdicionado));
-                navigate("/login")
+                setTimeout(() => {
+                    navigate("/login")
+                }, 1000)
 
             })
             .catch((e) => {
-                toast.error("Ocorreu um erro ao salvar os dados, por favor, tente novamente.");
-                console.log(e)
+                if (e.status === 409) {
+                    toast.warn("Email ou CPF já existente", {
+                        autoClose: 2000,
+                        closeOnClick: true
+                    });
+                } else {
+                    toast.error("Ocorreu um erro ao salvar os dados, por favor, tente novamente.", {
+                        autoClose: 2000,
+                        closeOnClick: true
+                    });
+                }
             });
     };
     //**LÓGICA DO POST**

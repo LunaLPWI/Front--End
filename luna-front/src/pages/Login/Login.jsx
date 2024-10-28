@@ -11,8 +11,8 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
+    const [email, setEmail] = useState('teste@gmail.com')
+    const [senha, setSenha] = useState('teste1@teste')
 
     //==================================================================================================
 
@@ -31,19 +31,25 @@ function Login() {
         }
 
         api.post('/clients/login', params)
-            .then(response => {
-                console.log(params)
-                console.log(response.data)
+            .then((response) => {
                 if (response.status === 200) {
                     sessionStorage.setItem('user', JSON.stringify(response.data));
-                    toast.success('Login realizado com sucesso');
+                    toast.success('Login realizado com sucesso',{
+                        autoClose: 2000,
+                        closeOnClick: true
+                    });
                     navigate('/perfil');
                 } else {
-                    toast.error('Email ou senha inválidos');
+                    toast.error('Email ou senha inválidos',{
+                        autoClose: 2000,
+                        closeOnClick: true
+                    });
                 }
-            }).catch(error => {
-                console.error('Erro ao fazer login:', error);
-                toast.error('Erro ao fazer login. Por favor, tente novamente.');
+            }).catch(() => {
+                toast.error('Erro ao fazer login. Por favor, tente novamente.',{
+                    autoClose: 2000,
+                    closeOnClick: true
+                });
             });
 
     }

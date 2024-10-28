@@ -8,14 +8,15 @@ function Agendamento() {
     const links = [
         { name: 'PLANOS', path: '/planos' },
         { name: 'PERFIL', path: '/perfil' },
-        { name: 'AGENDAR', path: '/agendar' },
+        { name: 'AGENDAR', path: '/agendamentos' },
         { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' }
     ];
 
 
-    const handleAgendarClick = () => {
-        alert('Botão Agendar clicado!');
-    };
+    const handleLogoutClick = () => {
+        sessionStorage.clear();
+        navigate('/login');
+      };
 
     return (
         <>
@@ -23,7 +24,7 @@ function Agendamento() {
                 links={links}
                 showButton={true}
                 buttonText="SAIR"
-                onButtonClick={handleAgendarClick}
+                onButtonClick={handleLogoutClick}
             />
             <section className={styles.agenda}>
 
