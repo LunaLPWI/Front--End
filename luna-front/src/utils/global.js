@@ -1,3 +1,26 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+export const RotaPrivada = ({ children }) => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAuthenticated()) {
+            navigate("/login");
+        }
+    }, [navigate]);
+
+    return children; 
+};
+
+export const isAuthenticated = () => {
+    return Boolean(sessionStorage.getItem("token"));
+};
+
+console.log(isAuthenticated());
+
+
+
 export const limparMascara = (valor) => {
     return valor.replace(/\D/g, '');
 };
@@ -18,14 +41,14 @@ export const validarSenha = (senha) => {
     return isValid;
 }
 
-export const regexEmail = (valor) =>{
+export const regexEmail = (valor) => {
     const validarEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const isValid = validarEmail.test(valor);
 
     return isValid;
-} 
-    
+}
+
 
 export function inputSomenteTexto(input) {
     const regexTexto = /^[A-Za-zÀ-ÿ\s]+$/;
