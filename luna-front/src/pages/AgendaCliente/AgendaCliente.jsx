@@ -6,10 +6,6 @@ import styles from './AgendaCliente.module.css'
 
 function AgendaCliente() {
     const links = [
-        { name: 'DASHBOARD', path: '/dashboard' },
-        { name: 'CLIENTES', path: '#' },
-        { name: 'AGENDAS', path: '/gerenciamento-clientes' },
-        { name: 'ESTOQUE', path: '/estoque' }
     ];
 
     const handleAgendarClick = () => {

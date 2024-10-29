@@ -8,13 +8,13 @@ export const RotaPrivada = ({ children }) => {
         if (!isAuthenticated()) {
             navigate("/login");
         }
-    }, [navigate]);
+    }, [navigate] [children]);
 
     return children; 
 };
 
 export const isAuthenticated = () => {
-    return Boolean(sessionStorage.getItem("token"));
+    return Boolean(sessionStorage.getItem("user"));
 };
 
 console.log(isAuthenticated());
