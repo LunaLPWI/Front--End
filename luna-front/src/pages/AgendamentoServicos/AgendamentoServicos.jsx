@@ -3,8 +3,12 @@ import Header from '../../components/Header/Header';
 import styles from './AgendamentoServicos.module.css';
 import SelecaoPlanos from '../../components/SelecaodePlanos/SelecaoPlanos';
 import React, { useState } from 'react';
+import { useUser } from '../../context/userContext';
 
 function AgendamentoServicos() {
+  
+    const { user } = useUser();
+  
   const links = [
     { name: 'PLANOS', path: '/planos' },
     { name: 'PERFIL', path: '/perfil' },

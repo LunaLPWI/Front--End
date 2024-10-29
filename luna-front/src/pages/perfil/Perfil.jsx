@@ -3,39 +3,50 @@ import Header from '../../components/Header/Header';
 import styles from './Perfil.module.css'
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CampoTexto from "../../components/CampoTexto/CampoTexto";
-import { limparMascara, inputNumerosDecimais, mascaraCEP, mascaraCelular, mascaraCEPString, mascaraCelularString } from '../../utils/global'
+import { limparMascara, mascaraCEPString, mascaraCelularString } from '../../utils/global'
 import Botao from '../../components/Botao/Botao';
-import { Flip, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { PerfilEdit } from './PerfilEdit';
 import { PerfilReadOnly } from './PerfilReadOnly';
+import { useUser } from '../../context/userContext';
 
 function Perfil() {
 
-  const dataString = sessionStorage.getItem('user');
-  const data = dataString ? JSON.parse(dataString) : {};
+  const { user } = useUser(); 
   const navigate = useNavigate();
 
-  // Informações do usuário
-  const [nome, setNome] = useState(data.nome || '');
-  const [email, setEmail] = useState(data.email || '');
-  const [cellphone, setCellphone] = useState(data.cellphone || '');
+  const [nome, setNome] = useState(user?.nome || '');
+  const [email, setEmail] = useState(user?.email || '');
+  const [cellphone, setCellphone] = useState(user?.cellphone || '');
 
-  // Informações de endereço
-  const [uf, setUf] = useState(data.address.uf || '');
-  const [cidade, setCidade] = useState(data.address.cidade || '');
-  const [cep, setCep] = useState(data.address.cep || '');
-  const [logradouro, setLogradouro] = useState(data.address.logradouro || '');
-  const [bairro, setBairro] = useState(data.address.bairro || '');
-  const [number, setNumber] = useState(data.address.number || '');
-  const [complemento, setComplemento] = useState(data.address.complemento || '');
+  const [uf, setUf] = useState(user?.address?.uf || '');
+  const [cidade, setCidade] = useState(user?.address?.cidade || '');
+  const [cep, setCep] = useState(user?.address?.cep || '');
+  const [logradouro, setLogradouro] = useState(user?.address?.logradouro || '');
+  const [bairro, setBairro] = useState(user?.address?.bairro || '');
+  const [number, setNumber] = useState(user?.address?.number || '');
+  const [complemento, setComplemento] = useState(user?.address?.complemento || '');
 
+  useEffect(() => {
+    setNome(user?.nome || '');
+    setEmail(user?.email || '');
+    setCellphone(user?.cellphone || '');
+    setUf(user?.address?.uf || '');
+    setCidade(user?.address?.cidade || '');
+    setCep(user?.address?.cep || '');
+    setLogradouro(user?.address?.logradouro || '');
+    setBairro(user?.address?.bairro || '');
+    setNumber(user?.address?.number || '');
+    setComplemento(user?.address?.complemento || '');
+  }, [user]); 
+
+  
   const [readOnly, setReadOnly] = useState(true);
 
   useEffect(() => {
     setCep(mascaraCEPString(cep))
     setCellphone(mascaraCelularString(cellphone))
-  }, [data.address.cep], [data.cellphone])
+  }, [user.address.cep], [user.cellphone])
 
   const links = [
     { name: 'PLANOS', path: '/planos' },
@@ -62,8 +73,8 @@ function Perfil() {
       }
 
       const valoresAtualizados = {
-        nome: nome,
-        email: email,
+        nome,
+        email,
         cellphone: celularSemMascara,
         address: {
           cep: cepSemMascara,
@@ -72,10 +83,10 @@ function Perfil() {
           cidade: dadosCep.localidade || cidade,
           bairro: dadosCep.bairro || bairro,
           uf: dadosCep.uf || uf,
-          number: number
+          number
         }
       };
-
+       console.log("Valores atualizados: ",valoresAtualizados)
       toast.success("Dados atualizados",{
         autoClose: 2000,
         closeOnClick: true
@@ -83,7 +94,7 @@ function Perfil() {
       setReadOnly(true);
 
     } catch (error) {
-      toast.error("CEP não existe !!", {
+      toast.error("CEP não existe", {
         autoClose: 2000,
         closeOnClick: true
       })

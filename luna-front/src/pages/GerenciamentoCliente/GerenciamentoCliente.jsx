@@ -1,10 +1,13 @@
 import '../../global.css';
 import Header from '../../components/Header/Header';
 import DynamicTable from '../../components/Table/Table';
-
+import { useUser } from '../../context/userContext';
 import styles from './GerenciamentoCliente.module.css';
 
 function GerenciamentoCliente() {
+    
+    const { user } = useUser();
+
     const links = [
         { name: 'DASHBOARD', path: '/dashboard' },
         { name: 'CLIENTES', path: '/agenda-clientes' },
@@ -16,7 +19,7 @@ function GerenciamentoCliente() {
         sessionStorage.clear();
         navigate('/login');
     };
-    
+
     const headers = ['Nome completo', 'Plano', 'Vencimento do plano', 'Status', 'Celular'];
     const data = [
         ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
