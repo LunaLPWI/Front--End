@@ -6,8 +6,11 @@ import styles from "./Login.module.css";
 import { toast } from 'react-toastify';
 import { api } from '../../api';
 import { ArrowLeft } from "phosphor-react";
+import { useUser } from "../../context/userContext";
 
 function Login() {
+
+    const { setUser } = useUser();
 
     const navigate = useNavigate();
 
@@ -19,7 +22,7 @@ function Login() {
     //**LÓGICA DO LOGIN**
     const entrar = (e) => {
         e.preventDefault()
-
+        
         if (email === '' || senha === '') {
             toast.error('Preencha todos os campos')
             return
@@ -33,12 +36,28 @@ function Login() {
         api.post('/clients/login', params)
             .then((response) => {
                 if (response.status === 200) {
-                    sessionStorage.setItem('user', JSON.stringify(response.data));
-                    toast.success('Login realizado com sucesso',{
-                        autoClose: 2000,
-                        closeOnClick: true
-                    });
-                    navigate('/perfil');
+                    const userData = response.data;
+                    sessionStorage.setItem('user', JSON.stringify(userData));
+                    setUser(userData);
+                    if(userData.isAdmin === true){
+                        toast.success('Login realizado com sucesso',{
+                            autoClose: 2000,
+                            closeOnClick: true
+                        });
+                        navigate('/perfil')
+                    } else if(userData.isFuncionario === true && userData.isAdmin === false){
+                        toast.success('Login realizado com sucesso',{
+                            autoClose: 2000,
+                            closeOnClick: true
+                        });
+                        navigate('/agenda-clientes')
+                    } else {
+                        toast.success('Login realizado com sucesso',{
+                            autoClose: 2000,
+                            closeOnClick: true
+                        });
+                        navigate('/perfil');
+                    }
                 } else {
                     toast.error('Email ou senha inválidos',{
                         autoClose: 2000,

@@ -1,22 +1,26 @@
 import '../../global.css';
 import Header from '../../components/Header/Header';
 import Calendario from '../../components/Calendario/Calendario';
-
+import { useNavigate } from 'react-router-dom';
 import styles from '../Agendamento/Agendamento.module.css';
+import { useUser } from '../../context/userContext';
 
 function Agendamento() {
+    const { user } = useUser();
+
     const links = [
         { name: 'PLANOS', path: '/planos' },
         { name: 'PERFIL', path: '/perfil' },
         { name: 'AGENDAR', path: '/agendamentos' },
-        { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' }
+        { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' },
     ];
 
 
+    const navigate = useNavigate()
     const handleLogoutClick = () => {
         sessionStorage.clear();
         navigate('/login');
-      };
+    };
 
     return (
         <>
@@ -30,7 +34,7 @@ function Agendamento() {
 
                 <div className={styles.containerAgenda}>
                     <div className={styles.agendaDate}>
-                        <Calendario/>
+                        <Calendario />
                     </div>
                     <div className={styles.service}>
                         <h2>Serviços Selecionados</h2>

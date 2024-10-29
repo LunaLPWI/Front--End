@@ -200,7 +200,7 @@ export const Cadastro = () => {
             cellphone: celularSemMascara,
             password: password,
             isAdmin: false,
-            isFuncionario: false,
+            isFuncionario: true,
             address: {
                 cep: cepSemMascara,
                 logradouro: logradouro,
@@ -217,8 +217,6 @@ export const Cadastro = () => {
                     autoClose: 2000,
                     closeOnClick: true
                 });
-                sessionStorage.setItem("editado",
-                    JSON.stringify(objetoAdicionado));
                 setTimeout(() => {
                     navigate("/login")
                 }, 1000)
