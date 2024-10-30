@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import DynamicTable from '../../components/Table/Table';
 import { useUser } from '../../context/userContext';
 import styles from './GerenciamentoCliente.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function GerenciamentoCliente() {
     
@@ -15,6 +16,7 @@ function GerenciamentoCliente() {
         { name: 'ESTOQUE', path: '/estoque' }
     ];
 
+    const navigate = useNavigate()
     const handleLogoutClick = () => {
         sessionStorage.clear();
         navigate('/login');

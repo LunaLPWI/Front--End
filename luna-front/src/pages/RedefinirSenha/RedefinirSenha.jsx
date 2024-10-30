@@ -76,7 +76,7 @@ export const RedefinirSenha = () => {
   }, [tokenGerado, email]);
 
   const handleEmailExists = () => {
-    if(email === ''){
+    if (email === '') {
       toast.error('Preencha o endereço de e-mail.', {
         transition: Zoom,
         autoClose: 2000,
@@ -84,27 +84,28 @@ export const RedefinirSenha = () => {
       });
     } else {
       api.get('/clients/search-by-email', { params: { email } })
-      .then((response) => {
-        if (response.status === 200) {
-          setEmailExists(true);
-          const generatedToken = tokenGenerator();
-          setTokenGerado(generatedToken);
-        } else {
-          toast.error('Não existe usuário com o endereço de e-mail.', {
+        .then((response) => {
+          if (response.status === 200) {
+            setEmailExists(true);
+            const generatedToken = tokenGenerator();
+            setTokenGerado(generatedToken);
+            setEmail(email)
+          } else {
+            toast.error('Não existe usuário com o endereço de e-mail.', {
+              transition: Zoom,
+              autoClose: 2000,
+              closeOnClick: true
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao verificar e-mail:", error);
+          toast.error("Não existe usuário cadastrado com este email", {
             transition: Zoom,
             autoClose: 2000,
             closeOnClick: true
           });
-        }
-      })
-      .catch((error) => {
-        console.error("Erro ao verificar e-mail:", error);
-        toast.error("Não existe usuário cadastrado com este email", {
-          transition: Zoom,
-          autoClose: 2000,
-          closeOnClick: true
         });
-      });
     }
   };
 
@@ -180,43 +181,28 @@ export const RedefinirSenha = () => {
         closeOnClick: true
       });
     } else {
-
-      api.get('/clients/search-by-email', { params: { email } })
+      const passwordUpdateParams = {
+        email,
+        password: newPassword
+      }
+      api.patch(`/clients/reset-password?email=${email}&newPassword=${passwordUpdateParams.password}`, null)
         .then((response) => {
           if (response.status === 200) {
-            const passwordUpdateParams = {
-              email,
-              password: newPassword
-            };
-            console.log(passwordUpdateParams);
-            api.patch(`/clients/reset-password?email=${passwordUpdateParams.email}&newPassword=${passwordUpdateParams.password}`, null)
-              .then((response) => {
-                if (response.status === 200) {
-                  toast.success("Senha atualizada com sucesso", {
-                    transition: Flip,
-                    autoClose: 2000,
-                    closeOnClick: true
-                  });
-                  navigate('/login')
-                }
-              })
-              .catch((error) => {
-                toast.error("Erro ao redefinir a senha", {
-                  transition: Zoom,
-                  autoClose: 2000,
-                  closeOnClick: true
-                });
-                console.error("Erro ao salvar a senha", error);
-              });
+            toast.success("Senha atualizada com sucesso", {
+              transition: Flip,
+              autoClose: 2000,
+              closeOnClick: true
+            });
+            navigate('/login')
           }
         })
         .catch((error) => {
-          console.error("Erro ao verificar e-mail:", error);
-          toast.error("Erro ao verificar e-mail", {
+          toast.error("Erro ao redefinir a senha", {
             transition: Zoom,
             autoClose: 2000,
             closeOnClick: true
           });
+          console.error("Erro ao salvar a senha", error);
         });
     }
   };
