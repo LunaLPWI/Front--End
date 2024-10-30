@@ -20,6 +20,7 @@ export const RedefinirSenha = () => {
   const [confirmarSenha, setConfirmarSenha] = useState('');
   const [tokenExpirado, setTokenExpirado] = useState(false);
   const [templateParams, setTemplateParams] = useState({});
+  const [emailExists, setEmailExists] = useState(false)
 
 
   //==================================================================================================
@@ -46,38 +47,70 @@ export const RedefinirSenha = () => {
   };
 
   useEffect(() => {
-    if (tokenGerado) {
-      // const domain = getDomain(email);
-      // const { serviceId, templateId } = getEmailServiceParams(domain);
+    if (emailExists && tokenGerado) {
+      const domain = getDomain(email);
+      const { serviceId, templateId } = getEmailServiceParams(domain);
 
-      // setTemplateParams({ message: tokenGerado, to_email: email });
+      setTemplateParams({ message: tokenGerado, to_email: email });
 
-      // if (email) {
-      //   emailjs.send(serviceId, templateId, { message: tokenGerado, to_email: email }, userKeyEmail)
-      //     .then(() => {
-      //       toast.success('Token enviado com sucesso', { transition: Flip,
-      // autoClose: 2000,
-      //                   closeOnClick: true});
-      //       setTokenExpirado(false);
-      //       setTimeout(() => setTokenExpirado(true), 5 * 60 * 1000); // Expira após 5 minutos
-      console.log(tokenGerado)
-      setEtapa(2);
+      emailjs.send(serviceId, templateId, { message: tokenGerado, to_email: email }, userKeyEmail)
+        .then(() => {
+          toast.success('Token enviado com sucesso', {
+            transition: Flip,
+            autoClose: 2000,
+            closeOnClick: true
+          });
+          setTokenExpirado(false);
+          setTimeout(() => setTokenExpirado(true), 5 * 60 * 1000); // Expira após 5 minutos
+          console.log(tokenGerado)
+          setEtapa(2);
 
-      //     })
-      //     .catch(() => {
-      //       toast.error('Não conseguimos enviar o token, verifique se o email está correto', { transition: Zoom,autoClose: 2000,
-      // closeOnClick: true });
-      //     });
-      // } else {
-      //   toast.error('O endereço de e-mail está vazio. Por favor, insira um e-mail válido.', { transition: Zoom, autoClose: 2000,
-      // closeOnClick: true });
-      // }
+        })
+        .catch(() => {
+          toast.error('Não conseguimos enviar o token, verifique se o email está correto', {
+            transition: Zoom, autoClose: 2000,
+            closeOnClick: true
+          });
+        });
     }
   }, [tokenGerado, email]);
 
+  const handleEmailExists = () => {
+    if (email === '') {
+      toast.error('Preencha o endereço de e-mail.', {
+        transition: Zoom,
+        autoClose: 2000,
+        closeOnClick: true
+      });
+    } else {
+      api.get('/clients/search-by-email', { params: { email } })
+        .then((response) => {
+          if (response.status === 200) {
+            setEmailExists(true);
+            const generatedToken = tokenGenerator();
+            setTokenGerado(generatedToken);
+            setEmail(email)
+          } else {
+            toast.error('Não existe usuário com o endereço de e-mail.', {
+              transition: Zoom,
+              autoClose: 2000,
+              closeOnClick: true
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao verificar e-mail:", error);
+          toast.error("Não existe usuário cadastrado com este email", {
+            transition: Zoom,
+            autoClose: 2000,
+            closeOnClick: true
+          });
+        });
+    }
+  };
+
   const handleSendEmail = () => {
-    const generatedToken = tokenGenerator();
-    setTokenGerado(generatedToken);
+    handleEmailExists();
   };
   //**LÓGICA DO EMAIL**
 
@@ -148,43 +181,28 @@ export const RedefinirSenha = () => {
         closeOnClick: true
       });
     } else {
-
-      api.get('/clients/search-by-email', { params: { email } })
+      const passwordUpdateParams = {
+        email,
+        password: newPassword
+      }
+      api.patch(`/clients/reset-password?email=${email}&newPassword=${passwordUpdateParams.password}`, null)
         .then((response) => {
           if (response.status === 200) {
-            let id = response.data.id;
-            const passwordUpdateParams = {
-              id: id,
-              password: newPassword
-            };
-            console.log(passwordUpdateParams);
-            api.patch('/clients/redefine-password', null, { params: passwordUpdateParams })
-              .then((response) => {
-                if (response.status === 200) {
-                  toast.success("Senha atualizada com sucesso", {
-                    transition: Flip,
-                    autoClose: 2000,
-                    closeOnClick: true
-                  });
-                }
-              })
-              .catch((error) => {
-                toast.error("Erro ao redefinir a senha", {
-                  transition: Zoom,
-                  autoClose: 2000,
-                  closeOnClick: true
-                });
-                console.error("Erro ao salvar a senha", error);
-              });
+            toast.success("Senha atualizada com sucesso", {
+              transition: Flip,
+              autoClose: 2000,
+              closeOnClick: true
+            });
+            navigate('/login')
           }
         })
         .catch((error) => {
-          console.error("Erro ao verificar e-mail:", error);
-          toast.error("Erro ao verificar e-mail", {
+          toast.error("Erro ao redefinir a senha", {
             transition: Zoom,
             autoClose: 2000,
             closeOnClick: true
           });
+          console.error("Erro ao salvar a senha", error);
         });
     }
   };

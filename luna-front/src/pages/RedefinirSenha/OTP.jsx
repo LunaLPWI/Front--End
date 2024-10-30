@@ -51,7 +51,7 @@ export function OTP({
 
     const handleReenviarClick = () => {
         if (reenviarHabilitado) {
-            handleSendEmail();
+            handleS(endEmail);
             setReenviarHabilitado(false);
             setTempoRestante(300); // Reinicia o temporizador de 5 minutos
         }
