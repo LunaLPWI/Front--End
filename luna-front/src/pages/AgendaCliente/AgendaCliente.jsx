@@ -1,7 +1,7 @@
 import '../../global.css';
 import Header from '../../components/Header/Header';
 import DynamicTable from '../../components/Table/Table';
-
+import { useNavigate } from 'react-router-dom';
 import styles from './AgendaCliente.module.css'
 
 function AgendaCliente() {
@@ -11,9 +11,11 @@ function AgendaCliente() {
         { name: 'AGENDAS', path: '/gerenciamento-clientes' },
         { name: 'ESTOQUE', path: '/estoque' }
     ];
-
-    const handleAgendarClick = () => {
-        alert('Botão Agendar clicado!');
+    
+    const navigate = useNavigate()
+    const handleLogoutClick = () => {
+        sessionStorage.clear();
+        navigate('/login')
     };
     const headers = ['Horário', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
 
@@ -47,7 +49,7 @@ function AgendaCliente() {
                 links={links}
                 showButton={true}
                 buttonText="SAIR"
-                onButtonClick={handleAgendarClick}
+                onButtonClick={handleLogoutClick}
             />
             <section className={styles.agendaCliente}>
                 <div className={styles.containerAgendaCliente}>
