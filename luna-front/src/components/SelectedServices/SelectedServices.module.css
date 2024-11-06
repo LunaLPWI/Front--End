@@ -1,0 +1,27 @@
+.service h2 {
+    font-size: 1.5rem;
+    color: var(--white);
+}
+
+.service button {
+    cursor: pointer;
+    background: var(--red);
+    border: none;
+    padding: 10px 50px;
+    color: var(--white);
+    font-size: 1.1rem;
+}
+
+.serviceSelected{
+  padding: 10px;
+  height: 600px;
+  color: var(--yellow-100);
+}
+
+.hrAgenda {
+    background-color: var(--red); 
+    border: none;
+    width: 409px;
+    height: 2px; 
+    margin: 12px 0;
+}

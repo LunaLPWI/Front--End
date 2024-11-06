@@ -200,7 +200,7 @@ export const Cadastro = () => {
             cellphone: celularSemMascara,
             password: password,
             isAdmin: false,
-            isFuncionario: true,
+            isFuncionario: false,
             address: {
                 cep: cepSemMascara,
                 logradouro: logradouro,

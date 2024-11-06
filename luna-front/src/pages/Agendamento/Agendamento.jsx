@@ -1,5 +1,6 @@
 import '../../global.css';
 import Header from '../../components/Header/Header';
+import SelectedServices from '../../components/SelectedServices/SelectedServices';
 import Calendario from '../../components/Calendario/Calendario';
 import { useNavigate } from 'react-router-dom';
 import styles from '../Agendamento/Agendamento.module.css';
@@ -37,14 +38,7 @@ function Agendamento() {
                         <Calendario />
                     </div>
                     <div className={styles.service}>
-                        <h2>Serviços Selecionados</h2>
-                        <hr className={styles.hrAgenda} />
-                        <div className={styles.serviceSelected}>
-                            <p>cabelo</p>
-                            <p>barba</p>
-                        </div>
-                        <hr className={styles.hrAgenda} />
-                        <button>Finalizar</button>
+                        <SelectedServices />
                     </div>
                 </div>
             </section>
