@@ -37,10 +37,21 @@ function Selection() {
     if (selectedOption) {
       setAddedServices(prevServices => {
         const newServices = [...prevServices, selectedOption];
+        const tempo = parseInt(selectedOption.tempo);
+        sessionStorage.setItem(
+          selectedOption.value,
+          JSON.stringify({
+            nome: selectedOption.label,
+            valor: selectedOption.valor,
+            tempo: tempo,
+          })
+        );
+  
         return newServices;
       });
     }
   };
+  
 
   const handleRemoveService = (index, value) => {
     setAddedServices(prevServices => {
