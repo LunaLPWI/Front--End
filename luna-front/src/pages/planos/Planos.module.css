@@ -1,0 +1,54 @@
+.container-planos {
+    background-color: black;
+
+    & main {
+        min-height: 100dvh;
+        height: fit-content;
+        display: flex;
+        background: url('../../assets/tesoura-sobre.png') no-repeat center center;
+        background-size: cover;
+        justify-content: center;
+        align-items: center;
+
+        & section {
+            margin: 10px 0 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+    }
+}
+
+/* Animações */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+  }
+  
+  .fade-out {
+    animation: fadeOut 0.5s ease forwards;
+  }
+  
+  /* Keyframes para fadeIn (desce e aparece) */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Keyframes para fadeOut (sobe e desaparece) */
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }

@@ -1,5 +1,6 @@
 .body-perfil {
     background: url('../../assets/clientePerfil.png') center center;
+    background-size: cover;
     overflow: hidden !important;
     height: 100vh;
 }

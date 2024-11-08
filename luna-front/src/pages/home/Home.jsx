@@ -79,18 +79,21 @@ function Home() {
             imageSrc={cabeloService}
             altText="Imagem de exemplo"
             title="Cabelo"
+            texto="AGENDAR"
             onClick={handleLoginClick}
           />
           <Card
             imageSrc={barbaService}
             altText="Imagem de exemplo"
             title="Barba"
+            texto="AGENDAR"
             onClick={handleLoginClick}
           />
           <Card
             imageSrc={cabeloEbarbaService}
             altText="Imagem de exemplo"
             title="Cabelo e Barba"
+            texto="AGENDAR"
             onClick={handleLoginClick}
           />
         </div>
