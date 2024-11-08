@@ -1,0 +1,20 @@
+name: Criar PR para Main
+
+on:
+  push:
+    branches:
+      - tela/selecao-planos  # Branch que dispara a criação da PR ao receber novos commits
+
+jobs:
+  criar-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configurar repositório
+        uses: actions/checkout@v2
+
+      - name: Criar Pull Request para Main
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: tela/selecao-planos      # Branch de origem para a PR
+          destination_branch: main     # Branch de dest
