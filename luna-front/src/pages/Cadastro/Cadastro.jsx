@@ -20,6 +20,7 @@ export const Cadastro = () => {
     const [email, setEmail] = useState('teste@gmail.com');
     const [cpf, setCpf] = useState('725.495.760-55');
     const [cellphone, setCellphone] = useState('(11) 91234-5678');
+    const [dataNasc, setDataNasc] = useState();
     const [password, setPassword] = useState('teste1@teste');
     const [confirmPassword, setConfirmPassword] = useState('teste1@teste');
 
@@ -197,10 +198,8 @@ export const Cadastro = () => {
             nome: nome,
             cpf: cpfSemMascara,
             email: email,
-            cellphone: celularSemMascara,
+            phoneNumber: celularSemMascara,
             password: password,
-            isAdmin: false,
-            isFuncionario: false,
             address: {
                 cep: cepSemMascara,
                 logradouro: logradouro,
@@ -209,7 +208,8 @@ export const Cadastro = () => {
                 bairro: bairro,
                 uf: uf,
                 number: number
-            }
+            },
+            birthDay: dataNasc
         };
         api.post('/clients', objetoAdicionado)
             .then(() => {
@@ -253,6 +253,8 @@ export const Cadastro = () => {
                         setCpf={setCpf}
                         cellphone={cellphone}
                         setCellphone={setCellphone}
+                        dataNasc={dataNasc}
+                        setDataNasc={setDataNasc}
                         password={password}
                         setPassword={setPassword}
                         confirmPassword={confirmPassword}
