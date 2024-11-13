@@ -10,6 +10,7 @@ import Planos from "./pages/Planos/Planos";
 import GerenciamentoCliente from "./pages/GerenciamentoCliente/GerenciamentoCliente";
 import { Cadastro } from "./pages/Cadastro/Cadastro";
 import { RotaPrivada } from "./utils/global";
+import { CadastroFuncionario } from "./pages/CadastroFuncionario/CadastroFuncionario";
 
 export const Rotas = () => {
     return (
@@ -64,6 +65,14 @@ export const Rotas = () => {
                     element={
                         <RotaPrivada>
                             <GerenciamentoCliente />
+                        </RotaPrivada>
+                    }
+                />
+                <Route
+                    path="/criar-funcionario"
+                    element={
+                        <RotaPrivada>
+                            <CadastroFuncionario />
                         </RotaPrivada>
                     }
                 />
