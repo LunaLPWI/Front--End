@@ -44,7 +44,6 @@ function SelectedServices() {
         )}
       </div>
       <hr className={styles.hrAgenda} />
-      <button>Finalizar</button>
     </div>
   );
 }

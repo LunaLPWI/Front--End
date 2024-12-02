@@ -98,3 +98,33 @@
 .timeSlot:hover {
     background-color: #cccaca;
 }
+
+.selected {
+    background-color: var(--yellow-100);
+    color: var(--black);
+    border: 2px solid var(--yellow-100)C;
+}
+
+.confirmButton button{
+    width: 400px;
+    cursor: pointer;
+    background: var(--red);
+    border: none;
+    padding: 10px 50px;
+    color: var(--white);
+    font-size: 1.1rem;
+}
+.funcionarioSelect {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.funcionarioSelect button {
+    border: none;
+    padding: 20px 40px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+

@@ -2,34 +2,45 @@ import React, { useState } from 'react';
 import '../../global.css';
 import styles from './Selection.module.css';
 
-function Selection() {
-  const [dropdownOpen, setDropdownOpen] = useState(Array(4).fill(false));
+function Selection({ onSaveServices }) {
+  const [dropdownOpen, setDropdownOpen] = useState(Array(7).fill(false)); // Corrigido para ter 7 dropdowns
   const [addedServices, setAddedServices] = useState([]);
 
   const options = [
     [
-      { value: 'cabelo_curto', label: 'Cabelo Curto', tempo: '30 minutos', valor: 40.00, descricao: 'Corte de cabelo curto' },
-      { value: 'cabelo_longo', label: 'Cabelo Longo', tempo: '50 minutos', valor: 60.00, descricao: 'Corte de cabelo longo' },
+      { value: 'CORTE', label: 'CORTE', tempo: '30 minutos', valor: 50.00, descricao: 'Corte de cabelo' },
+      { value: 'PEZINHO', label: 'PEZINHO', tempo: '30 minutos', valor: 15.00, descricao: 'Pezinho do cabelo' },
     ],
     [
-      { value: 'barba_simples', label: 'Barba Simples', tempo: '20 minutos', valor: 25.00, descricao: 'Aparar a barba simples' },
-      { value: 'barba_modelada', label: 'Barba Modelada', tempo: '30 minutos', valor: 35.00, descricao: 'Modelar a barba' },
+      { value: 'BARBA', label: 'BARBA', tempo: '30 minutos', valor: 40.00, descricao: 'Aparar barba' },
+      { value: 'PEZINHOCABELOBARBA', label: 'Pezinho cabelo e barba', tempo: '30 minutos', valor: 30.00, descricao: 'Pezinho cabelo e barba' },
     ],
     [
-      { value: 'sobrancelha_alta', label: 'Sobrancelha Alta', tempo: '15 minutos', valor: 20.00, descricao: 'Design de sobrancelha alta' },
-      { value: 'sobrancelha_media', label: 'Sobrancelha Média', tempo: '20 minutos', valor: 25.00, descricao: 'Design de sobrancelha média' },
+      { value: 'SOBRANCELHA', label: 'SOBRANCELHA', tempo: '20 minutos', valor: 20.00, descricao: 'Fazer a sobrancelha' },
     ],
     [
-      { value: 'limpeza_de_pele', label: 'Limpeza de Pele', tempo: '45 minutos', valor: 50.00, descricao: 'Limpeza facial completa' },
-      { value: 'hidratação_facial', label: 'Hidratação Facial', tempo: '30 minutos', valor: 40.00, descricao: 'Hidratação profunda para o rosto' },
+      { value: 'HIDRATACAO', label: 'HIDRATACAO', tempo: '30 minutos', valor: 40.00, descricao: 'Hidratação no cabelo' },
+      { value: 'RELAXAMENTO', label: 'RELAXAMENTO', tempo: '30 minutos', valor: 20.00, descricao: 'Relaxamento no cabelo' },
     ],
+    [
+      { value: 'BOTOX', label: 'BOTOX', tempo: '60 minutos', valor: 65.00, descricao: 'Botox' },
+    ],
+    [
+      { value: 'PLATINADOCORTE', label: 'PLATINADOCORTE', tempo: '180 minutos', valor: 120.00, descricao: 'Platinar e cortar o cabelo' },
+    ],
+    [
+      { value: 'RASPARCABECA', label: 'RASPARCABECA', tempo: '30 minutos', valor: 27.00, descricao: 'Raspar a cabeça' },
+    ]
   ];
 
   const placeholders = [
-    'Selecionar Cabelo',
-    'Selecionar Barba e Bigode',
-    'Selecionar Sobrancelha',
-    'Selecionar Estética Facial',
+    'Selecionar Cabelo',           // 0
+    'Selecionar Barba e Bigode',   // 1
+    'Selecionar Sobrancelha',      // 2
+    'Selecionar Estética Facial',  // 3
+    'Selecionar Botox',            // 4
+    'Selecionar Platinação',       // 5
+    'Selecionar Raspar Cabeça'     // 6
   ];
 
   const handleAddService = (index, value) => {
@@ -46,12 +57,11 @@ function Selection() {
             tempo: tempo,
           })
         );
-  
+
         return newServices;
       });
     }
   };
-  
 
   const handleRemoveService = (index, value) => {
     setAddedServices(prevServices => {
@@ -63,7 +73,7 @@ function Selection() {
     if (remainingOptions.length === 0) {
       setDropdownOpen(prev => {
         const newDropdownOpen = [...prev];
-        newDropdownOpen[index] = false; 
+        newDropdownOpen[index] = false;
         return newDropdownOpen;
       });
     }
@@ -79,6 +89,11 @@ function Selection() {
   const getFilteredOptions = (index) => {
     const selectedValues = addedServices.map(service => service.value);
     return options[index].filter(opt => !selectedValues.includes(opt.value));
+  };
+
+
+  const handleAdvance = () => {
+    onSaveServices(addedServices);
   };
 
   return (
@@ -123,6 +138,7 @@ function Selection() {
           );
         })}
       </div>
+
       <div className={styles.listServices}>
         <h2>Lista de Itens</h2>
         <ul>
@@ -143,6 +159,9 @@ function Selection() {
           )}
         </ul>
       </div>
+
+      {/* Botão "Avançar" chama a função handleAdvance */}
+      <div className={styles.button} onClick={handleAdvance}>Avançar</div>
     </div>
   );
 }
