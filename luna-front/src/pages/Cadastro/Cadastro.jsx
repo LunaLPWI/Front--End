@@ -195,7 +195,7 @@ export const Cadastro = () => {
 
 
         const objetoAdicionado = {
-            nome: nome,
+            name: nome,
             cpf: cpfSemMascara,
             email: email,
             phoneNumber: celularSemMascara,
@@ -209,7 +209,8 @@ export const Cadastro = () => {
                 uf: uf,
                 number: number
             },
-            birthDay: dataNasc
+            birthDay: dataNasc,
+            roles:[""]
         };
         api.post('/clients', objetoAdicionado)
             .then(() => {

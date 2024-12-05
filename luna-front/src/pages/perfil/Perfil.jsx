@@ -104,7 +104,8 @@ function Perfil() {
           bairro: dadosCep.bairro || bairro,
           uf: dadosCep.uf || uf,
           number
-        }
+        },
+        birthDay: dataNasc
       };
       console.log("Valores atualizados: ", valoresAtualizados)
       toast.success("Dados atualizados", {
