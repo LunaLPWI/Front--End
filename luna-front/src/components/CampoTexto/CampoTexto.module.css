@@ -18,13 +18,12 @@
         color: #6F6C6C;
         background-color: white;
 
-        & :focus {
-            outline: none;
-        }
-
         & ::placeholder {
             color: #6f6c6c56;
         }
     }
+}
 
+.campo-texto input:focus{
+    outline: none;
 }

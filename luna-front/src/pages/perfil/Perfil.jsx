@@ -35,7 +35,7 @@ function Perfil() {
   const [complemento, setComplemento] = useState(user?.address?.complemento || '');
 
   useEffect(() => {
-    setNome(user?.nome || '');
+    setNome(user?.name || '');
     setEmail(user?.email || '');
     setDataNasc(user?.dataNasc || '');
     setCellphone(user?.phoneNumber || '');
@@ -46,6 +46,7 @@ function Perfil() {
     setBairro(user?.address?.bairro || '');
     setNumber(user?.address?.number || '');
     setComplemento(user?.address?.complemento || '');
+    setDataNasc(user?.birthDay || '');
   }, [user]);
 
   const [readOnly, setReadOnly] = useState(true);

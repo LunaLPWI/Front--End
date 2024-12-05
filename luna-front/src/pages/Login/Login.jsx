@@ -39,19 +39,20 @@ function Login() {
                     const userData = response.data;
                     sessionStorage.setItem('user', JSON.stringify(userData));
                     setUser(userData);
-                    if (userData.role === 'ROLE_ADMIN') {
+                    if (userData.roles.includes('ROLE_ADMIN')) {
                         toast.success('Login realizado com sucesso', {
                             autoClose: 2000,
                             closeOnClick: true
                         });
-                        navigate('/perfil')
-                    } else if (userData.role === 'ROLE_EMPLOYEE') {
+                        navigate('/estoque')
+                    } else if (userData.roles.includes('ROLE_EMPLOYEE')) {
                         toast.success('Login realizado com sucesso', {
                             autoClose: 2000,
                             closeOnClick: true
                         });
                         navigate('/agenda-clientes')
                     } else {
+                        console.log(userData)
                         toast.success('Login realizado com sucesso', {
                             autoClose: 2000,
                             closeOnClick: true
