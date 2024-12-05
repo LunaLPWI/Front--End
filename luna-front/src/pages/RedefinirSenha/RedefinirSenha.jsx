@@ -185,7 +185,7 @@ export const RedefinirSenha = () => {
         email,
         password: newPassword
       }
-      api.patch(`/clients/reset-password?email=${email}&newPassword=${passwordUpdateParams.password}`, null)
+      api.patch('/clients/reset-password', passwordUpdateParams)
         .then((response) => {
           if (response.status === 200) {
             toast.success("Senha atualizada com sucesso", {

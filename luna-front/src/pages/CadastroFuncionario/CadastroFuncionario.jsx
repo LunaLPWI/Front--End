@@ -210,7 +210,7 @@ export const CadastroFuncionario = () => {
                 number: number
             },
             birthDay: dataNasc,
-            roles: ['ROLE_EMPLOYEE'] 
+            roles: ["ROLE_EMPLOYEE"] 
         };
         api.post('/clients', objetoAdicionado)
             .then(() => {

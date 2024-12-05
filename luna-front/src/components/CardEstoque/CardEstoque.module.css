@@ -1,0 +1,44 @@
+.section-card-estoque {
+  height: 165px;
+  width: 500px;
+  border: 2px var(--red) solid;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--black-100);
+  cursor: pointer;
+  padding: 10px;
+
+  &:hover {
+    background: linear-gradient(90deg, var(--red) 0%, #8B0000 0%, var(--black-100) 25%, var(--black-100) 100%);
+  }
+}
+
+.section-card-estoque img {
+  padding-left: 20px;
+  height: 95%;
+  width: 200px;
+}
+
+.section-card-estoque h1 {
+  padding-left: 50px;
+  font-size: 3em;
+  color: var(--red);
+}
+
+
+.card-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.arrow {
+  font-size: 2em;
+  color: var(--red);
+  margin-left: 10px;
+  position: absolute;
+  left: 495px;
+}
+

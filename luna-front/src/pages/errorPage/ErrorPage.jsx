@@ -4,7 +4,6 @@ import Header from '../../components/Header/Header';
 function ErrorPage() {
   return (
     <div>
-      <Header/>
       <h1>ERROR!!!!!!!!!!!!!!!</h1>
 
     </div>
