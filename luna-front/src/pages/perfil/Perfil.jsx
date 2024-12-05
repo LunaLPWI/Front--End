@@ -16,7 +16,7 @@ function Perfil() {
 
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
-    if (user.role == 'ROLE_ADMIN') setIsAdmin(true)
+    if (user.roles.includes('ROLE_ADMIN')) setIsAdmin(true)
   }, [user.role])
 
   const navigate = useNavigate();
