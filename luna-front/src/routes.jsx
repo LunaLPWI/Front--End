@@ -5,6 +5,7 @@ import Login from "./pages/Login/Login";
 import AgendamentoServicos from "./pages/AgendamentoServicos/AgendamentoServicos";
 import Agendamento from "./pages/Agendamento/Agendamento";
 import AgendaCliente from "./pages/AgendaCliente/AgendaCliente"
+import Financeiro from "./pages/Financeiro/TempFinanceiro"
 import Perfil from "./pages/Perfil/Perfil";
 import { Estoque } from "./pages/Estoque/Estoque";
 import Planos from "./pages/Planos/Planos";
@@ -87,6 +88,12 @@ export const Rotas = () => {
                         </RotaPrivada>
                     }
                 />
+            <Route
+                path="/financeiro"
+                element={<RotaPrivada>
+                    <Financeiro />
+                    </RotaPrivada>}
+            />
             </Routes>
 
         </BrowserRouter>
