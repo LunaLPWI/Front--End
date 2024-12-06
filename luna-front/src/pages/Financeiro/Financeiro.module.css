@@ -1,0 +1,79 @@
+.containerFinanceiro {
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: url('../../assets/fundo-agendamento.png') no-repeat center center/cover;
+}
+
+.dashboardWrapper {
+    padding: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.column {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.columnCardSmall {
+    display: flex;
+    gap: 20px;
+}
+
+.cardSmall {
+    width: 217px;
+    height: 150px;
+    font-size: 12px;
+    padding: 10px;
+    color: var(--white);
+    background: var(--black-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardWide {
+    width: 690px;
+    height: 314px;
+    background: var(--black-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardTall {
+    width: 566px;
+    position: relative;
+    height: 484px;
+    background: var(--black-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardExtraWide {
+    width: 1036px;
+    height: 348px;
+    background: var(--black-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardMedium {
+    width: 586px;
+    height: 348px;
+    background: var(--black-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
