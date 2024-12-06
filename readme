@@ -33,19 +33,11 @@ O projeto visa alcançar os seguintes objetivos principais:
 ## Tecnologias Utilizadas
 
 - **Frontend:** React.js, HTML5, CSS3
-- **Backend:** Node.js, Express
-- **Banco de Dados:** PostgreSQL
+- **Backend:** Java, Springboot
+- **Banco de Dados:** MySQL
 - **Autenticação:** JWT
-- **Notificações:** Firebase Cloud Messaging (FCM)
-- **Deploy:** Heroku / AWS
+- **Deploy:** Azure / AWS
 
-## Como Contribuir
-
-1. Faça o fork deste repositório.
-2. Crie uma branch para sua funcionalidade (`git checkout -b feature/nome-da-funcionalidade`).
-3. Comite suas mudanças (`git commit -am 'Adiciona nova funcionalidade'`).
-4. Envie sua branch (`git push origin feature/nome-da-funcionalidade`).
-5. Abra um Pull Request.
 
 ## Licença
 
