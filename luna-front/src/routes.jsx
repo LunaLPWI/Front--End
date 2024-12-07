@@ -5,11 +5,15 @@ import Login from "./pages/Login/Login";
 import AgendamentoServicos from "./pages/AgendamentoServicos/AgendamentoServicos";
 import Agendamento from "./pages/Agendamento/Agendamento";
 import AgendaCliente from "./pages/AgendaCliente/AgendaCliente"
+import Financeiro from "./pages/Financeiro/TempFinanceiro"
 import Perfil from "./pages/Perfil/Perfil";
+import { Estoque } from "./pages/Estoque/Estoque";
 import Planos from "./pages/Planos/Planos";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import GerenciamentoCliente from "./pages/GerenciamentoCliente/GerenciamentoCliente";
 import { Cadastro } from "./pages/Cadastro/Cadastro";
 import { RotaPrivada } from "./utils/global";
+import { CadastroFuncionario } from "./pages/CadastroFuncionario/CadastroFuncionario";
 
 export const Rotas = () => {
     return (
@@ -59,6 +63,7 @@ export const Rotas = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/redefinir-senha" element={<RedefinirSenha />} />
+                <Route path="/error" element={<ErrorPage />} />
                 <Route
                     path="/gerenciamento-clientes"
                     element={
@@ -67,6 +72,28 @@ export const Rotas = () => {
                         </RotaPrivada>
                     }
                 />
+                <Route
+                    path="/criar-funcionario"
+                    element={
+                        <RotaPrivada>
+                            <CadastroFuncionario />
+                        </RotaPrivada>
+                    }
+                />
+                <Route
+                    path="/estoque"
+                    element={
+                        <RotaPrivada>
+                        <Estoque />
+                        </RotaPrivada>
+                    }
+                />
+            <Route
+                path="/financeiro"
+                element={<RotaPrivada>
+                    <Financeiro />
+                    </RotaPrivada>}
+            />
             </Routes>
 
         </BrowserRouter>

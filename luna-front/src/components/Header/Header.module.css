@@ -12,6 +12,10 @@
     height: 100px;
 }
 
+.active{
+    color: var(--red);
+}
+
 .logo {
     padding: 0.150rem; 
     max-height: 120px; 
