@@ -104,6 +104,7 @@
   align-items: center;
   margin: 10px;
   height: 10%;
+  width: 100%;
 
   & button,
   .add-product-buttons {
