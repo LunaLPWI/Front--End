@@ -210,7 +210,6 @@ export const Cadastro = () => {
                 number: number
             },
             birthDay: dataNasc,
-            roles:["ROLE_ADMIN"]
         };
         api.post('/clients', objetoAdicionado)
             .then(() => {
