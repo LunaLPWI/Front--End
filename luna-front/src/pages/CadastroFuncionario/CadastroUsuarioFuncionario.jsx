@@ -2,11 +2,11 @@
 import React from 'react';
 import Botao from "../../components/Botao/Botao";
 import CampoTexto from "../../components/CampoTexto/CampoTexto";
-import styles from "./Cadastro.module.css";
+import styles from "./CadastroFuncionario.module.css";
 import { useNavigate } from 'react-router-dom';
 import { mascaraCelular, mascaraCPF } from '../../utils/global';
 
-export function CadastroUsuario({
+export function CadastroUsuarioFuncionario({
     nome, setNome,
     email, setEmail,
     cpf, setCpf,
@@ -145,5 +145,3 @@ export function CadastroUsuario({
         </div>
     );
 }
-
-export default CadastroUsuario;

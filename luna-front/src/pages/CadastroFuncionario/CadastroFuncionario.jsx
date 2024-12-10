@@ -1,33 +1,33 @@
 // Cadastro.jsx
 import React, { useState } from 'react';
-import { CadastroUsuario } from './CadastroUsuario';
-import { CadastroEndereco } from './CadastroEndereco';
-import styles from "./Cadastro.module.css";
+import { CadastroUsuarioFuncionario } from './CadastroUsuarioFuncionario';
+import { CadastroEnderecoFuncionario } from './CadastroEnderecoFuncionario';
+import styles from "./CadastroFuncionario.module.css";
 import { api } from "../../api";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { validarCPF } from '../../utils/global';
 import { limparMascara, inputSomenteTexto, validarSenha, regexEmail } from '../../utils/global';
 
-export const Cadastro = () => {
+export const CadastroFuncionario = () => {
 
     const navigate = useNavigate();
 
     //==================================================================================================
 
     //**CADASTRO USUARIO**
-    const [nome, setNome] = useState('teste');
-    const [email, setEmail] = useState('teste@gmail.com');
-    const [cpf, setCpf] = useState('725.495.760-55');
-    const [cellphone, setCellphone] = useState('(11) 91234-5678');
-    const [dataNasc, setDataNasc] = useState();
-    const [password, setPassword] = useState('teste1@teste');
-    const [confirmPassword, setConfirmPassword] = useState('teste1@teste');
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [cellphone, setCellphone] = useState('');
+    const [dataNasc, setDataNasc] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     //**CADASTRO ENDEREÇO**
     const [cep, setCep] = useState('65040-550');
     const [logradouro, setLogradouro] = useState('');
-    const [number, setNumber] = useState('1123');
+    const [number, setNumber] = useState('123');
     const [complemento, setComplemento] = useState('');
     const [bairro, setBairro] = useState('');
     const [cidade, setCidade] = useState('');
@@ -210,16 +210,16 @@ export const Cadastro = () => {
                 number: number
             },
             birthDay: dataNasc,
-            roles:["ROLE_ADMIN"]
+            roles: ["ROLE_EMPLOYEE"] 
         };
         api.post('/clients', objetoAdicionado)
             .then(() => {
-                toast.success("Usuário cadastrado com sucesso!", {
+                toast.success("Funcionário cadastrado com sucesso!", {
                     autoClose: 2000,
                     closeOnClick: true
                 });
                 setTimeout(() => {
-                    navigate("/login")
+                    navigate("/perfil")
                 }, 1000)
 
             })
@@ -245,7 +245,7 @@ export const Cadastro = () => {
         <main className={styles['main-cadastro']}>
             <section className={styles['section-cadastro']}>
                 {etapa === 1 && (
-                    <CadastroUsuario
+                    <CadastroUsuarioFuncionario
                         nome={nome}
                         setNome={setNome}
                         email={email}
@@ -264,7 +264,7 @@ export const Cadastro = () => {
                     />
                 )}
                 {etapa === 2 && (
-                    <CadastroEndereco
+                    <CadastroEnderecoFuncionario
                         cep={cep}
                         setCep={setCep}
                         logradouro={logradouro}
