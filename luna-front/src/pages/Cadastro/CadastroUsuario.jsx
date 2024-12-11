@@ -11,6 +11,7 @@ export function CadastroUsuario({
     email, setEmail,
     cpf, setCpf,
     cellphone, setCellphone,
+    dataNasc, setDataNasc,
     password, setPassword,
     confirmPassword, setConfirmPassword,
     avancarEtapa
@@ -80,6 +81,19 @@ export function CadastroUsuario({
                                 placeholder="(11) 91234-1234"
                             />
                         </div>
+                        <hr />
+
+                        {/* DATA NASCIMENTO */}
+                        <CampoTexto
+                            tipo='date'
+                            valor={dataNasc}
+                            aoAlterado={setDataNasc}
+                            obrigatorio={true}
+                            label="DATA NASCIMENTO"
+                            placeholder="00/00/0000"
+                            maxLength="12"
+                        />
+
                         <hr />
 
                         {/* SENHA */}

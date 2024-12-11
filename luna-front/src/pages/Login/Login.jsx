@@ -14,15 +14,15 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState('teste@gmail.com')
-    const [senha, setSenha] = useState('teste1@teste')
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
 
     //==================================================================================================
 
     //**LÓGICA DO LOGIN**
     const entrar = (e) => {
         e.preventDefault()
-        
+
         if (email === '' || senha === '') {
             toast.error('Preencha todos os campos')
             return
@@ -39,33 +39,34 @@ function Login() {
                     const userData = response.data;
                     sessionStorage.setItem('user', JSON.stringify(userData));
                     setUser(userData);
-                    if(userData.isAdmin === true){
-                        toast.success('Login realizado com sucesso',{
+                    if (userData.roles.includes('ROLE_ADMIN')) {
+                        toast.success('Login realizado com sucesso', {
                             autoClose: 2000,
                             closeOnClick: true
                         });
-                        navigate('/perfil')
-                    } else if(userData.isFuncionario === true && userData.isAdmin === false){
-                        toast.success('Login realizado com sucesso',{
+                        navigate('/estoque')
+                    } else if (userData.roles.includes('ROLE_EMPLOYEE')) {
+                        toast.success('Login realizado com sucesso', {
                             autoClose: 2000,
                             closeOnClick: true
                         });
                         navigate('/agenda-clientes')
                     } else {
-                        toast.success('Login realizado com sucesso',{
+                        console.log(userData)
+                        toast.success('Login realizado com sucesso', {
                             autoClose: 2000,
                             closeOnClick: true
                         });
                         navigate('/perfil');
                     }
                 } else {
-                    toast.error('Email ou senha inválidos',{
+                    toast.error('Email ou senha inválidos', {
                         autoClose: 2000,
                         closeOnClick: true
                     });
                 }
             }).catch(() => {
-                toast.error('Erro ao fazer login. Por favor, tente novamente.',{
+                toast.error('Erro ao fazer login. Por favor, tente novamente.', {
                     autoClose: 2000,
                     closeOnClick: true
                 });
