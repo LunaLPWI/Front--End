@@ -44,10 +44,10 @@ export const Estoque = () => {
   }, [isAdmin]);
 
   const links = [
-    { name: 'DASHBOARD', path: '/dashboard' },
+    { name: 'DASHBOARD', path: '/financeiro' },
     { name: 'CLIENTES', path: '/agenda-clientes' },
-    { name: 'AGENDAS', path: '' },
-    { name: 'ESTOQUE', path: '/estoque' }
+    { name: 'GERENCIAMENTO', path: '/gerenciamento-clientes' },
+    { name: 'PERFIL', path: '/perfil' }
     // { name: 'PERFIL', path: '/perfil' }
   ]
 

@@ -9,7 +9,7 @@ function SelectedServices() {
     for (let i = 0; i < sessionStorage.length; i++) {
       const key = sessionStorage.key(i);
       const service = JSON.parse(sessionStorage.getItem(key));
-      if (service && service.nome && service.valor) {
+      if (service && service.nome && service.valor && service.label) {
         services.push({ key, ...service });
       }
     }
@@ -18,7 +18,13 @@ function SelectedServices() {
 
   const handleRemoveService = (key) => {
     sessionStorage.removeItem(key);
-    setSelectedServices(prevServices => prevServices.filter(service => service.key !== key));
+    setSelectedServices((prevServices) =>
+      prevServices.filter((service) => service.key !== key)
+    );
+  };
+
+  const calculateSubtotal = () => {
+    return selectedServices.reduce((total, service) => total + service.valor, 0).toFixed(2);
   };
 
   return (
@@ -27,9 +33,9 @@ function SelectedServices() {
       <hr className={styles.hrAgenda} />
       <div className={styles.serviceSelected}>
         {selectedServices.length > 0 ? (
-          selectedServices.map(service => (
+          selectedServices.map((service) => (
             <div key={service.key} className={styles.serviceItem}>
-              <p>{service.nome}</p>
+              <p>{service.label}</p>
               <p>R$ {service.valor.toFixed(2)}</p>
               <button
                 className={styles.removeButton}
@@ -43,8 +49,12 @@ function SelectedServices() {
           <p>Nenhum serviço selecionado</p>
         )}
       </div>
+      {selectedServices.length > 0 && (
+        <div className={styles.subtotal}>
+          <strong>Subtotal:</strong> R$ {calculateSubtotal()}
+        </div>
+      )}
       <hr className={styles.hrAgenda} />
-      <button>Finalizar</button>
     </div>
   );
 }
