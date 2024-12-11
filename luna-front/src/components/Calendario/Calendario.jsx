@@ -2,12 +2,19 @@ import React, { useState, useEffect } from "react";
 import styles from "../Calendario/Calendario.module.css";
 import { ArrowLeft, ArrowRight } from "phosphor-react";
 
+const funcionarios = [
+    { id: 1, nome: "Márcio" },
+    { id: 2, nome: "Derick" }
+];
+
 const getDaysOfWeek = (offset = 0) => {
     const currentDate = new Date();
     const currentDay = currentDate.getDay();
 
+    // Calcular a diferença de dias até a próxima terça-feira
+    const daysToNextTuesday = (2 - currentDay + 7) % 7;
     let tuesday = new Date(currentDate);
-    tuesday.setDate(currentDate.getDate() - (currentDay - 2) + offset * 7);
+    tuesday.setDate(currentDate.getDate() + daysToNextTuesday + (offset * 7));
 
     const daysOfWeek = [];
     for (let i = 0; i < 5; i++) {
@@ -23,23 +30,90 @@ const getDaysOfWeek = (offset = 0) => {
     return daysOfWeek;
 };
 
-const generateTimes = (startHour, intervalMinutes, count) => {
-    let times = [];
-    let startTime = new Date();
-    startTime.setHours(startHour, 45, 0, 0);
-    for (let i = 0; i < count; i++) {
-        times.push(startTime.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
-        startTime = new Date(startTime.getTime() + intervalMinutes * 60000);
-    }
-    return times;
-};
 
 const Calendar = () => {
     const [weekOffset, setWeekOffset] = useState(0);
-    const [daysOfWeek, setDaysOfWeek] = useState(getDaysOfWeek(weekOffset));
+    const [daysOfWeek, setDaysOfWeek] = useState(getDaysOfWeek(0));
     const [selectedPeriod, setSelectedPeriod] = useState("Manhã");
     const [selectedDay, setSelectedDay] = useState(daysOfWeek[0]);
     const [availableTimes, setAvailableTimes] = useState([]);
+    const [selectedTime, setSelectedTime] = useState("");
+    const [selectedFuncionario, setSelectedFuncionario] = useState(funcionarios[0].id);
+
+    const formatDateWithoutZ = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day}T${hours}:${minutes}:00`;
+    };
+    
+
+    const fetchAvailableTimes = async () => {
+        try {
+            const currentDay = new Date(selectedDay.date);  // Pega o dia clicado
+
+            // Adiciona um dia à data selecionada
+            currentDay.setDate(currentDay.getDate());
+
+            const start = new Date(currentDay);
+            start.setHours(9, 0, 0, 0);  // Inicia às 9h do dia clicado
+
+            const end = new Date(currentDay);
+            end.setHours(20, 0, 0, 0);  // Finaliza às 20h do mesmo dia
+
+            const startDate = formatDateWithoutZ(start);
+            const endDate = formatDateWithoutZ(end);
+
+            const user = sessionStorage.getItem('user');
+            const parsedUser = user ? JSON.parse(user) : null;
+            const token = parsedUser ? parsedUser.token : null;
+            const clientId = parsedUser ? parsedUser.id : null;
+
+            if (!token || !clientId) {
+                console.error("Token ou clientId não encontrados no objeto 'user'.");
+                return;
+            }
+
+            console.log("Parâmetros enviados para a API:");
+            console.log("start:", startDate);
+            console.log("end:", endDate);
+            console.log("employeeId:", selectedFuncionario);
+            console.log("clientId:", clientId);
+
+            const response = await fetch(`http://localhost:8081/schedules/vacant-schedules?start=${startDate}&end=${endDate}&employeeId=${selectedFuncionario}&clientId=${clientId}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                const errorDetails = await response.text();
+                console.error("Erro ao fazer requisição:", errorDetails);
+                throw new Error(`Erro: ${response.status} - ${response.statusText}`);
+            }
+
+            const contentType = response.headers.get("content-type");
+            if (contentType && contentType.includes("application/json")) {
+                const horariosDisponiveis = await response.json();
+
+                setAvailableTimes(
+                    horariosDisponiveis.map(horario =>
+                        new Date(horario).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+                    )
+                );
+            } else {
+                throw new Error("Resposta não é JSON, possivelmente uma página de erro HTML");
+            }
+        } catch (error) {
+            console.error("Erro ao buscar horários disponíveis:", error);
+        }
+    };
+
+
 
     useEffect(() => {
         setDaysOfWeek(getDaysOfWeek(weekOffset));
@@ -47,78 +121,112 @@ const Calendar = () => {
     }, [weekOffset]);
 
     useEffect(() => {
-        const fetchAvailableTimes = async () => {
-            try {
-                const inicio = `${selectedDay.date}T00:00:00`;
-                const fim = `${selectedDay.date}T23:59:59`;
-
-                const user = sessionStorage.getItem('user');
-                const parsedUser = user ? JSON.parse(user) : null;
-                const token = parsedUser ? parsedUser.token : null;
-                const idClient = parsedUser ? parsedUser.id : null;
-
-                console.log("Token:", token);
-                console.log("idClient:", idClient);
-
-                if (!token || !idClient) {
-                    console.error("Token ou idClient não encontrados no objeto 'user'.");
-                    return;
-                }
-
-                const response = await fetch(`http://localhost:8081/agendamentos/agendamento-vagos?inicio=${inicio}&fim=${fim}&idClient=${idClient}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache',
-                    }
-                });
-
-                if (!response.ok) {
-                    const errorDetails = await response.text(); 
-                    console.error("Erro ao fazer requisição:", errorDetails);
-                    throw new Error(`Erro: ${response.status} - ${response.statusText}`);
-                }
-
-                const contentType = response.headers.get("content-type");
-                if (contentType && contentType.includes("application/json")) {
-                    const horariosDisponiveis = await response.json();
-                    setAvailableTimes(
-                        horariosDisponiveis.map(horario =>
-                            new Date(horario).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-                        )
-                    );
-                } else {
-                    throw new Error("Resposta não é JSON, possivelmente uma página de erro HTML");
-                }
-            } catch (error) {
-                console.error("Erro ao buscar horários disponíveis:", error);
-            }
-        };
         if (selectedDay) {
             fetchAvailableTimes();
         }
-    }, [selectedDay]);
+    }, [selectedDay, selectedFuncionario]);
 
+    const filterTimesByPeriod = (times) => {
+        const startMorning = 9;
+        const startAfternoon = 13;
+        const startNight = 17;
+        const endNight = 20.5;
 
-    const morningTimes = generateTimes(7, 45, 8);
-    const afternoonTimes = generateTimes(13, 45, 8);
-    const nightTimes = generateTimes(18, 45, 8);
+        return times.filter(time => {
+            const [hour, minute] = time.split(":").map(num => parseInt(num, 10));
+            const timeInHours = hour + minute / 60;
 
-    const times =
-        selectedPeriod === "Manhã" ? morningTimes : selectedPeriod === "Tarde" ? afternoonTimes : nightTimes;
-
-    const displayTimes = times.filter(time => availableTimes.includes(time));
-
-    const handleAdvanceWeek = () => {
-        setWeekOffset(prevOffset => prevOffset + 1);
+            if (selectedPeriod === "Manhã" && timeInHours >= startMorning && timeInHours < startAfternoon) {
+                return true;
+            }
+            if (selectedPeriod === "Tarde" && timeInHours >= startAfternoon && timeInHours < startNight) {
+                return true;
+            }
+            if (selectedPeriod === "Noite" && timeInHours >= startNight && timeInHours <= endNight) {
+                return true;
+            }
+            return false;
+        });
     };
 
+    const displayTimes = availableTimes.length > 0 ? filterTimesByPeriod(availableTimes) : [];
+
+    const handleAdvanceWeek = () => setWeekOffset(prevOffset => prevOffset + 1);
+
     const handleReturnWeek = () => {
-        if (weekOffset > 0) {
-            setWeekOffset(prevOffset => prevOffset - 1);
+        if (weekOffset > 0) setWeekOffset(prevOffset => prevOffset - 1);
+    };
+
+    const handleTimeSelect = (time) => setSelectedTime(time);
+    const handleSchedulePost = async () => {
+        try {
+            const user = sessionStorage.getItem('user');
+            const parsedUser = user ? JSON.parse(user) : null;
+
+            const token = parsedUser ? parsedUser.token : null;
+            const clientId = parsedUser ? parsedUser.id : null;
+
+            if (!token || !clientId) {
+                console.error("Token ou clientId não encontrados no objeto 'user'.");
+                return;
+            }
+
+            // Lista de nomes de tarefas esperadas
+            const taskNames = [
+                'CORTE', 'BARBA', 'BOTOX', 'HIDRATACAO',
+                'PEZINHOCABELOBARBA', 'PEZINHO', 'PLATINADOCORTE',
+                'RASPARCABECA', 'SOBRANCELHA', 'RELAXAMENTO'
+            ];
+
+            // Verifica quais nomes estão no sessionStorage
+            const items = [];
+            console.log("Verificando chaves no sessionStorage...");
+            taskNames.forEach(task => {
+                if (sessionStorage.getItem(task)) {
+                    console.log(`Task encontrada: ${task}`);
+                    items.push(task);
+                }
+            });
+
+    
+            const subtractOneDay = (date) => {
+                const adjustedDate = new Date(date);
+                adjustedDate.setDate(adjustedDate.getDate() - 1); // Subtrai 1 dia
+                return adjustedDate;
+            };
+            
+
+            const payload = {
+                clientId: clientId,
+                employeeId: selectedFuncionario,
+                startDateTime: formatDateWithoutZ(
+                    subtractOneDay(new Date(`${selectedDay.date}T${selectedTime}`))
+                ),
+                items: items,
+            };
+            
+
+            console.log("Payload being sent:", JSON.stringify(payload)); // Debug do payload final
+
+            const response = await fetch('http://localhost:8081/schedules', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!response.ok) {
+                const errorDetails = await response.text();
+                console.error("Erro ao fazer requisição:", errorDetails);
+                throw new Error(`Erro: ${response.status} - ${response.statusText}`);
+            }
+
+            console.log("Agendamento realizado com sucesso!");
+            alert("Agendamento realizado com sucesso!");
+        } catch (error) {
+            console.error("Erro ao realizar o agendamento:", error);
         }
     };
 
@@ -128,33 +236,74 @@ const Calendar = () => {
             <div className={styles.containerButton}>
                 <button onClick={handleReturnWeek} className={styles.buttonWeek}> <ArrowLeft size={22} /> voltar</button>
                 <strong>Escolha uma data e período</strong>
-                <button onClick={handleAdvanceWeek} className={styles.buttonWeek} >avançar <ArrowRight size={22} /> </button>
+                <button onClick={handleAdvanceWeek} className={styles.buttonWeek}>avançar <ArrowRight size={22} /> </button>
             </div>
+
             <div className={styles.calendarHeader}>
                 <div className={styles.daysButtons}>
                     {daysOfWeek.map((day, index) => (
-                        <button key={index} onClick={() => setSelectedDay(day)}>
+                        <button
+                            key={index}
+                            onClick={() => setSelectedDay(day)}
+                            className={selectedDay.date === day.date ? styles.selected : ""}
+                        >
                             {day.dayName} ({day.dayDate})
                         </button>
                     ))}
                 </div>
+                <div className={styles.funcionarioSelect}>
+                    {funcionarios.map(func => (
+                        <button
+                            key={func.id}
+                            onClick={() => setSelectedFuncionario(func.id)}
+                            className={selectedFuncionario === func.id ? styles.selected : ""}
+                        >
+                            {func.nome}
+                        </button>
+                    ))}
+                </div>
+
                 <div className={styles.periodButtons}>
-                    <button onClick={() => setSelectedPeriod("Manhã")}>Manhã</button>
-                    <button onClick={() => setSelectedPeriod("Tarde")}>Tarde</button>
-                    <button onClick={() => setSelectedPeriod("Noite")}>Noite</button>
+                    <button
+                        onClick={() => setSelectedPeriod("Manhã")}
+                        className={selectedPeriod === "Manhã" ? styles.selected : ""}
+                    >
+                        Manhã
+                    </button>
+                    <button
+                        onClick={() => setSelectedPeriod("Tarde")}
+                        className={selectedPeriod === "Tarde" ? styles.selected : ""}
+                    >
+                        Tarde
+                    </button>
+                    <button
+                        onClick={() => setSelectedPeriod("Noite")}
+                        className={selectedPeriod === "Noite" ? styles.selected : ""}
+                    >
+                        Noite
+                    </button>
                 </div>
             </div>
+
             <div className={styles.timesList}>
                 {displayTimes.length > 0 ? (
                     displayTimes.map((time, index) => (
-                        <button key={index} className={styles.timeSlot}>
+                        <button
+                            key={index}
+                            onClick={() => handleTimeSelect(time)}
+                            className={`${styles.timeSlot} ${selectedTime === time ? styles.selected : ""}`}
+                        >
                             {time}
                         </button>
                     ))
                 ) : (
-                    <p>Nenhum horário disponível</p>
+                    <p>Nenhum horário disponível para o período selecionado.</p>
                 )}
             </div>
+            <div className={styles.confirmButton}>
+                <button onClick={handleSchedulePost}>Confirmar Agendamento</button>
+            </div>
+
         </section>
     );
 };
