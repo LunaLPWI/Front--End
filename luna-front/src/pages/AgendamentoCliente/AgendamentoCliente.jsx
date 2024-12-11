@@ -10,10 +10,9 @@ function AgendamentoCliente() {
     const links = [
         { name: 'PLANOS', path: '/planos' },
         { name: 'PERFIL', path: '/perfil' },
-        { name: 'AGENDAR', path: '/agendar' },
+        { name: 'SERVIÇOS', path: '/serviços' },
         { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' }
     ];
-
 
     const navigate = useNavigate();
     const headers = ['Nome', 'Barbeiro', 'Serviços', 'Data e Hora'];
@@ -30,7 +29,6 @@ function AgendamentoCliente() {
         try {
             console.log("Iniciando a requisição para carregar a agenda...");
 
-            // Obtendo dados do sessionStorage
             const user = sessionStorage.getItem('user');
             const parsedUser = user ? JSON.parse(user) : null;
             const token = parsedUser?.token;
@@ -71,6 +69,9 @@ function AgendamentoCliente() {
 
             const transformedData = transformScheduleData(result, clientName);
             console.log("Dados transformados para a tabela:", transformedData);
+
+            transformedData.sort((a, b) => new Date(b[3]) - new Date(a[3])); 
+
             setData(transformedData);
         } catch (err) {
             console.error("Erro ao buscar dados:", err);
@@ -84,10 +85,10 @@ function AgendamentoCliente() {
         return schedules.map(schedule => {
             const { startDateTime, nameEmployee, items } = schedule;
 
+            // Formatar a data para o padrão pt-BR sem o "Z"
             const formattedDate = new Date(startDateTime).toLocaleString('pt-BR', {
                 weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
             });
-
 
             const services = items.map(item =>
                 item.description.charAt(0).toUpperCase() + item.description.slice(1).toLowerCase()
@@ -97,7 +98,7 @@ function AgendamentoCliente() {
                 clientName,
                 nameEmployee,
                 services,
-                formattedDate
+                formattedDate 
             ];
         });
     };

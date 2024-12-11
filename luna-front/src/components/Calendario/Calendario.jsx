@@ -11,10 +11,14 @@ const getDaysOfWeek = (offset = 0) => {
     const currentDate = new Date();
     const currentDay = currentDate.getDay();
 
-    // Calcular a diferença de dias até a próxima terça-feira
-    const daysToNextTuesday = (2 - currentDay + 7) % 7;
+    // Calcular a diferença de dias até a terça-feira da semana atual
+    let daysToCurrentTuesday = (2 - currentDay);
+    if (daysToCurrentTuesday > 0) {
+        daysToCurrentTuesday -= 7; // Se for antes de terça, pegue a terça da semana passada
+    }
+
     let tuesday = new Date(currentDate);
-    tuesday.setDate(currentDate.getDate() + daysToNextTuesday + (offset * 7));
+    tuesday.setDate(currentDate.getDate() + daysToCurrentTuesday + (offset * 7));
 
     const daysOfWeek = [];
     for (let i = 0; i < 5; i++) {
@@ -29,6 +33,7 @@ const getDaysOfWeek = (offset = 0) => {
 
     return daysOfWeek;
 };
+
 
 
 const Calendar = () => {
@@ -54,8 +59,8 @@ const Calendar = () => {
         try {
             const currentDay = new Date(selectedDay.date);  // Pega o dia clicado
 
-            // Adiciona um dia à data selecionada
-            currentDay.setDate(currentDay.getDate());
+            // Adiciona um dia à data selecionada rsrsrs
+            currentDay.setDate(currentDay.getDate() + 1);
 
             const start = new Date(currentDay);
             start.setHours(9, 0, 0, 0);  // Inicia às 9h do dia clicado

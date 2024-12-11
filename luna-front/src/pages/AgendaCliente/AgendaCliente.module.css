@@ -7,7 +7,6 @@
 
 .containerAgendaCliente {
     width: 100%;
-    padding: 30px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -18,3 +17,131 @@
     color: var(--yellow);
     padding: 20px;
 }
+
+/* Exemplo simples de botão */
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.clientName {
+    color: var(--red);
+    cursor: pointer;
+}
+
+.modalBackdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 1200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.modalContent h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modalContent p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+.modalContent button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.modalContent button:hover {
+    background-color: #0056b3;
+}
+
+.modalContent .closeButton {
+    background-color: #dc3545;
+}
+
+.modalContent .closeButton:hover {
+    background-color: #c82333;
+}
+
+.leftSide, .rightSide {
+    width: 45%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.leftSide h3, .rightSide h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.item {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item p {
+    margin: 0;
+}
+
+.item button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.item button:hover {
+    background-color: #218838;
+}
+
+.rightSide .item button {
+    background-color: #dc3545;
+}
+
+.rightSide .item button:hover {
+    background-color: #c82333;
+}
+
+

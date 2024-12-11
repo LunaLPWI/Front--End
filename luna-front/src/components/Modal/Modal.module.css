@@ -1,149 +1,108 @@
 .modal {
   position: absolute;
-  width: 600px;
-  height: 600px;
-  background: var(--black);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  border: 1px solid var(--white);
-  border-radius: 10px;
-  padding: 10px 0;
+  z-index: 99999;  /* Aumente o z-index aqui */
+}
 
-  & .fechar {
-    color: var(--white);
-    align-self: end;
-    padding-right: 10px;
+
+.modal .fechar {
+  color: var(--white);
+  align-self: end;
+  padding-right: 10px;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--red);
+  }
+}
+
+.modal .header-modal {
+  width: 90%;
+  text-align: center;
+  background: var(--gray-700);
+  padding: 10px;
+  font-size: 0.7em;
+  color: var(--white);
+  display: block;  /* Garantir que a seção de cabeçalho está visível */
+}
+
+.modal .middle-modal {
+  width: 95%;
+  display: flex;
+  height: 50%;
+  color: white;
+  overflow: visible;  /* Verifique se o conteúdo não está sendo cortado */
+
+  & p{
+    font-size: small;
+    flex-wrap: wrap;
+  }
+
+  & .left-side,
+  .right-side {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    & .content-left-side,
+    .content-right-side {
+      height: 100%;
+      background: var(--gray-900);
+      width: 90%;
+      overflow: visible;  /* Verifique se o conteúdo não está sendo cortado */
+      scrollbar-color: var(--gray-700) transparent;
+      padding: 10px 0px;
+    }
+  }
+}
+
+.modal .status {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  & button {
+    color: white;
+    background: var(--gray-700);
+    border: none;
+    padding: 10px 50px;
+    font-size: 1em;
     cursor: pointer;
 
     &:hover {
-      color: var(--red);
+      background: var(--gray-800);
     }
   }
+}
 
-  & .header-modal {
-    width: 90%;
-    text-align: center;
-    background: var(--gray-700);
-    padding: 10px;
-    font-size: 0.7em;
-    color: var(--white);
-  }
+.modal .button-modal {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
 
-  & .middle-modal {
-    width: 95%;
-    display: flex;
-    height: 50%;
+  & button {
     color: white;
+    background: var(--gray-700);
+    border: none;
+    padding: 15px 80px;
+    font-size: 1em;
+    cursor: pointer;
 
-    & p{
-      font-size: small;
-      flex-wrap: wrap;
-    }
-
-    & .left-side,
-    .right-side {
-      width: 50%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-
-      & .content-left-side,
-      .content-right-side {
-        height: 100%;
-        background: var(--gray-900);
-        width: 90%;
-        overflow: auto;
-        scrollbar-color: var(--gray-700) transparent;
-        padding: 10px 0px;
-
-        & .item-left-side,
-        .item-right-side {
-          display: flex;
-          align-items: center;
-          padding-top: 10px;
-
-          &.content-modal-left-side,
-          .content-modal-right-side {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding: 0 20px;
-
-
-            & .right,
-            .left {
-              display: flex;
-              flex-direction: column;
-            }
-          }
-
-          & .plus {
-            cursor: pointer;
-            align-self: start;
-            padding-right: 10px;
-
-            &:hover {
-              color: var(--green-400);
-            }
-
-          }
-
-          & .minus {
-            cursor: pointer;
-            align-self: start;
-            padding-left: 10px;
-
-            &:hover {
-              color: red;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  & .status {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-
-    & button {
-      color: white;
-      background: var(--gray-700);
-      border: none;
-      padding: 10px 50px;
-      font-size: 1em;
-      cursor: pointer;
-
-      &:hover {
-        background: var(--gray-800);
-      }
-    }
-  }
-
-  & .button-modal {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    position: relative;
-
-    & button {
-      color: white;
-      background: var(--gray-700);
-      border: none;
-      padding: 15px 80px;
-      font-size: 1em;
-      cursor: pointer;
-
-      &:hover {
-        background: var(--gray-800);
-      }
+    &:hover {
+      background: var(--gray-800);
     }
   }
 }
