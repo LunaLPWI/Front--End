@@ -39,7 +39,7 @@ function Financeiro() {
             setLoading(true);
             setError(null);  
             try {
-                const response = await fetch('http://localhost:8081/plans/count-by-plans', {
+                const response = await fetch('http://localhost:8080/plans/count-by-plans', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ function Financeiro() {
         const fetchFrequent = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:8081/finance/revenue/frequence', {
+                const response = await fetch('http://localhost:8080/finance/revenue/frequence', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

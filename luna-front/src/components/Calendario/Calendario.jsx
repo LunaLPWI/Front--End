@@ -87,7 +87,7 @@ const Calendar = () => {
             console.log("employeeId:", selectedFuncionario);
             console.log("clientId:", clientId);
 
-            const response = await fetch(`http://localhost:8081/schedules/vacant-schedules?start=${startDate}&end=${endDate}&employeeId=${selectedFuncionario}&clientId=${clientId}`, {
+            const response = await fetch(`http://localhost:8080/schedules/vacant-schedules?start=${startDate}&end=${endDate}&employeeId=${selectedFuncionario}&clientId=${clientId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -167,22 +167,22 @@ const Calendar = () => {
         try {
             const user = sessionStorage.getItem('user');
             const parsedUser = user ? JSON.parse(user) : null;
-
+    
             const token = parsedUser ? parsedUser.token : null;
             const clientId = parsedUser ? parsedUser.id : null;
-
+    
             if (!token || !clientId) {
                 console.error("Token ou clientId não encontrados no objeto 'user'.");
                 return;
             }
-
+    
             // Lista de nomes de tarefas esperadas
             const taskNames = [
                 'CORTE', 'BARBA', 'BOTOX', 'HIDRATACAO',
                 'PEZINHOCABELOBARBA', 'PEZINHO', 'PLATINADOCORTE',
                 'RASPARCABECA', 'SOBRANCELHA', 'RELAXAMENTO'
             ];
-
+    
             // Verifica quais nomes estão no sessionStorage
             const items = [];
             console.log("Verificando chaves no sessionStorage...");
@@ -192,28 +192,26 @@ const Calendar = () => {
                     items.push(task);
                 }
             });
-
     
-            const subtractOneDay = (date) => {
+            // Função para adicionar 1 dia à data
+            const addOneDay = (date) => {
                 const adjustedDate = new Date(date);
-                adjustedDate.setDate(adjustedDate.getDate() - 1); // Subtrai 1 dia
+                adjustedDate.setDate(adjustedDate.getDate()); // Adiciona 1 dia
                 return adjustedDate;
             };
-            
-
+    
             const payload = {
                 clientId: clientId,
                 employeeId: selectedFuncionario,
                 startDateTime: formatDateWithoutZ(
-                    subtractOneDay(new Date(`${selectedDay.date}T${selectedTime}`))
+                    addOneDay(new Date(`${selectedDay.date}T${selectedTime}`))  // Adiciona 1 dia à data de agendamento
                 ),
                 items: items,
             };
-            
-
+    
             console.log("Payload being sent:", JSON.stringify(payload)); // Debug do payload final
-
-            const response = await fetch('http://localhost:8081/schedules', {
+    
+            const response = await fetch('http://localhost:8080/schedules', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -221,19 +219,20 @@ const Calendar = () => {
                 },
                 body: JSON.stringify(payload),
             });
-
+    
             if (!response.ok) {
                 const errorDetails = await response.text();
                 console.error("Erro ao fazer requisição:", errorDetails);
                 throw new Error(`Erro: ${response.status} - ${response.statusText}`);
             }
-
+    
             console.log("Agendamento realizado com sucesso!");
             alert("Agendamento realizado com sucesso!");
         } catch (error) {
             console.error("Erro ao realizar o agendamento:", error);
         }
     };
+    
 
     return (
         <section className={styles.calendarContainer}>

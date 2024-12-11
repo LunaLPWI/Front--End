@@ -14,8 +14,8 @@ function Login() {
 
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState('teste@gmail.com')
-    const [senha, setSenha] = useState('teste1@teste')
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
 
     //==================================================================================================
 

@@ -37,7 +37,7 @@ function DashColaborador() {
 
       try {
         const servicesResponse = await fetch(
-          `http://localhost:8081/finance/quantity/services-employee?startDate=${startDate}&endDate=${endDate}&funcId=${employeeId}`,
+          `http://localhost:8080/finance/quantity/services-employee?startDate=${startDate}&endDate=${endDate}&funcId=${employeeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ function DashColaborador() {
         console.log('Resposta da API para serviços:', servicesCount);
 
         const productsResponse = await fetch(
-          `http://localhost:8081/finance/quantity/products-employee?startDate=${startDate}&endDate=${endDate}&funcId=${employeeId}`,
+          `http://localhost:8080/finance/quantity/products-employee?startDate=${startDate}&endDate=${endDate}&funcId=${employeeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

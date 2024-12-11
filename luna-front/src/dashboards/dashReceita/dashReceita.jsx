@@ -42,7 +42,7 @@ function DashReceita() {
       try {
         const [servicesResponse, productsResponse] = await Promise.all([
           fetch(
-            `http://localhost:8081/finance/revenue/services?startDate=${startDate}&endDate=${endDate}`,
+            `http://localhost:8080/finance/revenue/services?startDate=${startDate}&endDate=${endDate}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ function DashReceita() {
             }
           ),
           fetch(
-            `http://localhost:8081/finance/revenue/products?startDate=${startDate}&endDate=${endDate}`,
+            `http://localhost:8080/finance/revenue/products?startDate=${startDate}&endDate=${endDate}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,

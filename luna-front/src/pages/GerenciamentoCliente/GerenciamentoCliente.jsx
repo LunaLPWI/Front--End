@@ -25,7 +25,7 @@ function GerenciamentoCliente() {
         navigate('/login');
     };
 
-    const headers = ['Nome completo', 'Plano', 'Vencimento do plano', 'Celular'];
+    const headers = ['Nome completo', 'Plano', 'Vencimento do plano', 'Status', 'Celular'];
 
     const capitalizeName = (name) => {
         if (!name) return name;
@@ -44,6 +44,16 @@ function GerenciamentoCliente() {
         return phoneNumber;  
     };
 
+    const formatDate = (dateString) => {
+        if (!dateString) return 'N/A';
+        const date = new Date(dateString);
+        return date.toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+        });
+    };
+
     const fetchData = async () => {
         try {
             const user = sessionStorage.getItem('user');
@@ -54,7 +64,7 @@ function GerenciamentoCliente() {
                 throw new Error('Token não encontrado. Faça login novamente.');
             }
 
-            const response = await fetch('http://localhost:8081/clients/clients-overview', {
+            const response = await fetch('http://localhost:8080/clients/clients-overview', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
@@ -75,7 +85,12 @@ function GerenciamentoCliente() {
             }
 
             console.log('Resultado JSON:', result);
-            processResponse(result); 
+            if (Array.isArray(result)) {
+                processResponse(result); 
+            } else {
+                console.error('Resposta inesperada da API:', result);  // Adiciona log detalhado da resposta inesperada
+                throw new Error('Resposta inesperada da API');
+            }
         } catch (err) {
             console.error('Erro ao buscar dados:', err);
             setError(err.message || 'Erro desconhecido.');
@@ -88,7 +103,8 @@ function GerenciamentoCliente() {
         const transformedData = result.map(client => [
             capitalizeName(client.name),
             client.planName || 'N/A',
-            client.expireAt ? new Date(client.expireAt).toLocaleDateString('pt-BR') : 'N/A',
+            formatDate(client.expireAt),  // Formatação correta da data
+            client.status || 'N/A',
             formatPhoneNumber(client.phoneNumber),  
         ]);
         setData(transformedData);

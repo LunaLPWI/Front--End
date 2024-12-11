@@ -16,13 +16,13 @@ export const Cadastro = () => {
     //==================================================================================================
 
     //**CADASTRO USUARIO**
-    const [nome, setNome] = useState('teste');
-    const [email, setEmail] = useState('teste@gmail.com');
-    const [cpf, setCpf] = useState('725.495.760-55');
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [cpf, setCpf] = useState('');
     const [cellphone, setCellphone] = useState('(11) 91234-5678');
     const [dataNasc, setDataNasc] = useState();
-    const [password, setPassword] = useState('teste1@teste');
-    const [confirmPassword, setConfirmPassword] = useState('teste1@teste');
+    const [password, setPassword] = useState('Senha@789');
+    const [confirmPassword, setConfirmPassword] = useState('Senha@789');
 
     //**CADASTRO ENDEREÇO**
     const [cep, setCep] = useState('65040-550');

@@ -4,7 +4,7 @@ import styles from './ExportarCSV.module.css';
 const ExportarCSV = ({ token }) => {
   const exportCSV = async () => {
     try {
-      const response = await fetch('http://localhost:8081/finance/download', {
+      const response = await fetch('http://localhost:8080/finance/download', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

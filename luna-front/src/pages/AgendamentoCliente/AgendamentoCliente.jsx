@@ -50,7 +50,7 @@ function AgendamentoCliente() {
             console.log("Client Name:", clientName);
             console.log("Parâmetro start:", formattedStart);
 
-            const url = `http://localhost:8081/schedules/client-schedules?start=${encodeURIComponent(formattedStart)}&clientId=${clientId}`;
+            const url = `http://localhost:8080/schedules/client-schedules?start=${encodeURIComponent(formattedStart)}&clientId=${clientId}`;
             console.log("URL da requisição:", url);
 
             const response = await fetch(url, {

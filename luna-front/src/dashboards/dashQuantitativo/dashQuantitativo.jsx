@@ -42,7 +42,7 @@ function DashQuantitativo() {
       try {
         const [servicesResponse, plansResponse] = await Promise.all([
           fetch(
-            `http://localhost:8081/finance/revenue/services?startDate=${startDate}&endDate=${endDate}`,
+            `http://localhost:8080/finance/revenue/services?startDate=${startDate}&endDate=${endDate}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ function DashQuantitativo() {
             }
           ),
           fetch(
-            `http://localhost:8081/finance/quantity/plans?startDate=${startDate}&endDate=${endDate}`,
+            `http://:8080/finance/quantity/plans?startDate=${startDate}&endDate=${endDate}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,

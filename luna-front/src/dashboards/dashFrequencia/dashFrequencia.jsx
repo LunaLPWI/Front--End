@@ -22,7 +22,7 @@ function DashFrequencia() {
             }
 
             try {
-                const response = await fetch('http://localhost:8081/finance/revenue/frequence', {
+                const response = await fetch('http://localhost:8080/finance/revenue/frequence', {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,

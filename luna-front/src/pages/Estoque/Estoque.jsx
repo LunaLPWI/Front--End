@@ -46,7 +46,7 @@ export const Estoque = () => {
   const links = [
     { name: 'DASHBOARD', path: '/financeiro' },
     { name: 'CLIENTES', path: '/agenda-clientes' },
-    { name: 'GERENCIAMENTO', path: '/gerenciamento-clientes' },
+    { name: 'ESTOQUE', path: '/estoque' },
     { name: 'PERFIL', path: '/perfil' }
     // { name: 'PERFIL', path: '/perfil' }
   ]

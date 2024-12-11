@@ -20,8 +20,8 @@ export const CadastroFuncionario = () => {
     const [email, setEmail] = useState('');
     const [cpf, setCpf] = useState('');
     const [cellphone, setCellphone] = useState('');
-    const [dataNasc, setDataNasc] = useState('');
-    const [password, setPassword] = useState('');
+    const [dataNasc, setDataNasc] = useState('Senha@789');
+    const [password, setPassword] = useState('Senha@789');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     //**CADASTRO ENDEREÇO**
