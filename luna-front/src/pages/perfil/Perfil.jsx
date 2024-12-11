@@ -60,11 +60,11 @@ function Perfil() {
 
   if (isAdmin ? (
     links = [
-      { name: 'DASHBOARD', path: '/dashboard' },
+      { name: 'DASHBOARD', path: '/financeiro' },
       { name: 'CLIENTES', path: '/agenda-clientes' },
-      { name: 'AGENDAS', path: '' },
+      { name: 'GERENCIAMENTO', path: '/gerenciamento-clientes' },
       // { name: 'ESTOQUE', path: '/estoque' },
-      { name: 'PERFIL', path: '/perfil' }
+      { name: 'ESTOQUE', path: '/estoque' }
 
     ]
   ) : (

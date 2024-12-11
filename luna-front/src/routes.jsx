@@ -4,6 +4,7 @@ import { RedefinirSenha } from "./pages/RedefinirSenha/RedefinirSenha";
 import Login from "./pages/Login/Login";
 import AgendamentoServicos from "./pages/AgendamentoServicos/AgendamentoServicos";
 import Agendamento from "./pages/Agendamento/Agendamento";
+import AgendamentoCliente from "./pages/AgendamentoCliente/AgendamentoCliente";
 import AgendaCliente from "./pages/AgendaCliente/AgendaCliente"
 import Financeiro from "./pages/Financeiro/TempFinanceiro"
 import Perfil from "./pages/Perfil/Perfil";
@@ -37,7 +38,7 @@ export const Rotas = () => {
                     }
                 />
                 <Route
-                    path="/agendamento-servicos"
+                    path="/serviços"
                     element={
                         <RotaPrivada>
                             <AgendamentoServicos />
@@ -92,6 +93,12 @@ export const Rotas = () => {
                 path="/financeiro"
                 element={<RotaPrivada>
                     <Financeiro />
+                    </RotaPrivada>}
+            />
+            <Route
+                path="/meus-agendamentos"
+                element={<RotaPrivada>
+                    <AgendamentoCliente />
                     </RotaPrivada>}
             />
             </Routes>

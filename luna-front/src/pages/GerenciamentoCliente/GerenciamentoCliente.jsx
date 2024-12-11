@@ -1,39 +1,104 @@
+import React, { useEffect, useState } from 'react';
 import '../../global.css';
 import Header from '../../components/Header/Header';
 import DynamicTable from '../../components/Table/Table';
 import { useUser } from '../../context/userContext';
-import styles from './GerenciamentoCliente.module.css';
 import { useNavigate } from 'react-router-dom';
+import styles from './GerenciamentoCliente.module.css';
 
 function GerenciamentoCliente() {
-    
     const { user } = useUser();
+    const navigate = useNavigate();
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const links = [
-        { name: 'DASHBOARD', path: '/dashboard' },
-        { name: 'CLIENTES', path: '/agenda-clientes' },
-        { name: 'AGENDAS', path: '' },
+        { name: 'DASHBOARD', path: '/financeiro' },
+        { name: 'PERFIL', path: '/perfil' },
+        { name: 'AGENDAS', path: '/agenda-clientes' },
         { name: 'ESTOQUE', path: '/estoque' }
     ];
 
-    const navigate = useNavigate()
     const handleLogoutClick = () => {
         sessionStorage.clear();
         navigate('/login');
     };
 
-    const headers = ['Nome completo', 'Plano', 'Vencimento do plano', 'Status', 'Celular'];
-    const data = [
-        ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
-        ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
-        ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
-        ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
-        ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
-        ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
-        ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
-        ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
-        ['João Caetano', 'Plano A', '20/03/2025', 'Ativo', '(11) 93243-3242'],
-    ];
+    const headers = ['Nome completo', 'Plano', 'Vencimento do plano', 'Celular'];
+
+    const capitalizeName = (name) => {
+        if (!name) return name;
+        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    };
+
+    const formatPhoneNumber = (phoneNumber) => {
+        if (!phoneNumber) return phoneNumber;
+
+        const cleaned = phoneNumber.replace(/\D/g, '');
+
+        const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+        if (match) {
+            return `(${match[1]}) ${match[2]}-${match[3]}`;
+        }
+        return phoneNumber;  
+    };
+
+    const fetchData = async () => {
+        try {
+            const user = sessionStorage.getItem('user');
+            const parsedUser = user ? JSON.parse(user) : null;
+            const token = parsedUser ? parsedUser.token : null;
+
+            if (!token) {
+                throw new Error('Token não encontrado. Faça login novamente.');
+            }
+
+            const response = await fetch('http://localhost:8081/clients/clients-overview', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            console.log('Status da Resposta:', response.status);  
+            console.log('Tipo de Conteúdo:', response.headers.get('content-type')); 
+
+            const text = await response.text(); 
+            console.log('Resposta recebida:', text);
+
+            let result;
+            try {
+                result = JSON.parse(text); 
+            } catch (error) {
+                throw new Error(`Erro ao parsear a resposta como JSON: ${error.message}`);
+            }
+
+            console.log('Resultado JSON:', result);
+            processResponse(result); 
+        } catch (err) {
+            console.error('Erro ao buscar dados:', err);
+            setError(err.message || 'Erro desconhecido.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const processResponse = (result) => {
+        const transformedData = result.map(client => [
+            capitalizeName(client.name),
+            client.planName || 'N/A',
+            client.expireAt ? new Date(client.expireAt).toLocaleDateString('pt-BR') : 'N/A',
+            formatPhoneNumber(client.phoneNumber),  
+        ]);
+        setData(transformedData);
+    };
+
+    useEffect(() => {
+        console.log('useEffect chamado');
+        fetchData();
+    }, []);
+
     return (
         <div>
             <Header
@@ -45,7 +110,13 @@ function GerenciamentoCliente() {
             <section className={styles.management}>
                 <div className={styles.containerManagement}>
                     <h1>GERENCIAMENTO DOS CLIENTES - VISÃO GERAL</h1>
-                    <DynamicTable headers={headers} data={data} useFilter={true} usePagination={true} />
+                    {isLoading ? (
+                        <p>Carregando...</p>
+                    ) : error ? (
+                        <p className={styles.error}>{error}</p>
+                    ) : (
+                        <DynamicTable headers={headers} data={data} useFilter={true} usePagination={true} />
+                    )}
                 </div>
             </section>
         </div>

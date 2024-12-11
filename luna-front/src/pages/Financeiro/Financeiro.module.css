@@ -1,9 +1,9 @@
 .containerFinanceiro {
     min-height: 100vh;
-    padding: 20px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    flex-direction: column;
     background: url('../../assets/fundo-agendamento.png') no-repeat center center/cover;
 }
 
@@ -35,14 +35,22 @@
 }
 
 .cardSmall {
-    width: 217px;
+    width: 335px;
     height: 150px;
-    font-size: 12px;
+    font-size: 16px;
     padding: 10px;
     color: var(--white);
     background: var(--black-200);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cardSmall p {
+    color: var(--red);
+    margin: 0;
+    padding: 0;
+    font-size: 50px;  
+    font-weight: bold;
 }
 
 .cardWide {
