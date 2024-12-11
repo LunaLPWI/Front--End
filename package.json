@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "node ./luna-front/src/app.jsx",
-    "postinstall": "cd luna-front/src && npm install"
+    "postinstall": "cd luna-front && npm install"
   }
 }
 
