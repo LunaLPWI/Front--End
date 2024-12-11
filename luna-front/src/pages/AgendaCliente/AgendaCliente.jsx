@@ -135,12 +135,62 @@ function AgendaCliente() {
     }, []);
 
     const ClientModal = ({ isOpen, client, onClose }) => {
-        const [leftSideItems, setLeftSideItems] = useState([
-            { name: 'Corte de Cabelo Masculino', mark: 'Barbearia Don Roque', qtd: 15, value: 30.00 },
-            { name: 'Corte de Cabelo Feminino', mark: 'Barbearia Don Roque', qtd: 10, value: 40.00 },
-            { name: 'Barba Completa', mark: 'Barbearia Don Roque', qtd: 20, value: 25.00 },
-        ]);
+
+        const [leftSideItems, setLeftSideItems] = useState([]);
         const [rightSideItems, setRightSideItems] = useState([]);
+
+        useEffect(() => {
+            let isMounted = true;
+            const loadProducts = async () => {
+                try {
+                    const user = sessionStorage.getItem('user');
+                    const parsedUser = user ? JSON.parse(user) : null;
+                    const token = parsedUser?.token;
+        
+                    if (!token) {
+                        throw new Error("Token de autenticação não encontrado.");
+                    }
+        
+                    const response = await fetch('/products', {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            'Content-Type': 'application/json',
+                        },
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error(`Erro ao carregar produtos: ${response.status} ${response.statusText}`);
+                    }
+        
+                    const products = await response.json();
+                    if (isMounted) {
+                        setLeftSideItems(products.map(product => ({
+                            name: product.name,
+                            mark: product.mark || "Sem marca",
+                            qtd: product.quantity,
+                            value: product.price,
+                        })));
+                    }
+                } catch (error) {
+                    console.error('Erro ao buscar produtos:', error);
+                    if (isMounted) {
+                        toast.error('Erro ao carregar produtos. Tente novamente.', {
+                            autoClose: 2000,
+                            closeOnClick: true,
+                        });
+                    }
+                }
+            };
+        
+            if (isOpen) {
+                loadProducts();
+            }
+        
+            return () => {
+                isMounted = false;
+            };
+        }, [isOpen]);
+        
     
         const addQtdProduct = (name) => {
             setLeftSideItems(prevLeftItems =>
