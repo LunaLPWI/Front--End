@@ -15,6 +15,7 @@ function AgendaCliente() {
     const [error, setError] = useState(null);
     const [selectedClient, setSelectedClient] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [stockItems, setStockItems] = useState([]);
 
     const handleLogoutClick = () => {
         sessionStorage.clear();
@@ -40,14 +41,17 @@ function AgendaCliente() {
                 setIsLoading(false);
                 return;
             }
+
             const start = new Date();
             const end = new Date();
             end.setDate(end.getDate() + 5);
 
             const formattedStart = start.toISOString().slice(0, -1);
             const formattedEnd = end.toISOString().slice(0, -1);
+            console.log("Start date:", formattedStart, "End date:", formattedEnd);
 
             const url = `http://localhost:8081/schedules/busy-schedules-admin?start=${encodeURIComponent(formattedStart)}&end=${encodeURIComponent(formattedEnd)}&employeeId=${employeeId}`;
+            console.log("Request URL:", url);
 
             const response = await fetch(url, {
                 headers: {
@@ -59,15 +63,60 @@ function AgendaCliente() {
             if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
             }
+
             const result = await response.json();
+            console.log("Response data:", result);
+
             const transformedData = transformScheduleData(result);
+            console.log("Transformed data:", transformedData);
+
             setData(transformedData);
         } catch (err) {
+            console.error("Error:", err.message || "Erro desconhecido.");
             setError(err.message || "Erro desconhecido.");
         } finally {
             setIsLoading(false);
         }
     };
+
+    const fetchStockItems = async () => {
+        try {
+            const user = sessionStorage.getItem('user');
+            const parsedUser = user ? JSON.parse(user) : null;
+            const token = parsedUser?.token;
+
+            if (!token) {
+                setError("Erro de autenticação. Faça login novamente.");
+                return;
+            }
+
+            const response = await fetch('http://localhost:8081/products', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`Erro na requisição de produtos: ${response.status} ${response.statusText}`);
+            }
+
+            const products = await response.json();
+            console.log("Produtos retornados pela API:", products);
+
+            if (products.length === 0) {
+                console.log("Nenhum produto disponível.");
+            } else {
+                console.log("Produtos carregados:", products);
+            }
+
+            setStockItems(products);
+        } catch (err) {
+            setError(err.message || "Erro desconhecido ao buscar produtos.");
+            console.error(err);
+        }
+    };
+
 
     const transformScheduleData = (schedules) => {
         const daysOfWeek = ['Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
@@ -93,12 +142,12 @@ function AgendaCliente() {
                         <span
                             className={styles.clientName}
                             onClick={() => handleClientClick({
-                                name: capitalize(clientName),
-                                service: capitalize(serviceDescription),
+                                name: clientName,
+                                service: serviceDescription,
                                 time: timeString
                             })}
                         >
-                            {capitalize(clientName)} 
+                            {clientName}
                         </span>
                     );
                 }
@@ -123,153 +172,171 @@ function AgendaCliente() {
         return timeSlots;
     };
 
-    const capitalize = (str) => {
-        return str
-            .split(' ')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ');
-    };
-
     useEffect(() => {
         fetchData();
+        fetchStockItems();
     }, []);
 
     const ClientModal = ({ isOpen, client, onClose }) => {
-
-        const [leftSideItems, setLeftSideItems] = useState([]);
         const [rightSideItems, setRightSideItems] = useState([]);
+        const [productItemsInSchedule, setProductItemsInSchedule] = useState(client?.items || []);
+
+        
 
         useEffect(() => {
-            let isMounted = true;
-            const loadProducts = async () => {
-                try {
-                    const user = sessionStorage.getItem('user');
-                    const parsedUser = user ? JSON.parse(user) : null;
-                    const token = parsedUser?.token;
-        
-                    if (!token) {
-                        throw new Error("Token de autenticação não encontrado.");
-                    }
-        
-                    const response = await fetch('/products', {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json',
-                        },
-                    });
-        
-                    if (!response.ok) {
-                        throw new Error(`Erro ao carregar produtos: ${response.status} ${response.statusText}`);
-                    }
-        
-                    const products = await response.json();
-                    if (isMounted) {
-                        setLeftSideItems(products.map(product => ({
-                            name: product.name,
-                            mark: product.mark || "Sem marca",
-                            qtd: product.quantity,
-                            value: product.price,
-                        })));
-                    }
-                } catch (error) {
-                    console.error('Erro ao buscar produtos:', error);
-                    if (isMounted) {
-                        toast.error('Erro ao carregar produtos. Tente novamente.', {
-                            autoClose: 2000,
-                            closeOnClick: true,
-                        });
-                    }
-                }
-            };
-        
-            if (isOpen) {
-                loadProducts();
+            if (client) {
+                setProductItemsInSchedule(client.items || []);
+                console.log('Produtos no agendamento:', client.items || []);
             }
-        
-            return () => {
-                isMounted = false;
-            };
-        }, [isOpen]);
-        
-    
+        }, [client]);
+
         const addQtdProduct = (name) => {
-            setLeftSideItems(prevLeftItems =>
-                prevLeftItems.map(item =>
-                    item.name === name && item.qtd > 0 ? { ...item, qtd: item.qtd - 1 } : item
-                )
-            );
-    
-            const itemToAdd = leftSideItems.find(item => item.name === name);
+            // Encontrar o produto que foi selecionado
+            const itemToAdd = stockItems.find(item => item.name === name);
             if (itemToAdd) {
+                addProductToSchedule(client.id, itemToAdd);
+        
                 setRightSideItems(prevRightItems => {
                     const existingItem = prevRightItems.find(cartItem => cartItem.name === name);
                     if (existingItem) {
                         return prevRightItems.map(cartItem =>
-                            cartItem.name === name ? { ...cartItem, qtd: cartItem.qtd + 1 } : cartItem
+                            cartItem.name === name ? { ...cartItem, amount: cartItem.amount + 1 } : cartItem
                         );
                     } else {
-                        return [...prevRightItems, { ...itemToAdd, qtd: 1 }];
+                        return [...prevRightItems, { ...itemToAdd, amount: 1 }];
                     }
                 });
             }
         };
-    
+        
+
+        const addProductToSchedule = async (clientId, product) => {
+            try {
+                if (!clientId || !product.id) {
+                    throw new Error("Client ID ou Product ID inválido.");
+                }
+        
+                console.log("Client ID:", clientId);
+                console.log("Product ID:", product.id);
+                console.log("Product Name:", product.name);
+        
+                const user = sessionStorage.getItem('user');
+                const parsedUser = user ? JSON.parse(user) : null;
+                const token = parsedUser?.token;
+        
+                if (!token) {
+                    setError("Erro de autenticação. Faça login novamente.");
+                    return;
+                }
+        
+                // Fazendo a requisição PUT para adicionar o produto ao agendamento
+                const response = await fetch('http://localhost:8081/schedules/add-products', {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: clientId, // ID do cliente
+                        products: [
+                            {
+                                id: product.id, // ID do produto
+                                productName: product.name,
+                                amount: 1, // Adicionando 1 produto por vez
+                                price: product.price,
+                            }
+                        ]
+                    }),
+                });
+        
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Erro na requisição: ${response.status} ${response.statusText}. Resposta do servidor: ${errorText}`);
+                }
+        
+                const result = await response.json();
+                console.log("Produto adicionado com sucesso:", result);
+        
+                // Atualizar a lista de produtos do agendamento
+                setProductItemsInSchedule(prevItems => [
+                    ...prevItems,
+                    `${product.name} - R$ ${product.price.toFixed(2)}`
+                ]);
+        
+                // Atualizar o estoque
+                setStockItems(prevStockItems =>
+                    prevStockItems.map(item =>
+                        item.name === product.name ? { ...item, amount: item.amount - 1 } : item
+                    )
+                );
+        
+            } catch (err) {
+                setError(err.message || "Erro desconhecido.");
+                console.error("Erro ao adicionar produto:", err);
+            }
+        };
+        
         const removeQtdProduct = (name) => {
             const itemToRemove = rightSideItems.find(item => item.name === name);
-    
+
             if (itemToRemove) {
                 setRightSideItems(prevRightItems =>
                     prevRightItems
                         .map(item =>
-                            item.name === name && item.qtd > 0 ? { ...item, qtd: item.qtd - 1 } : item
+                            item.name === name && item.amount > 0 ? { ...item, amount: item.amount - 1 } : item
                         )
-                        .filter(item => item.qtd > 0)
+                        .filter(item => item.amount > 0)
                 );
-    
-                setLeftSideItems(prevLeftItems =>
+
+                setStockItems(prevLeftItems =>
                     prevLeftItems.map(item =>
-                        item.name === name ? { ...item, qtd: item.qtd + 1 } : item
+                        item.name === name ? { ...item, amount: item.amount + 1 } : item
                     )
                 );
             }
         };
-    
+
         const handleClose = () => {
             if (window.confirm('Você perderá as alterações. Tem certeza que deseja fechar?')) {
                 onClose();
             }
         };
-    
+
         if (!isOpen) return null;
-    
+
         return (
             <div className={styles.modalBackdrop}>
                 <div className={styles.modalContent}>
                     <h2>Detalhes do Cliente</h2>
-                    <p>Nome: {capitalize(client.name)}</p>
-                    <p>Serviço: {capitalize(client.service)}</p>
+                    <p>Nome: {client.name}</p>
+                    <p>Serviço: {client.service}</p>
                     <p>Horário: {client.time}</p>
                     <div className={styles.leftSide}>
                         <h3>Produtos do estoque</h3>
-                        {leftSideItems.map((item, index) => (
-                            <div key={index} className={styles.item}>
-                                <p>{capitalize(item.name)}</p>
-                                <p>R$ {item.value.toFixed(2)}</p>
-                                <p>QTD: {item.qtd}</p>
-                                <button onClick={() => addQtdProduct(item.name)}>Adicionar</button>
-                            </div>
-                        ))}
+                        {stockItems.length === 0 ? (
+                            <p>Não há produtos disponíveis.</p>
+                        ) : (
+                            stockItems.map((item, index) => (
+                                <div key={index} className={styles.item}>
+                                    <p>{item.name}</p>
+                                    <p>R$ {item.price.toFixed(2)}</p>
+                                    <p>QTD: {item.amount}</p>
+                                    <button onClick={() => addQtdProduct(item.name)}>Adicionar</button>
+                                </div>
+                            ))
+                        )}
                     </div>
                     <div className={styles.rightSide}>
                         <h3>Produtos do agendamento</h3>
-                        {rightSideItems.map((item, index) => (
-                            <div key={index} className={styles.item}>
-                                <p>{capitalize(item.name)}</p>
-                                <p>R$ {item.value.toFixed(2)}</p>
-                                <p>QTD: {item.qtd}</p>
-                                <button onClick={() => removeQtdProduct(item.name)}>Remover</button>
-                            </div>
-                        ))}
+                        {productItemsInSchedule.length === 0 ? (
+                            <p>Não há produtos neste agendamento.</p>
+                        ) : (
+                            productItemsInSchedule.map((item, index) => (
+                                <div key={index} className={styles.item}>
+                                    <p>{item}</p>
+                                </div>
+                            ))
+                        )}
                     </div>
                     <button className={styles.closeButton} onClick={handleClose}>Fechar</button>
                     <button>Finalizar</button>
@@ -277,7 +344,7 @@ function AgendaCliente() {
             </div>
         );
     };
-    
+
     return (
         <>
             <Header
