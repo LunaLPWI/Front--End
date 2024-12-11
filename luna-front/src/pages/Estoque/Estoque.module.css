@@ -11,6 +11,27 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+
+    & .desfazer {
+      display: flex;
+      justify-content: end;
+      width: 83%;
+      padding-bottom: 5px;
+
+      & button {
+        border: 2px solid red;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 10px;
+        background: transparent;
+        color: white;
+
+        &:hover {
+          background: red;
+        }
+      }
+    }
 
     & section {
       height: 90%;
@@ -60,20 +81,59 @@
         & .textos-categoria {
           border: 2px solid var(--red);
           border-radius: 10px;
-          height: 130px;
+          height: 200px;
           margin: 30px;
           display: flex;
+          flex-direction: column;
           justify-content: space-between;
           align-items: center;
           color: var(--white);
           background: var(--gray-700);
 
-          & .left,
-          .right {
+          & section {
             display: flex;
-            flex-direction: column;
-            padding: 60px;
-            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            width: 100%;
+
+            & .left,
+            .right {
+              display: flex;
+              flex-direction: column;
+              gap: 20px;
+            }
+          }
+
+          & .botoes-card {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            height: 80px;
+
+            & .excluir {
+              border: 2px solid red;
+              padding: 10px;
+              cursor: pointer;
+              border-radius: 10px;
+
+              &:hover {
+                background: red;
+              }
+            }
+
+            & .editar {
+              border: 2px solid white;
+              padding: 10px;
+              cursor: pointer;
+              border-radius: 10px;
+
+              &:hover {
+                background: white;
+                color: black
+              }
+            }
           }
 
           & h1 {
@@ -140,7 +200,8 @@
     background: var(--gray-700);
     padding: 20px;
 
-    & .conteudo-esquerdo, .conteudo-direito {
+    & .conteudo-esquerdo,
+    .conteudo-direito {
       padding: 20px;
       display: flex;
       flex-direction: column;
