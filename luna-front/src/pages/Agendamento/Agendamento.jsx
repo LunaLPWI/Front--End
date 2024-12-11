@@ -16,7 +16,6 @@ function Agendamento() {
         { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' },
     ];
 
-
     const navigate = useNavigate()
     const handleLogoutClick = () => {
         sessionStorage.clear();

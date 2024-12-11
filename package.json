@@ -1,5 +1,13 @@
 {
+  "name": "luna-front",
+  "version": "0.0.1",
+  "private": true,
   "dependencies": {
     "payment-token-efi": "^3.0.3"
+  },
+  "scripts": {
+    "start": "node ./luna-front/src/app.jsx",
+    "postinstall": "cd luna-front/src && npm install"
   }
 }
+
