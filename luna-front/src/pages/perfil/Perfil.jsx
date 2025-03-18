@@ -219,7 +219,7 @@ function Perfil() {
               </>
             ) : (
               <>
-                <h1>Plano</h1>
+                {/* <h1>Plano</h1>
                 <section className={styles.plano}>
                   <div className={styles.container}>
                     <h2>Seu plano: <span>{plano}</span></h2>
@@ -234,7 +234,7 @@ function Perfil() {
                       />
                     </div>
                   </div>
-                </section>
+                </section> */}
               </>
             )}
           </div>

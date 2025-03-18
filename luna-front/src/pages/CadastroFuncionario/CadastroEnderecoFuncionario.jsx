@@ -78,7 +78,6 @@ export function CadastroEnderecoFuncionario({
                             obrigatorio={true}
                             onInput={mascaraCEP}
                             label="CEP"
-                            placeholder="12345-203"
                         />
                         <hr />
 
@@ -88,7 +87,6 @@ export function CadastroEnderecoFuncionario({
                             valor={logradouro}
                             aoAlterado={setLogradouro}
                             label="Logradouro"
-                            placeholder="Rua Caleb Pereira"
                             readOnly={true}
                         />
                         <hr />
@@ -103,7 +101,6 @@ export function CadastroEnderecoFuncionario({
                                 obrigatorio={true}
                                 onInput={inputNumerosDecimais}
                                 label="NÚMERO"
-                                placeholder="123"
                                 min="1"
                                 maxLength="5"
                             />
@@ -115,7 +112,6 @@ export function CadastroEnderecoFuncionario({
                                 valor={complemento}
                                 aoAlterado={setComplemento}
                                 label="COMPLEMENTO"
-                                placeholder="Bloco A, Ap 2"
                                 maxLength="50"
                             />
                         </div>
@@ -128,7 +124,6 @@ export function CadastroEnderecoFuncionario({
                             aoAlterado={setBairro}
                             obrigatorio={false}
                             label="BAIRRO"
-                            placeholder="Vila Emma"
                             readOnly={true}
                         />
                         <hr />
@@ -142,7 +137,6 @@ export function CadastroEnderecoFuncionario({
                                 aoAlterado={setCidade}
                                 obrigatorio={false}
                                 label="CIDADE"
-                                placeholder="São Paulo"
                                 readOnly={true}
                             />
                             <hr />
@@ -154,7 +148,6 @@ export function CadastroEnderecoFuncionario({
                                 aoAlterado={setUf}
                                 obrigatorio={false}
                                 label="ESTADO"
-                                placeholder="SP"
                                 readOnly={true}
                             />
                         </div>
