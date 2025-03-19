@@ -39,7 +39,6 @@ export function CadastroUsuario({
                             aoAlterado={setNome}
                             obrigatorio={false}
                             label="NOME"
-                            placeholder="Igor Silva"
                             maxLength="50"
                         />
                         <hr />
@@ -51,7 +50,6 @@ export function CadastroUsuario({
                             aoAlterado={setEmail}
                             obrigatorio={false}
                             label="EMAIL"
-                            placeholder="exemplo@exemplo.com"
                             maxLength="50"
                         />
                         <hr />
@@ -66,7 +64,6 @@ export function CadastroUsuario({
                                 obrigatorio={false}
                                 onInput={mascaraCPF}
                                 label="CPF"
-                                placeholder="123.123.123-12"
                             />
                             <hr />
 
@@ -78,7 +75,6 @@ export function CadastroUsuario({
                                 obrigatorio={false}
                                 onInput={mascaraCelular}
                                 label="CELULAR"
-                                placeholder="(11) 91234-1234"
                             />
                         </div>
                         <hr />
@@ -90,7 +86,6 @@ export function CadastroUsuario({
                             aoAlterado={setDataNasc}
                             obrigatorio={true}
                             label="DATA NASCIMENTO"
-                            placeholder="00/00/0000"
                             maxLength="12"
                         />
 
@@ -103,7 +98,6 @@ export function CadastroUsuario({
                             aoAlterado={setPassword}
                             obrigatorio={false}
                             label="SENHA"
-                            placeholder="Digite sua senha"
                             maxLength="30"
                         />
 
@@ -116,7 +110,6 @@ export function CadastroUsuario({
                             aoAlterado={setConfirmPassword}
                             obrigatorio={false}
                             label="CONFIRMAR SENHA"
-                            placeholder="Digite novamente sua senha"
                             maxLength="30"
                         />
                     </div>

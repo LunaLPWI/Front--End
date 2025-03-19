@@ -20,14 +20,14 @@ export const CadastroFuncionario = () => {
     const [email, setEmail] = useState('');
     const [cpf, setCpf] = useState('');
     const [cellphone, setCellphone] = useState('');
-    const [dataNasc, setDataNasc] = useState('Senha@789');
-    const [password, setPassword] = useState('Senha@789');
+    const [dataNasc, setDataNasc] = useState('');
+    const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     //**CADASTRO ENDEREÇO**
-    const [cep, setCep] = useState('65040-550');
+    const [cep, setCep] = useState('');
     const [logradouro, setLogradouro] = useState('');
-    const [number, setNumber] = useState('123');
+    const [number, setNumber] = useState('');
     const [complemento, setComplemento] = useState('');
     const [bairro, setBairro] = useState('');
     const [cidade, setCidade] = useState('');

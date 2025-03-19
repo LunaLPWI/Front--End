@@ -19,15 +19,15 @@ export const Cadastro = () => {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [cpf, setCpf] = useState('');
-    const [cellphone, setCellphone] = useState('(11) 91234-5678');
+    const [cellphone, setCellphone] = useState('');
     const [dataNasc, setDataNasc] = useState();
-    const [password, setPassword] = useState('Senha@789');
-    const [confirmPassword, setConfirmPassword] = useState('Senha@789');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     //**CADASTRO ENDEREÇO**
-    const [cep, setCep] = useState('65040-550');
+    const [cep, setCep] = useState('');
     const [logradouro, setLogradouro] = useState('');
-    const [number, setNumber] = useState('1123');
+    const [number, setNumber] = useState('');
     const [complemento, setComplemento] = useState('');
     const [bairro, setBairro] = useState('');
     const [cidade, setCidade] = useState('');

@@ -183,7 +183,7 @@ export const RedefinirSenha = () => {
     } else {
       const passwordUpdateParams = {
         email,
-        password: newPassword
+        newPassword: newPassword
       }
       api.patch('/clients/reset-password', passwordUpdateParams)
         .then((response) => {
