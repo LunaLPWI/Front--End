@@ -35,7 +35,7 @@ function Selection() {
     if (addedServices.some((service) => service.value === task.value)) {
       return; 
     }
-
+    
     const newService = {
       nome: task.label,
       label: task.label,
@@ -54,6 +54,11 @@ function Selection() {
     sessionStorage.removeItem(value);
 
     setAddedServices(updatedServices);
+  };
+
+
+  const handleAdvance = () => {
+    onSaveServices(addedServices);
   };
 
   return (
@@ -77,6 +82,7 @@ function Selection() {
           ))}
         </div>
       </div>
+
       <div className={styles.listServices}>
         <h2>Serviços Selecionados</h2>
         <ul>
@@ -97,6 +103,9 @@ function Selection() {
           )}
         </ul>
       </div>
+
+      {/* Botão "Avançar" chama a função handleAdvance */}
+      <div className={styles.button} onClick={handleAdvance}>Avançar</div>
     </div>
   );
 }

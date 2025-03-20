@@ -2,7 +2,7 @@ name: PR da Branch de Desenvolvedor
 on:
   push:
     branches:
-      - Developer
+      - QA
 permissions:
   contents: write
   pull-requests: write
@@ -20,8 +20,8 @@ jobs:
         if: steps.changes.outputs.changes != ''
         uses: peter-evans/create-pull-request@v3
         with:
-          title: "Automated Pull Request"
+          title: 'Automated Pull Request'
           body: |
             This pull request is automatically created from the Developer branch.
-          base: QA
-          head: Developer
+          base: main
+          head: QA
