@@ -12,7 +12,7 @@ function AgendamentoServicos() {
     const navigate = useNavigate();
   
   const links = [
-    { name: 'PLANOS', path: '/planos' },
+    { name: 'SERVIÇOS', path: '/serviços' },
     { name: 'PERFIL', path: '/perfil' },
     { name: 'AGENDAR', path: '/agendamentos' },
     { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' }

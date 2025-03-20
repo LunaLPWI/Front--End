@@ -16,7 +16,7 @@ function Financeiro() {
     const [error, setError] = useState(null);
 
     const links = [
-        { name: 'ESTOQUE', path: '/estoque' },
+        { name: 'DASHBOARD', path: '/dashboard' },
         { name: 'PERFIL', path: '/perfil' },
         { name: 'CLIENTES', path: '/agenda-clientes' },
         { name: 'GERENCIAMENTO', path: '/gerenciamento-clientes' },

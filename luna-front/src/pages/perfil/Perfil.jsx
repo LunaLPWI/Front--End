@@ -61,15 +61,15 @@ function Perfil() {
   if (isAdmin ? (
     links = [
       { name: 'DASHBOARD', path: '/financeiro' },
-      { name: 'CLIENTES', path: '/agenda-clientes' },
-      { name: 'GERENCIAMENTO', path: '/gerenciamento-clientes' },
+      { name: 'PERFIL', path: '/perfil' },
+      { name: 'GERENCIAMENTO', path: '/agenda-clientes' },
       // { name: 'ESTOQUE', path: '/estoque' },
       { name: 'ESTOQUE', path: '/estoque' }
 
     ]
   ) : (
     links = [
-      { name: 'PLANOS', path: '/planos' },
+      { name: 'SERVIÇOS', path: '/serviços' },
       { name: 'PERFIL', path: '/perfil' },
       { name: 'AGENDAR', path: '/agendamentos' },
       { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' }
