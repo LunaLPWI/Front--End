@@ -34,7 +34,7 @@ function AgendamentoServicos() {
       />
       <div className={styles.backgroundImage}>
         <div className={styles.containerSelects}>
-          <SelecaoPlanos />
+          <Selecagit reflogoPlanos />
           
         </div>
       </div>

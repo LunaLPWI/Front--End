@@ -43,7 +43,10 @@ function AgendamentoCliente() {
             }
 
             const start = new Date();
-            const formattedStart = start.toISOString().slice(0, -1);
+const formattedStart = start.toISOString().replace("Z", ""); // Apenas remove o "Z"
+
+
+
 
             console.log("Token:", token);
             console.log("Client ID:", clientId);
@@ -70,7 +73,7 @@ function AgendamentoCliente() {
             const transformedData = transformScheduleData(result, clientName);
             console.log("Dados transformados para a tabela:", transformedData);
 
-            transformedData.sort((a, b) => new Date(b[3]) - new Date(a[3])); 
+            transformedData.sort((a, b) => new Date(b[3]) - new Date(a[3]));
 
             setData(transformedData);
         } catch (err) {
@@ -98,7 +101,7 @@ function AgendamentoCliente() {
                 clientName,
                 nameEmployee,
                 services,
-                formattedDate 
+                formattedDate
             ];
         });
     };
