@@ -16,17 +16,18 @@ export const Cadastro = () => {
     //==================================================================================================
 
     //**CADASTRO USUARIO**
-    const [nome, setNome] = useState('teste');
-    const [email, setEmail] = useState('teste@gmail.com');
-    const [cpf, setCpf] = useState('725.495.760-55');
-    const [cellphone, setCellphone] = useState('(11) 91234-5678');
-    const [password, setPassword] = useState('teste1@teste');
-    const [confirmPassword, setConfirmPassword] = useState('teste1@teste');
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [cellphone, setCellphone] = useState('');
+    const [dataNasc, setDataNasc] = useState();
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     //**CADASTRO ENDEREÇO**
-    const [cep, setCep] = useState('65040-550');
+    const [cep, setCep] = useState('');
     const [logradouro, setLogradouro] = useState('');
-    const [number, setNumber] = useState('1123');
+    const [number, setNumber] = useState('');
     const [complemento, setComplemento] = useState('');
     const [bairro, setBairro] = useState('');
     const [cidade, setCidade] = useState('');
@@ -194,13 +195,11 @@ export const Cadastro = () => {
 
 
         const objetoAdicionado = {
-            nome: nome,
+            name: nome,
             cpf: cpfSemMascara,
             email: email,
-            cellphone: celularSemMascara,
+            phoneNumber: celularSemMascara,
             password: password,
-            isAdmin: false,
-            isFuncionario: false,
             address: {
                 cep: cepSemMascara,
                 logradouro: logradouro,
@@ -209,7 +208,8 @@ export const Cadastro = () => {
                 bairro: bairro,
                 uf: uf,
                 number: number
-            }
+            },
+            birthDay: dataNasc,
         };
         api.post('/clients', objetoAdicionado)
             .then(() => {
@@ -253,6 +253,8 @@ export const Cadastro = () => {
                         setCpf={setCpf}
                         cellphone={cellphone}
                         setCellphone={setCellphone}
+                        dataNasc={dataNasc}
+                        setDataNasc={setDataNasc}
                         password={password}
                         setPassword={setPassword}
                         confirmPassword={confirmPassword}

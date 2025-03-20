@@ -103,12 +103,22 @@
     }
 
     & .customInput {
-        height: 30px;
-        border: 1px solid var(--red);
-        border-radius: 5px;
-        font-size: 0.98em;
-        color: var(--black);
-        padding: 5% 1%;
+        height: 30px !important;
+        border: 1px solid var(--red) !important;
+        border-radius: 5px !important;
+        font-size: 0.98em !important;
+        color: var(--black) !important;
+        padding: 5% 1% !important;
+    }
+
+    .inputReadOnly {
+        height: 40px !important;
+        border-bottom: 1px solid var(--red) !important;
+        background: transparent !important;
+        font-size: 0.98em !important;
+        color: #d0d0d0 !important;
+        padding: 5% 2% !important;
+        cursor: default !important;
     }
 }
 
@@ -159,14 +169,4 @@
     60% {
         transform: translateY(-3px);
     }
-}
-
-.inputReadOnly {
-    height: 40px;
-    border-bottom: 1px solid var(--red);
-    background: transparent;
-    font-size: 0.98em;
-    color: #d0d0d0;
-    padding: 5% 2%;
-    cursor:default
 }
