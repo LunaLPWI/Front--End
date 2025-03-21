@@ -16,9 +16,9 @@ function AgendaCliente() {
 
     const links = [
         { name: 'DASHBOARD', path: '/financeiro' },
-        { name: 'CLIENTES', path: '/gerenciamento-clientes' },
+        { name: 'CLIENTES', path: '/agenda-clientes' },
         { name: 'PERFIL', path: '/perfil' },
-        { name: 'ESTOQUE', path: '/estoque' }
+        { name: 'AGENDA', path: '/agenda-clientes' }
     ];
 
     const handleLogoutClick = () => {
@@ -103,7 +103,7 @@ function AgendaCliente() {
                     rowData[startDay - 2] = (
                         <span 
                             className={styles.clientName} 
-                            onClick={() => setSelectedSchedule({ id, clientName })}
+                            onClick={() => setSelectedSchedule({ id, clientName, serviceDescription, timeString })}
                         >
                             {clientName} - {serviceDescription}
                         </span>
@@ -165,7 +165,7 @@ function AgendaCliente() {
             />
             <section className={styles.agendaCliente}>
                 <div className={styles.containerAgendaCliente}>
-                    <h1 className={styles.titleAgendaCliente}>Agenda dos Clientes</h1>
+                    <h1 className={styles.titleAgendaCliente}>AGENDA DOS CLIENTES</h1>
                     {isLoading ? (
                         <p>Carregando...</p>
                     ) : error ? (
@@ -176,12 +176,16 @@ function AgendaCliente() {
                 </div>
             </section>
 
-            {/* Modal de Exclusão */}
+            {/* Modal de Exibição de Agendamento */}
             {selectedSchedule && (
                 <div className={styles.modalOverlay}>
                     <div className={styles.modalContainer}>
-                        <h2 className={styles.modalTitle}>Cancelar Agendamento</h2>
-                        <p>Tem certeza que deseja cancelar o agendamento de <strong>{selectedSchedule.clientName}</strong>?</p>
+                        <h2 className={styles.modalTitle}>Detalhes do Agendamento</h2>
+                        <div className={styles.modalContent}>
+                            <p><strong className="strong">Nome do Cliente:</strong> {selectedSchedule.clientName}</p>
+                            <p><strong className="strong">Serviço:</strong> {selectedSchedule.serviceDescription}</p>
+                            <p><strong className="strong">Horário:</strong> {selectedSchedule.timeString}</p>
+                        </div>
                         <div className={styles.modalButtons}>
                             <button className={styles.cancelButton} onClick={handleDelete}>
                                 Cancelar Agendamento

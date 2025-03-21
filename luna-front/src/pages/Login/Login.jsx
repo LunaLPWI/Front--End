@@ -44,7 +44,7 @@ function Login() {
                             autoClose: 2000,
                             closeOnClick: true
                         });
-                        navigate('/agenda-clientes')
+                        navigate('/estoque')
                     } else if (userData.roles.includes('ROLE_EMPLOYEE')) {
                         toast.success('Login realizado com sucesso', {
                             autoClose: 2000,

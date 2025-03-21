@@ -37,21 +37,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5); /* Fundo escuro translúcido */
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-}
-
-.modalContainer {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 400px;
-    text-align: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -65,50 +55,72 @@
     }
 }
 
+.modalContainer {
+    background: white;
+    padding: 70px;
+    border-radius: 15px;
+    width: 600px;
+    text-align: left;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
 .modalTitle {
-    font-size: 18px;
+    font-size: 28px;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.modalContent {
+    font-size: 24px;
+    margin-bottom: 20px; /* Menor espaçamento entre o conteúdo */
+    color: #555;
+}
+
+.modalInfo {
+    font-size: 22px; /* Tamanho uniforme para os itens */
+    margin-bottom: 10px;
+    line-height: 1.5; /* Melhor espaçamento entre as linhas */
 }
 
 .modalButtons {
     display: flex;
     justify-content: space-around;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .cancelButton {
-    background-color: #dc3545; 
+    background-color: #dc3545;
     color: white;
     border: none;
-    padding: 8px 15px;
-    font-size: 14px;
+    padding: 12px 20px;
+    font-size: 16px;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .cancelButton:hover {
-    background-color: #c82333; 
-    transform: scale(1.05);
+    background-color: #c82333;
+    transform: scale(1.1);
 }
 
 .backButton {
-    background-color: #000; 
+    background-color: #000;
     color: white;
     border: none;
-    padding: 8px 15px;
-    font-size: 14px;
+    padding: 12px 20px;
+    font-size: 16px;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .backButton:hover {
-    background-color: #333; 
-    transform: scale(1.05);
+    background-color: #333;
+    transform: scale(1.1);
 }
 
 .clientName {
@@ -122,7 +134,6 @@
     color: var(--red);
     text-decoration: underline;
 }
-
 
 .leftSide, .rightSide {
     width: 45%;
@@ -170,5 +181,3 @@
 .rightSide .item button:hover {
     background-color: #c82333;
 }
-
-
