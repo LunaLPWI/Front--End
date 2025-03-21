@@ -129,7 +129,7 @@ function AgendamentoCliente() {
                     ) : error ? (
                         <p className={styles.error}>{error}</p>
                     ) : (
-                        <DynamicTable headers={headers} data={data} useFilter={false} usePagination={true} />
+                        <DynamicTable headers={headers} data={data} useFilter={true} usePagination={true} />
                     )}
                 </div>
             </section>
