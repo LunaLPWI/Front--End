@@ -1,1 +1,44 @@
-Front End of project of Dom Roque
+# Luna - Plataforma de Agendamento e Gestão de Clientes
+
+## Contexto
+
+**Luna** é um projeto em desenvolvimento com o objetivo de criar uma plataforma digital de agendamento e gestão de clientes para a **Barbearia Don Roque**. O projeto visa melhorar a organização e a eficiência dos serviços prestados pela barbearia, proporcionando uma experiência de agendamento mais fluida para os clientes e maior controle de horários para os barbeiros.
+
+A implementação da plataforma está prevista para ser concluída até o final do primeiro semestre de 2025.
+
+## Objetivos
+
+O projeto visa alcançar os seguintes objetivos principais:
+
+- **Agendamento Online:** Permitir que, no mínimo, 80% dos clientes atuais e novos realizem agendamentos online de forma prática e intuitiva.
+- **Planos Mensais de Serviços:** Oferecer a possibilidade para os clientes selecionarem planos mensais de serviços, proporcionando mais comodidade e fidelização.
+- **Gestão de Horários para Barbeiros:** Facilitar o gerenciamento de horários dos barbeiros, permitindo uma redução de 30% no tempo ocioso e otimização do tempo de atendimento.
+- **Aumento da Satisfação do Cliente:** Melhorar a experiência do cliente, visando um aumento de 20% na satisfação com os serviços prestados.
+
+## Funcionalidades
+
+- **Cadastro de clientes e barbeiros:** Permite que os clientes se cadastrem na plataforma e os barbeiros gerenciem seus horários e disponibilidade.
+- **Agendamento Online:** Clientes podem selecionar o serviço desejado, escolher o barbeiro e agendar o horário de forma rápida e fácil.
+- **Seleção de Planos de Serviços:** Oferece planos mensais de serviços para os clientes com opções de pacotes de cortes e outros serviços de barbearia.
+- **Gerenciamento de Horários:** Barbeiros poderão visualizar seus agendamentos e gerenciar suas horas de trabalho de forma eficiente.
+- **Notificações:** Clientes e barbeiros recebem notificações sobre agendamentos, cancelamentos e atualizações de serviços.
+
+## Metas
+
+- **Meta 1:** Implantar a plataforma até o final do primeiro semestre de 2025.
+- **Meta 2:** Garantir que 80% dos clientes realizem agendamentos online.
+- **Meta 3:** Reduzir o tempo ocioso dos barbeiros em pelo menos 30%.
+- **Meta 4:** Aumentar a satisfação do cliente em 20%.
+
+## Tecnologias Utilizadas
+
+- **Frontend:** React.js, HTML5, CSS3
+- **Backend:** Java, Springboot
+- **Banco de Dados:** MySQL
+- **Autenticação:** JWT
+- **Deploy:** Azure / AWS
+
+
+## Licença
+
+Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.

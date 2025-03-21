@@ -10,8 +10,8 @@ const CampoTexto = (props) => {
 
     return (
         <div
-            className={`${styles['campo-texto']} ${props.divClassName}`} // Classe da div
-            style={props.divStyle} // Estilo inline para a div
+            className={`${styles['campo-texto']} ${props.divClassName}`} 
+            style={props.divStyle}
         >
             <label
                 style={props.labelStyle}

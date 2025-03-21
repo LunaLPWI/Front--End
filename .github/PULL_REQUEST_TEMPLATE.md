@@ -1,15 +1,19 @@
 # 📝 Descrição do Desenvolvimento
 - **Resumo:**  
   Descreva de forma clara e concisa o desenvolvimento realizado, incluindo os objetivos e as principais alterações implementadas.
+  (ex: Desenvolvi a tela de login para que o usuário possa entrar no sistema)
 
 ---
 
 # 🔧 O que foi desenvolvido
 
+- **Tela que foi desenvolvida:**  
+  Cite a tela que foi desenvolvida
+  (ex: Tela de login)
 
-
-- **Verificar Permissões:**  
-  Validar se as permissões de acesso foram configuradas corretamente para os usuários.
+- **O que foi desenvolvido nesta tela**  
+  Descreva o seu desenvolvimento da maneira mais ampla possível
+  (ex: Desenvolvi a parte visual, desenvolvi a lógica pra validação se o usuário existe...  desenvolva oq foi desenvolvido)
 
 ---
 

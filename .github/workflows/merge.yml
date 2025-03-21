@@ -2,7 +2,7 @@ name: PR da Branch de Desenvolvedor
 on:
   push:
     branches:
-      - tela/selecao-planos
+      - Developer
 permissions:
   contents: write
   pull-requests: write
@@ -23,5 +23,5 @@ jobs:
           title: "Automated Pull Request"
           body: |
             This pull request is automatically created from the Developer branch.
-          base: main
-          head: tela/selecao-planos
+          base: QA
+          head: Developer

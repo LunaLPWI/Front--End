@@ -1,27 +1,58 @@
-.service h2 {
-    font-size: 1.5rem;
-    color: var(--white);
-}
-
-.service button {
-    cursor: pointer;
-    background: var(--red);
-    border: none;
-    padding: 10px 50px;
-    color: var(--white);
-    font-size: 1.1rem;
-}
-
-.serviceSelected{
-  padding: 10px;
-  height: 600px;
-  color: var(--yellow-100);
+.service {
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  font-family: Arial, sans-serif;
 }
 
 .hrAgenda {
-    background-color: var(--red); 
-    border: none;
-    width: 409px;
-    height: 2px; 
-    margin: 12px 0;
+  border: none;
+  border-top: 1px solid var(--red);
+  margin: 10px 0;
+}
+
+.serviceSelected {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.serviceItem {
+  display: flex;
+  width: 400px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #383838;
+  padding: 15px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.serviceItem:hover {
+  background-color: #444444;
+}
+
+.removeButton {
+  background-color: var(--red);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.removeButton:hover {
+  background-color: #cc0000;
+}
+
+.subtotal {
+  margin-top: 20px;
+  font-size: 1.2em;
+  text-align: right;
+}
+
+.subtotal strong {
+  color: var(--red);
 }

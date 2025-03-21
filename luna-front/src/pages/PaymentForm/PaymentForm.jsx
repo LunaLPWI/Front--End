@@ -6,7 +6,7 @@ const PaymentForm = () => {
     const links = [
         { name: 'PLANOS', path: '/planos' },
         { name: 'PERFIL', path: '/perfil' },
-        { name: 'AGENDAR', path: '/agendar' },
+        { name: 'AGENDAR', path: '/agendamentos' },
         { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' }
     ];
 
