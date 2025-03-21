@@ -2,69 +2,58 @@ import React, { useEffect, useState } from 'react';
 import '../../global.css';
 import Header from '../../components/Header/Header';
 import DynamicTable from '../../components/Table/Table';
+import { useUser } from '../../context/userContext';
 import { useNavigate } from 'react-router-dom';
 import styles from './AgendaCliente.module.css';
-import { useUser } from '../../context/userContext';
-import Perfil from '../perfil/Perfil';
 
 function AgendaCliente() {
-    
-    cif (isAdmin ? (
-        links = [
-          { name: 'DASHBOARD', path: '/financeiro' },
-          { name: 'CLIENTES', path: '/agenda-clientes' },
-          { name: 'PERFIL', path: '/perfil' },
-          // { name: 'ESTOQUE', path: '/estoque' },
-          { name: 'ESTOQUE', path: '/estoque' }
-    
-        ]
-      ) : (
-        links = [
-          { name: '', path: '/planos' },
-          { name: '', path: '/perfil' },
-          { name: '', path: '/agendamentos' },
-          { name: '', path: '/meus-agendamentos' }
-        ]
-      ));
-    const navigate = useNavigate();
-    const headers = ['Horário', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
     const { user } = useUser();
-
-  const [isAdmin, setIsAdmin] = useState(false);
-  useEffect(() => {
-    if (user.roles.includes('ROLE_ADMIN')) setIsAdmin(true)
-  }, [user.role])
-
+    const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [selectedClient, setSelectedClient] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
+ 
+    const links = [
+        { name: 'DASHBOARD', path: '/financeiro' },
+        { name: 'CLIENTES', path: '/gerenciamento-clientes' },
+        { name: 'PERFIL', path: '/perfil' },
+        { name: 'ESTOQUE', path: '/estoque' }
+    ];
+
+    // Função de logout
     const handleLogoutClick = () => {
         sessionStorage.clear();
         navigate('/login');
     };
 
-    const handleClientClick = (clientData) => {
-        setSelectedClient(clientData);
-        setIsModalOpen(true);
+    // Cabeçalhos da tabela
+    const headers = ['Horário', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+
+    // Função para formatar hora
+    const formatTime = (date) => {
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
+    // Função para buscar dados da API
     const fetchData = async () => {
         try {
             const user = sessionStorage.getItem('user');
             const parsedUser = user ? JSON.parse(user) : null;
             const token = parsedUser?.token;
+
+            if (!token) {
+                throw new Error('Token não encontrado. Faça login novamente.');
+            }
+
             const roles = parsedUser?.roles || [];
             const employeeRole = roles.find(role => role === 'ROLE_EMPLOYEE');
             const employeeId = employeeRole ? parsedUser.id : null;
 
-            if (!token || !employeeId) {
-                setError("Erro de autenticação. Faça login novamente.");
-                setIsLoading(false);
-                return;
+            if (!employeeId) {
+                throw new Error('Funcionário não encontrado.');
             }
+
             const start = new Date();
             const end = new Date();
             end.setDate(end.getDate() + 5);
@@ -73,6 +62,8 @@ function AgendaCliente() {
             const formattedEnd = end.toISOString().slice(0, -1);
 
             const url = `http://localhost:8080/schedules/busy-schedules-admin?start=${encodeURIComponent(formattedStart)}&end=${encodeURIComponent(formattedEnd)}&employeeId=${employeeId}`;
+
+            console.log('Requisitando dados de:', url);
 
             const response = await fetch(url, {
                 headers: {
@@ -84,222 +75,57 @@ function AgendaCliente() {
             if (!response.ok) {
                 throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
             }
+
             const result = await response.json();
-            const transformedData = transformScheduleData(result);
-            setData(transformedData);
+            console.log('Resultado da requisição:', result);
+
+            if (Array.isArray(result)) {
+                processResponse(result);
+            } else {
+                throw new Error('Resposta inesperada da API');
+            }
         } catch (err) {
-            setError(err.message || "Erro desconhecido.");
+            console.error('Erro ao buscar dados:', err);
+            setError(err.message || 'Erro desconhecido.');
         } finally {
             setIsLoading(false);
         }
     };
 
-    const transformScheduleData = (schedules) => {
-        const daysOfWeek = ['Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
-        const timeSlots = generateTimeSlots();
-        const dataMap = {};
-        schedules.forEach(schedule => {
+    // Processamento dos dados recebidos da API
+    const processResponse = (result) => {
+        const transformedData = result.map(schedule => {
             const { startDateTime, clientName, items } = schedule;
             const start = new Date(startDateTime);
-            const startDay = start.getDay();
-            if (startDay < 2 || startDay > 6) return;
-            const dayIndex = startDay - 2;
-            let currentTime = new Date(start);
-            items.forEach((item) => {
-                const timeString = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const timeString = formatTime(start);
+            const rowData = Array(headers.length - 1).fill('');
 
-                if (!dataMap[timeString]) {
-                    dataMap[timeString] = { time: timeString, data: Array(daysOfWeek.length).fill('') };
-                }
+            items.forEach(item => {
+                const serviceDescription = item;
+                const startDay = start.getDay();
 
-                if (dayIndex >= 0 && dayIndex < daysOfWeek.length) {
-                    const serviceDescription = item;
-                    dataMap[timeString].data[dayIndex] = (
-                        <span
-                            className={styles.clientName}
-                            onClick={() => handleClientClick({
-                                name: capitalize(clientName),
-                                service: capitalize(serviceDescription),
-                                time: timeString
-                            })}
-                        >
-                            {capitalize(clientName)}
+                if (startDay >= 2 && startDay <= 6) {
+                    rowData[startDay - 2] = (
+                        <span className={styles.clientName}>
+                            {clientName} - {serviceDescription}
                         </span>
                     );
                 }
-
-                currentTime.setMinutes(currentTime.getMinutes() + 45);
             });
+
+            return [timeString, ...rowData];
         });
-        return timeSlots.map(slot => {
-            const row = dataMap[slot] || { time: slot, data: Array(daysOfWeek.length).fill('') };
-            return [row.time, ...row.data];
-        });
+
+        setData(transformedData);
     };
 
-    const generateTimeSlots = () => {
-        const timeSlots = [];
-        let currentTime = new Date();
-        currentTime.setHours(9, 0, 0, 0);
-        while (currentTime.getHours() < 20 || (currentTime.getHours() === 20 && currentTime.getMinutes() === 0)) {
-            timeSlots.push(currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-            currentTime.setMinutes(currentTime.getMinutes() + 45);
-        }
-        return timeSlots;
-    };
-
-    const capitalize = (str) => {
-        return str
-            .split(' ')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ');
-    };
-
+    // Carregamento inicial dos dados
     useEffect(() => {
         fetchData();
     }, []);
 
-    const ClientModal = ({ isOpen, client, onClose }) => {
-        const [leftSideItems, setLeftSideItems] = useState([]);
-        const [rightSideItems, setRightSideItems] = useState([]);
-
-        useEffect(() => {
-            let isMounted = true;
-
-            // Função para carregar os itens mockados no localStorage
-            const loadProducts = async () => {
-                const mockProducts = [
-                    { name: 'Cerveja', mark: 'Skol', quantity: 10, price: 50 },
-                    { name: 'Refrigerante', mark: 'Coca-Cola', quantity: 5, price: 30 },
-                    { name: 'Gel', mark: 'Perry Lohan', quantity: 3, price: 20 },
-                ];
-                if (isMounted) {
-                    setLeftSideItems(mockProducts);
-                }
-            };
-
-            // Carregar os itens do localStorage
-            const loadItemsFromLocalStorage = () => {
-                const storedLeftSideItems = localStorage.getItem('leftSideItems');
-                const storedRightSideItems = localStorage.getItem('rightSideItems');
-
-                if (isMounted) {
-                    setLeftSideItems(storedLeftSideItems ? JSON.parse(storedLeftSideItems) : []);
-                    setRightSideItems(storedRightSideItems ? JSON.parse(storedRightSideItems) : []);
-                }
-            };
-
-            if (isOpen) {
-                loadItemsFromLocalStorage();
-                loadProducts();
-            }
-
-            return () => {
-                isMounted = false;
-            };
-        }, [isOpen]);
-
-        const addQtdProduct = (name) => {
-            setLeftSideItems(prevLeftItems =>
-                prevLeftItems.map(item =>
-                    item.name === name && item.quantity > 0 ? { ...item, quantity: item.quantity - 1 } : item
-                )
-            );
-
-            const itemToAdd = leftSideItems.find(item => item.name === name);
-            if (itemToAdd) {
-                setRightSideItems(prevRightItems => {
-                    const existingItem = prevRightItems.find(cartItem => cartItem.name === name);
-                    if (existingItem) {
-                        return prevRightItems.map(cartItem =>
-                            cartItem.name === name ? { ...cartItem, qtd: cartItem.qtd + 1 } : cartItem
-                        );
-                    } else {
-                        return [...prevRightItems, { ...itemToAdd, qtd: 1 }];
-                    }
-                });
-            }
-        };
-
-        const removeQtdProduct = (name) => {
-            const itemToRemove = rightSideItems.find(item => item.name === name);
-
-            if (itemToRemove) {
-                setRightSideItems(prevRightItems =>
-                    prevRightItems
-                        .map(item =>
-                            item.name === name && item.qtd > 0 ? { ...item, qtd: item.qtd - 1 } : item
-                        )
-                        .filter(item => item.qtd > 0)
-                );
-
-                setLeftSideItems(prevLeftItems =>
-                    prevLeftItems.map(item =>
-                        item.name === name ? { ...item, quantity: item.quantity + 1 } : item
-                    )
-                );
-            }
-        };
-
-        const handleFinalize = () => {
-            // Salva os itens no localStorage
-            localStorage.setItem('leftSideItems', JSON.stringify(leftSideItems));
-            localStorage.setItem('rightSideItems', JSON.stringify(rightSideItems));
-        
-            // Mensagem de confirmação
-            alert("Compra finalizada!");
-        
-            // Fechar a modal
-            onClose();
-        };
-
-        const handleClose = () => {
-            if (window.confirm('Você perderá as alterações. Tem certeza que deseja fechar?')) {
-                onClose();
-            }
-        };
-
-        if (!isOpen) return null;
-
-        return (
-            <div className={styles.modalBackdrop}>
-                <div className={styles.modalContent}>
-                    <h2>Detalhes do Cliente</h2>
-                    <p>Nome: {capitalize(client.name)}</p>
-                    <p>Serviço: {capitalize(client.service)}</p>
-                    <p>Horário: {client.time}</p>
-                    <div className={styles.leftSide}>
-                        <h3>Produtos do estoque</h3>
-                        {leftSideItems.map((item, index) => (
-                            <div key={index} className={styles.item}>
-                                <p>{capitalize(item.name)}</p>
-                                <p>R$ {item.price.toFixed(2)}</p>
-                                <p>QTD: {item.quantity}</p>
-                                <button onClick={() => addQtdProduct(item.name)}>Adicionar</button>
-                            </div>
-                        ))}
-                    </div>
-                    <div className={styles.rightSide}>
-                        <h3>Produtos do agendamento</h3>
-                        {rightSideItems.map((item, index) => (
-                            <div key={index} className={styles.item}>
-                                <p>{capitalize(item.name)}</p>
-                                <p>R$ {item.price.toFixed(2)}</p>
-                                <p>QTD: {item.qtd}</p>
-                                <button onClick={() => removeQtdProduct(item.name)}>Remover</button>
-                            </div>
-                        ))}
-                    </div>
-                    <button className={styles.closeButton} onClick={handleClose}>Fechar</button>
-                    <button onClick={handleFinalize}>Finalizar</button>
-
-                </div>
-            </div>
-        );
-    };
-
     return (
-        <>
+        <div>
             <Header
                 links={links}
                 showButton={true}
@@ -309,19 +135,16 @@ function AgendaCliente() {
             <section className={styles.agendaCliente}>
                 <div className={styles.containerAgendaCliente}>
                     <h1 className={styles.titleAgendaCliente}>Agenda do Cliente</h1>
-                    <div className={styles.tableContainer}>
-                        {isLoading ? (
-                            <p>Carregando...</p>
-                        ) : error ? (
-                            <p>{error}</p>
-                        ) : (
-                            <DynamicTable headers={headers} data={data} />
-                        )}
-                    </div>
+                    {isLoading ? (
+                        <p>Carregando...</p>
+                    ) : error ? (
+                        <p className={styles.error}>{error}</p>
+                    ) : (
+                        <DynamicTable headers={headers} data={data} useFilter={true} usePagination={true} />
+                    )}
                 </div>
             </section>
-            <ClientModal isOpen={isModalOpen} client={selectedClient} onClose={() => setIsModalOpen(false)} />
-        </>
+        </div>
     );
 }
 

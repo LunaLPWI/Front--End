@@ -10,7 +10,7 @@ function Agendamento() {
     const { user } = useUser();
 
     const links = [
-        { name: 'PLANOS', path: '/planos' },
+        { name: 'AGENDAR', path: '/agendamentos' },
         { name: 'PERFIL', path: '/perfil' },
         { name: 'SERVIÇOS', path: '/serviços' },
         { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' },

@@ -8,7 +8,7 @@ import styles from './AgendamentoCliente.module.css';
 function AgendamentoCliente() {
 
     const links = [
-        { name: 'PLANOS', path: '/planos' },
+        { name: 'AGENDAR', path: '/agendamentos' },
         { name: 'PERFIL', path: '/perfil' },
         { name: 'SERVIÇOS', path: '/serviços' },
         { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' }
@@ -43,7 +43,13 @@ function AgendamentoCliente() {
             }
 
             const start = new Date();
-            const formattedStart = start.toISOString().slice(0, -1);
+            start.setHours(0, 0, 0, 0);
+            
+            const formattedStart = start.getFullYear() +
+                '-' + String(start.getMonth() + 1).padStart(2, '0') +
+                '-' + String(start.getDate()).padStart(2, '0') +
+                'T00:00:00'; // Força o horário para meia-noite
+
 
             console.log("Token:", token);
             console.log("Client ID:", clientId);
@@ -70,7 +76,7 @@ function AgendamentoCliente() {
             const transformedData = transformScheduleData(result, clientName);
             console.log("Dados transformados para a tabela:", transformedData);
 
-            transformedData.sort((a, b) => new Date(b[3]) - new Date(a[3])); 
+            transformedData.sort((a, b) => new Date(b[3]) - new Date(a[3]));
 
             setData(transformedData);
         } catch (err) {
@@ -98,7 +104,7 @@ function AgendamentoCliente() {
                 clientName,
                 nameEmployee,
                 services,
-                formattedDate 
+                formattedDate
             ];
         });
     };
