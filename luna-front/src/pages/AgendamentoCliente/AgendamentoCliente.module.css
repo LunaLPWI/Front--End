@@ -18,3 +18,25 @@
     color: var(--yellow);
     padding: 20px;
 }
+
+.deleteButton {
+    background-color: #ff4d4d; /* Vermelho vibrante */
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.deleteButton:hover {
+    background-color: #cc0000; /* Tom mais escuro no hover */
+    transform: scale(1.05);
+}
+
+.deleteButton:active {
+    background-color: #a80000; /* Mais escuro ao clicar */
+    transform: scale(1);
+}

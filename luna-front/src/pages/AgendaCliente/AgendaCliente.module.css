@@ -18,7 +18,6 @@
     padding: 20px;
 }
 
-/* Exemplo simples de botão */
 .button {
     background-color: #4CAF50;
     color: white;
@@ -32,70 +31,98 @@
     background-color: #45a049;
 }
 
-.clientName {
-    color: var(--red);
-    cursor: pointer;
-}
-
-.modalBackdrop {
+.modalOverlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
 }
 
-.modalContent {
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
+.modalContainer {
+    background: white;
     padding: 20px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 1200px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: relative;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
 }
 
-.modalContent h2 {
-    font-size: 22px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modalTitle {
+    font-size: 18px;
+    font-weight: bold;
     margin-bottom: 15px;
-    color: #333;
 }
 
-.modalContent p {
-    margin: 10px 0;
-    font-size: 16px;
-    color: #555;
+.modalButtons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
 }
 
-.modalContent button {
-    background-color: #007bff;
-    color: #fff;
+.cancelButton {
+    background-color: #dc3545; 
+    color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.modalContent button:hover {
-    background-color: #0056b3;
+.cancelButton:hover {
+    background-color: #c82333; 
+    transform: scale(1.05);
 }
 
-.modalContent .closeButton {
-    background-color: #dc3545;
+.backButton {
+    background-color: #000; 
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.modalContent .closeButton:hover {
-    background-color: #c82333;
+.backButton:hover {
+    background-color: #333; 
+    transform: scale(1.05);
 }
+
+.clientName {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.clientName:hover {
+    color: var(--red);
+    text-decoration: underline;
+}
+
 
 .leftSide, .rightSide {
     width: 45%;
