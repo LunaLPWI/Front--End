@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import style from './Table.module.css';
 import Filter from '../Filter/Filter';
 
-import { ArrowLeft } from "phosphor-react";
-import { ArrowRight } from "phosphor-react";
+import { ArrowLeft, ArrowRight } from "phosphor-react";
 
 const TableHeader = ({ headers }) => {
     return (
@@ -17,6 +16,20 @@ const TableHeader = ({ headers }) => {
     );
 };
 
+// Função para formatar data no estilo "Ter 18/03"
+const formatDate = (dateString) => {
+    const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
+
+    const date = new Date(dateString);
+    if (isNaN(date)) return dateString; // Retorna o valor original se não for uma data válida
+
+    const dayName = daysOfWeek[date.getDay()];
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+
+    return `${dayName} ${day}/${month}`;
+};
+
 const TableBody = ({ data }) => {
     return (
         <tbody>
@@ -24,7 +37,7 @@ const TableBody = ({ data }) => {
                 <tr key={rowIndex}>
                     {row.map((cell, cellIndex) => (
                         <td key={cellIndex} className={cellIndex === 2 ? style.dateCell : ''}>
-                            {cell}
+                            {cellIndex === 2 ? formatDate(cell) : cell}
                         </td>
                     ))}
                 </tr>
@@ -32,7 +45,6 @@ const TableBody = ({ data }) => {
         </tbody>
     );
 };
-
 
 const DynamicTable = ({
     headers,
@@ -77,7 +89,8 @@ const DynamicTable = ({
                     <button className={style.arrow}
                         onClick={() => paginate(currentPage - 1)}
                         disabled={currentPage === 1}
-                    > <ArrowLeft size={22} />
+                    >
+                        <ArrowLeft size={22} />
                         Anterior
                     </button>
 
@@ -94,7 +107,8 @@ const DynamicTable = ({
                     <button className={style.arrow}
                         onClick={() => paginate(currentPage + 1)}
                         disabled={currentPage === totalPages}
-                    >    Próximo
+                    >
+                        Próximo
                         <ArrowRight size={22} />
                     </button>
                 </div>

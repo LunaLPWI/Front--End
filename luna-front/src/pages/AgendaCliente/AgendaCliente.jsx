@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import styles from './AgendaCliente.module.css';
 
 function AgendaCliente() {
-
     const { user } = useUser();
     const navigate = useNavigate();
     const [data, setData] = useState([]);
@@ -16,37 +15,52 @@ function AgendaCliente() {
     const [selectedSchedule, setSelectedSchedule] = useState(null);
 
     const [isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
-      if (user.roles.includes('ROLE_ADMIN')) setIsAdmin(true)
-    }, [user.role])
+        if (user.roles.includes('ROLE_ADMIN')) setIsAdmin(true);
+    }, [user.roles]);
 
-    let links = []
-
-  
-    if (isAdmin ? (
+    let links = [];
+    if (isAdmin) {
         links = [
-          { name: 'DASHBOARD', path: '/financeiro' },
-          { name: 'PERFIL', path: '/perfil' },
-          { name: 'GERENCIAMENTO', path: '/agenda-clientes' },
-          // { name: 'ESTOQUE', path: '/estoque' },
-          { name: 'AGENDA', path: '/agenda-clientes' }
-    
+            { name: 'DASHBOARD', path: '/financeiro' },
+            { name: 'PERFIL', path: '/perfil' },
+            { name: 'GERENCIAMENTO', path: '/agenda-clientes' },
+            { name: 'AGENDA', path: '/agenda-clientes' }
         ]
-      ) : (
+    } else {
         links = [
-          { name: '', path: '/serviços' },
-          { name: '', path: '/perfil' },
-          { name: '', path: '/agendamentos' },
-          { name: '', path: '/meus-agendamentos' }
+            { name: '', path: '/serviços' },
+            { name: '', path: '/perfil' },
+            { name: '', path: '/agendamentos' },
+            { name: '', path: '/meus-agendamentos' }
         ]
-      ));
+    }
 
     const handleLogoutClick = () => {
         sessionStorage.clear();
         navigate('/login');
     };
 
-    const headers = ['Horário', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+    const generateHeaders = () => {
+        const today = new Date();
+        const headers = ['Horário'];
+
+        for (let i = 2; i <= 6; i++) {
+            const date = new Date();
+            date.setDate(today.getDate() + (i - today.getDay()));
+
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+
+            const dayNames = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+            headers.push(`${dayNames[i]} ${day}/${month}`);
+        }
+
+        return headers;
+    };
+
+    const headers = generateHeaders();
 
     const formatTime = (date) => {
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -109,21 +123,33 @@ function AgendaCliente() {
     };
 
     const processResponse = (result) => {
+        const today = new Date();
         const transformedData = result.map(schedule => {
-            const { id, startDateTime, clientName, items } = schedule;
+            const { id, startDateTime, endDateTime, clientName, items } = schedule;
             const start = new Date(startDateTime);
             const timeString = formatTime(start);
-            const rowData = Array(headers.length - 1).fill('');
+            const end = new Date(endDateTime);
+            const endTimeString = formatTime(end); // Formato do horário de término
 
+            // Array com espaço para os 5 dias úteis (terça a sábado)
+            const rowData = Array(5).fill('');
+
+            // Criação de uma string com todos os serviços separados por vírgula
+            const serviceDescription = items.join(', '); // Junta todos os serviços com vírgula
+
+            // Percorre os itens (serviços) e coloca na data correta
             items.forEach(item => {
-                const serviceDescription = item;
-                const startDay = start.getDay();
+                const startDay = start.getDay(); // 0 = Domingo, 1 = Segunda, etc.
 
+                // Ajustar o cálculo do índice: Terça-feira é o índice 0, etc.
                 if (startDay >= 2 && startDay <= 6) {
-                    rowData[startDay - 2] = (
-                        <span 
-                            className={styles.clientName} 
-                            onClick={() => setSelectedSchedule({ id, clientName, serviceDescription, timeString })}
+                    // O índice do dia na tabela é startDay - 2 (pois o primeiro dia é terça-feira)
+                    const dayIndex = startDay - 2;
+
+                    rowData[dayIndex] = (
+                        <span
+                            className={styles.clientName}
+                            onClick={() => setSelectedSchedule({ id, clientName, items, timeString, endTimeString })}
                         >
                             {clientName} - {serviceDescription}
                         </span>
@@ -131,6 +157,7 @@ function AgendaCliente() {
                 }
             });
 
+            // Retorna o horário e os dados da tabela (terça a sábado)
             return [timeString, ...rowData];
         });
 
@@ -203,8 +230,15 @@ function AgendaCliente() {
                         <h2 className={styles.modalTitle}>Detalhes do Agendamento</h2>
                         <div className={styles.modalContent}>
                             <p><strong className="strong">Nome do Cliente:</strong> {selectedSchedule.clientName}</p>
-                            <p><strong className="strong">Serviço:</strong> {selectedSchedule.serviceDescription}</p>
-                            <p><strong className="strong">Horário:</strong> {selectedSchedule.timeString}</p>
+                            <p><strong className="strong">Serviços:</strong></p>
+                            <ul>
+                                {selectedSchedule.items && selectedSchedule.items.map((service, index) => (
+                                    <li key={index}>{service}</li>
+                                ))}
+                            </ul>
+                            {selectedSchedule.endTimeString && (
+                                <p><strong className="strong">Encerramento:</strong> {selectedSchedule.endTimeString}</p>
+                            )}
                         </div>
                         <div className={styles.modalButtons}>
                             <button className={styles.cancelButton} onClick={handleDelete}>
