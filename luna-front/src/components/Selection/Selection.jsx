@@ -103,9 +103,6 @@ function Selection() {
           )}
         </ul>
       </div>
-
-      {/* Botão "Avançar" chama a função handleAdvance */}
-      <div className={styles.button} onClick={handleAdvance}>Avançar</div>
     </div>
   );
 }

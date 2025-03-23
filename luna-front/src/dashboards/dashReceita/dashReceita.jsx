@@ -6,7 +6,6 @@ import styles from './dashReceita.module.css';
 function DashReceita() {
   const [series, setSeries] = useState([
     { name: 'serviços', data: [] },
-    { name: 'produtos', data: [] },
   ]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -74,7 +73,7 @@ function DashReceita() {
 
         setSeries([
           { name: 'serviços', data: servicesData },
-          { name: 'produtos', data: productsData },
+
         ]);
       } catch (err) {
         console.error('Erro na requisição:', err.message);

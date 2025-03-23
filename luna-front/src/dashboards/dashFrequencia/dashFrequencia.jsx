@@ -13,14 +13,14 @@ function DashFrequencia() {
             const user = sessionStorage.getItem('user');
             const parsedUser = user ? JSON.parse(user) : null;
             const token = parsedUser && parsedUser.token ? parsedUser.token : null;
-
+    
             if (!token) {
                 console.error('Token não encontrado ou inválido.');
                 setError('Erro de autenticação. Faça login novamente.');
                 setIsLoading(false);
                 return;
             }
-
+    
             try {
                 const response = await fetch('http://localhost:8080/finance/revenue/frequence', {
                     method: 'GET',
@@ -29,32 +29,33 @@ function DashFrequencia() {
                         'Content-Type': 'application/json',
                     },
                 });
-
+    
                 if (!response.ok) {
                     throw new Error(`Erro na requisição: ${response.status}`);
                 }
-
+    
                 const data = await response.json();
-                console.log('Dados recebidos da API:', data);
-
-                const frequent = parseFloat(data.frequentes) || 0;
-                const medium = parseFloat(data.medios) || 0;
-                const occasional = parseFloat(data.ocasionais) || 0;
-
-                if (isNaN(frequent) || isNaN(medium) || isNaN(occasional)) {
-                    throw new Error('Dados inválidos recebidos da API.');
-                }
-
+                console.log('Dados recebidos da API:', data); // <-- Verifica o que a API está retornando
+    
+                // Verifica se os valores recebidos são válidos
+                const frequent = isNaN(parseFloat(data.frequentes)) ? 0 : parseFloat(data.frequentes);
+                const medium = isNaN(parseFloat(data.medios)) ? 0 : parseFloat(data.medios);
+                const occasional = isNaN(parseFloat(data.ocasionais)) ? 0 : parseFloat(data.ocasionais);
+    
+                console.log('Valores processados:', { frequent, medium, occasional }); // <-- Confirma os valores processados
+    
                 setSeries([frequent, medium, occasional]);
             } catch (error) {
+                console.error('Erro na requisição:', error.message);
                 setError(error.message);
             } finally {
                 setIsLoading(false);
             }
         };
-
+    
         fetchData();
     }, []);
+    
 
     const options = {
         chart: {

@@ -64,7 +64,7 @@ function Perfil() {
       { name: 'PERFIL', path: '/perfil' },
       { name: 'GERENCIAMENTO', path: '/agenda-clientes' },
       // { name: 'ESTOQUE', path: '/estoque' },
-      { name: 'ESTOQUE', path: '/estoque' }
+      { name: 'AGENDA', path: '/agenda-clientes' }
 
     ]
   ) : (

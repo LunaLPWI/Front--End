@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './AgendaCliente.module.css';
 
 function AgendaCliente() {
+
     const { user } = useUser();
     const navigate = useNavigate();
     const [data, setData] = useState([]);
@@ -14,12 +15,31 @@ function AgendaCliente() {
     const [error, setError] = useState(null);
     const [selectedSchedule, setSelectedSchedule] = useState(null);
 
-    const links = [
-        { name: 'DASHBOARD', path: '/financeiro' },
-        { name: 'CLIENTES', path: '/agenda-clientes' },
-        { name: 'PERFIL', path: '/perfil' },
-        { name: 'AGENDA', path: '/agenda-clientes' }
-    ];
+    const [isAdmin, setIsAdmin] = useState(false);
+    useEffect(() => {
+      if (user.roles.includes('ROLE_ADMIN')) setIsAdmin(true)
+    }, [user.role])
+
+    let links = []
+
+  
+    if (isAdmin ? (
+        links = [
+          { name: 'DASHBOARD', path: '/financeiro' },
+          { name: 'PERFIL', path: '/perfil' },
+          { name: 'GERENCIAMENTO', path: '/agenda-clientes' },
+          // { name: 'ESTOQUE', path: '/estoque' },
+          { name: 'AGENDA', path: '/agenda-clientes' }
+    
+        ]
+      ) : (
+        links = [
+          { name: '', path: '/serviços' },
+          { name: '', path: '/perfil' },
+          { name: '', path: '/agendamentos' },
+          { name: '', path: '/meus-agendamentos' }
+        ]
+      ));
 
     const handleLogoutClick = () => {
         sessionStorage.clear();

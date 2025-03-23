@@ -23,7 +23,7 @@ function DashColaborador() {
     const fetchData = async () => {
       const user = sessionStorage.getItem('user');
       const parsedUser = user ? JSON.parse(user) : null;
-      const token = parsedUser && parsedUser.token ? parsedUser.token : null;
+      const token = parsedUser?.token || null;
 
       if (!token) {
         console.error('Token não encontrado.');
@@ -33,54 +33,36 @@ function DashColaborador() {
       }
 
       const { startDate, endDate } = getDateRange();
-      const employeeId = 1; 
+      const employeeIds = [1, 2]; // IDs dos colaboradores (MARCIO e DERICK)
 
       try {
-        const servicesResponse = await fetch(
-          `http://localhost:8080/finance/quantity/services-employee?startDate=${startDate}&endDate=${endDate}&funcId=${employeeId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+        const fetchServiceData = async (employeeId) => {
+          const response = await fetch(
+            `http://localhost:8080/finance/quantity/services-employee?startDate=${startDate}&endDate=${endDate}&funcId=${employeeId}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error(`Erro ao buscar dados do funcionário ${employeeId}`);
           }
-        );
 
-        if (!servicesResponse.ok) {
-          console.error('Erro na resposta do servidor:', servicesResponse.status);
-          throw new Error('Erro ao buscar dados do backend.');
-        }
+          return response.json();
+        };
 
-        const servicesCount = await servicesResponse.json();
-        console.log('Resposta da API para serviços:', servicesCount);
+        const [marcioServices, derickServices] = await Promise.all([
+          fetchServiceData(employeeIds[0]),
+          fetchServiceData(employeeIds[1]),
+        ]);
 
-        const productsResponse = await fetch(
-          `http://localhost:8080/finance/quantity/products-employee?startDate=${startDate}&endDate=${endDate}&funcId=${employeeId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!productsResponse.ok) {
-          console.error('Erro na resposta do servidor para produtos:', productsResponse.status);
-          throw new Error('Erro ao buscar dados de produtos.');
-        }
-
-        const productsCount = await productsResponse.json();
-        console.log('Resposta da API para produtos:', productsCount);
-
-        const derickServicesCount = 0; 
-        const derickProductsCount = 0; 
+        console.log('Serviços - Marcio:', marcioServices);
+        console.log('Serviços - Derick:', derickServices);
 
         setSeries([
           {
-            name: 'serviços',
-            data: [servicesCount, derickServicesCount], 
-          },
-          {
-            name: 'produtos',
-            data: [productsCount, derickProductsCount], 
+            name: 'Serviços',
+            data: [marcioServices, derickServices],
           },
         ]);
       } catch (err) {
@@ -118,7 +100,7 @@ function DashColaborador() {
     fill: {
       opacity: 1,
     },
-    colors: ['#80c7fd', '#008FFB', '#80f1cb', '#00E396'], 
+    colors: ['#80c7fd', '#008FFB'], 
     yaxis: {
       labels: {
         formatter: (val) => val.toFixed(0), 

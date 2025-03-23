@@ -114,14 +114,14 @@ function Financeiro() {
                     <div className={styles.row}>
                         <div className={styles.column}>
                             <div className={styles.columnCardSmall}>
-                                <div className={styles.cardSmall}>
+                                {/* <div className={styles.cardSmall}>
                                     <h2>Planos Ativos</h2>
                                     {loading ? (
                                         <p>Carregando...</p>
                                     ) : (
                                         <p>{planosAtivos}</p> 
                                     )}
-                                </div>
+                                </div> */}
                                 <div className={styles.cardSmall}>
                                     <h2>Alerta de Frequência</h2>
                                     {loading ? (

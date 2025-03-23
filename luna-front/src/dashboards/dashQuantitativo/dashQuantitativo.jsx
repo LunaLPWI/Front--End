@@ -50,7 +50,7 @@ function DashQuantitativo() {
             }
           ),
           fetch(
-            `http://:8080/finance/quantity/plans?startDate=${startDate}&endDate=${endDate}`,
+            `http://localhost:8080/finance/quantity/plans?startDate=${startDate}&endDate=${endDate}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -77,7 +77,6 @@ function DashQuantitativo() {
 
         setSeries([
           { name: 'Serviços', data: servicesData },
-          { name: 'Planos', data: plansData },
         ]);
       } catch (err) {
         console.error('Erro na requisição:', err.message);
@@ -123,7 +122,7 @@ function DashQuantitativo() {
 
   return (
     <div className={styles.dashQuantitativo}>
-      <h2 className={styles.dashTitle}>Quantidade Serviços & Planos</h2>
+      <h2 className={styles.dashTitle}>Quantidade Serviços</h2>
       <Chart options={options} series={series} type="area" height={290} />
     </div>
   );
