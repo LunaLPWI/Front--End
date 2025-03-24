@@ -87,7 +87,7 @@ function DashColaborador() {
       colors: ['#fff'],
     },
     dataLabels: {
-      formatter: (val) => val.toFixed(0), 
+      formatter: (val) => val.toFixed(0),
     },
     plotOptions: {
       bar: {
@@ -100,10 +100,10 @@ function DashColaborador() {
     fill: {
       opacity: 1,
     },
-    colors: ['#80c7fd', '#008FFB'], 
+    colors: ['#FF0000', '#FFD700'], // Vermelho para Marcio e Amarelo para Derick
     yaxis: {
       labels: {
-        formatter: (val) => val.toFixed(0), 
+        formatter: (val) => val.toFixed(0),
       },
     },
     legend: {
@@ -111,6 +111,8 @@ function DashColaborador() {
       horizontalAlign: 'left',
     },
   };
+  
+
 
   if (isLoading) {
     return <div className={styles.dashColaborador}>Carregando...</div>;

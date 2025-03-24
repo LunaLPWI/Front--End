@@ -210,6 +210,7 @@ export const Cadastro = () => {
                 number: number
             },
             birthDay: dataNasc,
+
         };
         api.post('/clients', objetoAdicionado)
             .then(() => {

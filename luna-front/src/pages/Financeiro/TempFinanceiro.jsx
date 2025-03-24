@@ -19,7 +19,7 @@ function Financeiro() {
         { name: 'DASHBOARD', path: '/dashboard' },
         { name: 'PERFIL', path: '/perfil' },
         { name: 'CLIENTES', path: '/agenda-clientes' },
-        { name: 'GERENCIAMENTO', path: '/gerenciamento-clientes' },
+        { name: 'GERENCIAMENTO', path: '/agenda-clientes' },
     ];
 
     const navigate = useNavigate();
