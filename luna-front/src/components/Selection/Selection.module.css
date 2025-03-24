@@ -20,7 +20,6 @@
     border: 1px solid #ff0000;
     border-radius: 5px;
     padding: 10px;
-    margin-top: 5px;
     position: relative;
     color: black;
 
@@ -48,7 +47,6 @@
     color: #555;
     font-size: 0.9em;
     margin-right: 10px;
-    /* Espaço entre a descrição e o botão */
 }
 
 .detailValue {
@@ -64,7 +62,6 @@
     border-radius: 5px;
     cursor: pointer;
     margin-left: 10px;
-    /* Espaço entre o valor e o botão */
     width: 30%;
 }
 
@@ -98,7 +95,7 @@
     margin-left: 20px;
     background-repeat: no-repeat;
     background-size: cover;
-    width: 30%;
+    width: 50%;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -107,18 +104,20 @@
     border-radius: 10px;
     border: 1px solid;
     min-height: 40vh;
-    li{
-overflow: hidden;
-    }
 }
 
-.removeButton { 
-    background-color: #ff4d4d;
-    /* Cor de fundo vermelho */
-    color: white;
+.listServices li {
+    overflow: hidden;
+    padding: 10px;
+}
+
+.removeButton {
+    background-color: var(--red);
+    color: var(--white);
+    margin: 5px;
     border: none;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 5px 5px;
     border-radius: 5px;
 }
 

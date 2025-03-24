@@ -7,7 +7,6 @@
 
 .containerAgendaCliente {
     width: 100%;
-    padding: 30px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -17,4 +16,168 @@
     font-size: 2rem;
     color: var(--yellow);
     padding: 20px;
+}
+
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: #45a049;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fundo escuro translúcido */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modalContainer {
+    background: white;
+    padding: 70px;
+    border-radius: 15px;
+    width: 600px;
+    text-align: left;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.modalTitle {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.modalContent {
+    font-size: 24px;
+    margin-bottom: 20px; /* Menor espaçamento entre o conteúdo */
+    color: #555;
+}
+
+.modalInfo {
+    font-size: 22px; /* Tamanho uniforme para os itens */
+    margin-bottom: 10px;
+    line-height: 1.5; /* Melhor espaçamento entre as linhas */
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.cancelButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.cancelButton:hover {
+    background-color: #c82333;
+    transform: scale(1.1);
+}
+
+.backButton {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.backButton:hover {
+    background-color: #333;
+    transform: scale(1.1);
+}
+
+.clientName {
+    color: #007bff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.clientName:hover {
+    color: var(--red);
+    text-decoration: underline;
+}
+
+.leftSide, .rightSide {
+    width: 45%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.leftSide h3, .rightSide h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.item {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item p {
+    margin: 0;
+}
+
+.item button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.item button:hover {
+    background-color: #218838;
+}
+
+.rightSide .item button {
+    background-color: #dc3545;
+}
+
+.rightSide .item button:hover {
+    background-color: #c82333;
 }

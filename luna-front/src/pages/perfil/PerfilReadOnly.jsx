@@ -9,6 +9,7 @@ export const PerfilReadOnly = ({
     nome, setNome,
     email, setEmail,
     cellphone, setCellphone,
+    dataNasc, setDataNasc,
     cep, setCep,
     logradouro, setLogradouro,
     number, setNumber,
@@ -24,17 +25,18 @@ export const PerfilReadOnly = ({
             <section className={styles.informacoes}>
 
                 {/* LADO ESQUERDO */}
-                <div className={styles.left}><CampoTexto
-                    tipo='text'
-                    valor={nome}
-                    aoAlterado={setNome}
-                    readOnly={readOnly}
-                    obrigatorio={true}
-                    label="Nome Completo"
-                    maxLength="70"
-                    labelClassName={styles.customLabel}
-                    className={styles.inputReadOnly}
-                />
+                <div className={styles.left}>
+                    <CampoTexto
+                        tipo='text'
+                        valor={nome}
+                        aoAlterado={setNome}
+                        readOnly={readOnly}
+                        obrigatorio={true}
+                        label="Nome Completo"
+                        maxLength="70"
+                        labelClassName={styles.customLabel}
+                        className={styles.inputReadOnly}
+                    />
                     <CampoTexto
                         tipo='text'
                         valor={email}
@@ -57,7 +59,20 @@ export const PerfilReadOnly = ({
                         maxLength="14"
                         labelClassName={styles.customLabel}
                         className={styles.inputReadOnly}
-                    /></div>
+                    />
+                    <CampoTexto
+                        tipo='date'
+                        valor={dataNasc}
+                        aoAlterado={setDataNasc}
+                        readOnly={readOnly}
+                        onInput={mascaraCelular}
+                        obrigatorio={true}
+                        label="Data de nascimento"
+                        maxLength="14"
+                        labelClassName={styles.customLabel}
+                        className={styles.inputReadOnly}
+                    />
+                </div>
 
                 {/* LADO ESQUERDO */}
 

@@ -9,9 +9,9 @@ export function UserProvider({ children }) {
   const [user, setUser] = useState(() => {
     const dataString = sessionStorage.getItem('user');
     return dataString ? JSON.parse(dataString) : {
-      nome: '',
+      name: '',
       email: '',
-      cellphone: '',
+      phoneNumber: '',
       address: {
         uf: '',
         cidade: '',
@@ -21,6 +21,8 @@ export function UserProvider({ children }) {
         number: '',
         complemento: '',
       },
+      birthDay: '',
+      roles: ['']
     };
   });
 

@@ -1,0 +1,8 @@
+.dashContent {
+    padding: 20px;
+}
+
+.dashTitle {
+    color: var(--white);
+    font-size: 1.2rem;
+}

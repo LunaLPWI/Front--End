@@ -3,21 +3,24 @@ import Header from '../../components/Header/Header';
 import styles from './AgendamentoServicos.module.css';
 import SelecaoPlanos from '../../components/SelecaodePlanos/SelecaoPlanos';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/userContext';
 
 function AgendamentoServicos() {
   
     const { user } = useUser();
+    const navigate = useNavigate();
   
   const links = [
-    { name: 'PLANOS', path: '/planos' },
+    { name: 'SERVIÇOS', path: '/serviços' },
     { name: 'PERFIL', path: '/perfil' },
-    { name: 'AGENDAR', path: '/agendar' },
+    { name: 'AGENDAR', path: '/agendamentos' },
     { name: 'MEUS AGENDAMENTOS', path: '/meus-agendamentos' }
   ];
 
   const handleAgendarClick = () => {
-    alert('Botão Agendar clicado!');
+   sessionStorage.clear();
+        navigate('/login');
   };
 
 
